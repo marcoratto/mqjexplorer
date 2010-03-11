@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<installation version="1.0">
+
+	<variables>
+  		<variable name="JDKPathPanel.minVersion" value="1.5" />
+		<variable name="JDKPathPanel.maxVersion" value="1.6" />
+        <variable name="JDKPathPanel.skipIfValid" value="no" />
+	</variables>
+
+    <!-- 
+        The info section.
+    -->
+    <info>
+        <appname>MQJExplorer</appname>
+        <appversion>0.13</appversion>
+        <authors>
+            <author name="Marco Ratto" email="marcoratto@gmail.com"/>
+			<author name="Neil Kolban" email="kolban@kolban.com"/>
+        </authors>
+        <url>http://code.google.com/p/mqjexplorer</url>
+    </info>
+        
+    <!-- 
+        The gui preferences indication.
+        Sets the installer window to 640x480. It will not be able to change the size.
+    -->
+    <guiprefs width="640" height="480" resizable="no"/>
+    
+    <!-- 
+        The locale section.
+    -->
+    <locale langDisplayType="iso3">
+        <langpack iso3="eng"/>
+        <langpack iso3="ita"/>
+    </locale>
+    
+    <!-- 
+        The resources section.
+        The ids must be these ones if you want to use the LicencePanel and/or the InfoPanel.
+    -->
+    <resources>
+        <res id="LicencePanel.licence" src="./COPYING"/>
+        <res id="InfoPanel.info" src="./README"/>
+        <res src="./default_shortcut_specification.xml" id="shortcutSpec.xml"/>
+		<res src="./Unix_shortcutSpec.xml" id="Unix_shortcutSpec.xml"/>
+		<res src="./RegistrySpec.xml" id="RegistrySpec.xml"/>
+    </resources>
+    
+    <!-- 
+        The panels section.
+        We indicate here which panels we want to use. The order will be respected.
+    -->
+    <panels>
+        <panel classname="HelloPanel"/>
+        <panel classname="InfoPanel"/>
+        <panel classname="LicencePanel"/>
+		<panel classname="JDKPathPanel"/>
+        <panel classname="TargetPanel"/> 
+        <panel classname="PacksPanel"/>
+        <panel classname="InstallPanel"/>
+        <panel classname="ShortcutPanel"/>
+        <panel classname="FinishPanel"/>
+    </panels>
+        
+    <!-- 
+        The packs section.
+        We specify here our packs.
+    -->
+    <packs>
+        <pack name="Base" required="yes">
+            <description>The base files</description>
+            <file src="./icons" targetdir="$INSTALL_PATH"/>
+            <file src="./bin" targetdir="$INSTALL_PATH"/>
+            <file src="./lib" targetdir="$INSTALL_PATH"/>
+            <file src="./runme.sh" targetdir="$INSTALL_PATH" os="unix"/>
+            <file src="./runme.bat" targetdir="$INSTALL_PATH" os="windows"/>
+            <file src="./COPYING" targetdir="$INSTALL_PATH"/>
+			<file src="./README" targetdir="$INSTALL_PATH"/>
+			<file src="./THANKS" targetdir="$INSTALL_PATH"/>
+			<file src="./VERSION" targetdir="$INSTALL_PATH"/>
+			<file src="./AUTHORS" targetdir="$INSTALL_PATH"/>
+	    	<executable targetfile="$INSTALL_PATH/runme.sh" os="unix"/>
+	    	<parsable targetfile="$INSTALL_PATH/runme.bat" os="windows"/>
+        </pack>
+        
+        <pack name="Docs" required="no">
+            <description>The docs</description>
+            <file src="./VERSION" targetdir="$INSTALL_PATH"/>
+            <file src="./README" targetdir="$INSTALL_PATH"/>
+        </pack>
+        <pack name="Sources" required="no">
+            <description>The sources</description>
+            <file src="./java" targetdir="$INSTALL_PATH"/>
+        </pack>
+
+        <pack name="Test" required="no">
+            <description>The Unit Tests</description>
+            <file src="./test" targetdir="$INSTALL_PATH"/>
+        </pack>
+
+        <pack name="Web" required="no">
+            <description>The Web Site</description>
+            <file src="./web" targetdir="$INSTALL_PATH"/>
+        </pack>
+        
+            <!-- The listeners section for CustomActions -->
+    <listeners>
+        <listener installer="SummaryLoggerInstallerListener"/>
+        <listener installer="RegistryInstallerListener" uninstaller="RegistryUninstallerListener" />
+    </listeners>
+        
+    </packs>
+    
+    <native type="izpack" name="ShellLink.dll" />
+    
+</installation>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<shortcuts>
+	
+  <programGroup defaultName="MQJExplorer" location="applications"/>
+   
+   <shortcut     
+     name="MQJExplorer"
+     programGroup="yes"
+     desktop="yes"
+     applications="no"
+     startMenu="yes"
+     startup="no"
+     target="$INSTALL_PATH/runme.sh"
+     workingDirectory=""
+     commandLine=""
+     initialState="noShow"
+     iconFile="$INSTALL_PATH/xdg/MQJExplorer.png"
+     iconIndex="0"
+     url=""
+     type="Application"
+     encoding="UTF-8"
+     createForAll="true"
+     description="MQJExplorer $APP_VER" 
+	 Categories="Application;Network;WebDevelopment;">
+     <createForPack name="MQJExplorer"/>
+   </shortcut>
+   
+      <shortcut
+     name="Uninstaller MQJExplorer"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     target="$JAVA_HOME/bin/java"
+     commandLine="-jar &quot;$INSTALL_PATH/Uninstaller/uninstaller.jar&quot;"
+     initialState="noShow"
+     iconFile="trashcan_full"
+     iconIndex="0"
+     workingDirectory=""
+     type="Application"
+     encoding="UTF-8"
+     description="MQJExplorer $APP_VER uninstaller">
+     <createForPack name="MQJExplorer" />
+   </shortcut>
+   
+</shortcuts>
