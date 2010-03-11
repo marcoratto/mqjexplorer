@@ -1,0 +1,35 @@
+#!/bin/sh
+
+installDir="/opt/MQJExplorer"
+
+installAll() {
+        rm -f /usr/local/bin/MQJExplorer 2>/dev/null
+        ln -s ${installDir}/runme.sh /usr/local/bin/MQJExplorer 2>/dev/null
+
+	cp $installDir/xdg/MQJExplorer.png /usr/share/icons
+
+	if [ -x "`which xdg-desktop-menu 2>/dev/null`" ]
+	then
+		xdg-desktop-menu install --novendor ${installDir}/xdg/MQJExplorer.directory ${installDir}/xdg/MQJExplorer.desktop
+	fi
+}
+
+case "$1" in
+    configure)
+	installAll 
+	exit 0
+    ;;
+
+    configure)
+
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 0
+    ;;
+esac
+

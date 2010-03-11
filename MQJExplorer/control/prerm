@@ -1,0 +1,29 @@
+#!/bin/sh
+
+installDir="/opt"
+
+UnInstallAll(){
+        if [ -x "`which xdg-desktop-menu 2>/dev/null`" ]
+        then
+                xdg-desktop-menu uninstall ${installDir}/MQJExplorer/xdg/MQJExplorer.directory ${installDir}/MQJExplorer/xdg/MQJExplorer.desktop
+        fi
+	rm -f /usr/local/bin/MQJExplorer
+	rm -f /usr/share/icons/MQJExplorer.png
+	rm -rf ${installDir}/MQJExplorer
+}
+
+
+case "$1" in
+    purge|remove|upgrade)
+        UnInstallAll 
+	exit 0
+    ;;
+
+    failed-upgrade|abort-install|abort-upgrade|disappear)
+	exit 0
+    ;;
+
+    *)
+        echo "postrm called with unknown argument \`$1'" >&2
+        exit 0
+esac
