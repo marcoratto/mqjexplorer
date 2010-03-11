@@ -1,4 +1,4 @@
-<jnlp spec="1.5+" codebase="http://trovacap-java.sourceforge.net/javaws" href="MQJExplorer.jnlp">
+<jnlp spec="1.5+" codebase="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws" href="MQJExplorer.jnlp">
   <information>
     <title>MQJExplorer</title>
     <vendor>Marco Ratto</vendor>
