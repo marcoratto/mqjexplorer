@@ -1,4 +1,5 @@
 #summary How to verify the validity of the release.
+#labels Featured
 =Verify release=
 
 It is essential that you verify the integrity of the downloaded files using the PGP signature or the SHA1 or MD5 checksums. The checksums are not as strong indicators as the PGP signature.
