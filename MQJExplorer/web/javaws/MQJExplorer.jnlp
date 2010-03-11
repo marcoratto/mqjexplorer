@@ -16,19 +16,27 @@
   </security>
   <resources>
     <j2se version="1.5+" initial-heap-size="128m" max-heap-size="512m"/>
-    <jar href="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws/hibernate/core/cglib-2.1.3.jar" download="eager" main="false"/>
-    <jar href="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws/hibernate/core/jta.jar" download="eager" main="false"/>
-    <jar href="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws/hibernate/core/commons-collections-2.1.1.jar" download="eager" main="false"/>
-    <jar href="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws/hibernate/core/antlr-2.7.6.jar" download="eager" main="false"/>
-    <jar href="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws/hibernate/core/hibernate3.jar" download="eager" main="false"/>
-    <jar href="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws/hibernate/core/commons-logging-1.0.4.jar" download="eager" main="false"/>
-    <jar href="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws/hibernate/core/asm-attrs.jar" download="eager" main="false"/>
-    <jar href="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws/hibernate/core/asm.jar" download="eager" main="false"/>
-    <jar href="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws/hibernate/core/dom4j-1.6.1.jar" download="eager" main="false"/>
-    <jar href="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws/thinlet/thinlet.jar" download="eager" main="false"/>
-    <jar href="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws/log4j/log4j-1.2.11.jar" download="eager" main="false"/>
-    <jar href="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws/hsqldb/hsqldb.jar" download="eager" main="false"/>
     <jar href="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws/MQJExplorer.jar" download="eager" main="true"/>
+    <jar href="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws/xerces.jar" download="eager" main="false"/>
+    <jar href="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws/mqjhelp.jar" download="eager" main="false"/>
+    <jar href="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws/jhbasic.jar" download="eager" main="false"/>
+    <jar href="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws/messagingImpl.jar" download="eager" main="false"/>
+    <jar href="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws/log4j/log4j-1.2.15.jar" download="eager" main="false"/>
+    <jar href="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws/IBM_MQSeries-6.0.2.8/CL3Export.jar" download="eager" main="false"/>
+    <jar href="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws/IBM_MQSeries-6.0.2.8/CL3Nonexport.jar" download="eager" main="false"/>
+    <jar href="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws/IBM_MQSeries-6.0.2.8/com.ibm.mq.jar" download="eager" main="false"/>
+    <jar href="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws/IBM_MQSeries-6.0.2.8/com.ibm.mq.pcf.jar" download="eager" main="false"/>
+    <jar href="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws/IBM_MQSeries-6.0.2.8/com.ibm.mqjms.jar" download="eager" main="false"/>
+    <jar href="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws/IBM_MQSeries-6.0.2.8/connector.jar" download="eager" main="false"/>
+    <jar href="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws/IBM_MQSeries-6.0.2.8/dhbcore.jar" download="eager" main="false"/>
+    <jar href="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws/IBM_MQSeries-6.0.2.8/fscontext.jar" download="eager" main="false"/>
+    <jar href="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws/IBM_MQSeries-6.0.2.8/jms.jar" download="eager" main="false"/>
+    <jar href="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws/IBM_MQSeries-6.0.2.8/jndi.jar" download="eager" main="false"/>
+    <jar href="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws/IBM_MQSeries-6.0.2.8/jta.jar" download="eager" main="false"/>
+    <jar href="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws/IBM_MQSeries-6.0.2.8/ldap.jar" download="eager" main="false"/>
+    <jar href="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws/IBM_MQSeries-6.0.2.8/postcard.jar" download="eager" main="false"/>
+    <jar href="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws/IBM_MQSeries-6.0.2.8/providerutil.jar" download="eager" main="false"/>
+    <jar href="http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/javaws/IBM_MQSeries-6.0.2.8/rmm.jar" download="eager" main="false"/>
   </resources>
   <application-desc main-class="com.kolban.mqjexplorer.MQJExplorer">
   </application-desc>
