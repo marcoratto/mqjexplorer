@@ -1,0 +1,342 @@
+<project name="MQJExplorer" default="all" basedir=".">
+	<description>MQJExplorer</description>
+	
+	<property environment="myenv" />
+	
+	<property file="${myenv.COMPUTERNAME}.properties" />
+	
+	<property name="project_version" value="0.13" />
+	<property name="project_name" value="${ant.project.name}" />
+	<property name="project_home" location="${basedir}" />
+	
+	<property name="build_dir" location="${project_home}/build/${project_name}_v${project_version}" />
+	<property name="bin_dir" location="${project_home}/bin" />
+	<property name="tmp_dir" location="${project_home}/tmp" />
+	<property name="lib_dir" location="${project_home}/lib" />
+	<property name="class_dir" location="${project_home}/classes" />
+	<property name="java_dir" location="${project_home}/java" />
+	<property name="test_dir" location="${project_home}/test" />
+	<property name="web_dir" location="${project_home}/web" />
+	<property name="res_dir" location="${project_home}/res" />
+	
+	<property name="jnlp_file" location="${ant.project.name}.jnlp" />
+	
+	<property name="screenshots_dir" location="${project_home}/screenshots/${project_name}_v${project_version}" />
+	<property name="jar_file" location="${bin_dir}/${project_name}.jar" />	
+	<property name="md5_file"
+		location="${bin_dir}/${project_name}.jar.md5" />
+	<property name="sha_file"
+		location="${bin_dir}/${project_name}.jar.sha" />
+	<property name="pgp_file"
+		location="${bin_dir}/${project_name}.jar.asc" />
+	<property name="file_src.tar"
+		value="${build_dir}/${project_name}_v${project_version}.src.tar" />
+	<property name="file_src.tar.gz"
+		value="${build_dir}/${project_name}_v${project_version}.src.tar.gz" />
+	<property name="file_src.zip"
+		value="${build_dir}/${project_name}_v${project_version}.src.zip" />
+	<property name="file_bin.tar"
+		value="${build_dir}/${project_name}_v${project_version}.bin.tar" />
+	<property name="file_bin.tar.gz"
+		value="${build_dir}/${project_name}_v${project_version}.bin.tar.gz" />
+	<property name="file_bin.zip"
+		value="${build_dir}/${project_name}_v${project_version}.bin.zip" />
+	<property name="izpack.setup.jar.file" value="${build_dir}/${project_name}_v${project_version}_setup.jar" />
+	<property name="izpack.setup.exe.file" value="${build_dir}/${project_name}_v${project_version}_setup.exe" />
+	
+	<path id="project.class.path">
+		<fileset dir="${lib_dir}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<path id="izpack.classpath">
+		<fileset dir="${izpack_home}/lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+	
+	<taskdef name="IzPack" classpathref="izpack.classpath" classname="com.izforge.izpack.ant.IzPackTask"/>
+
+	<target name="clean" description="clean up">
+		<delete dir="${tmp_dir}/${project_name}-${project_version}" />
+		<delete file="${jar_file}" />
+		<delete file="${file_src.tar.gz}" />
+		<delete file="${file_bin.tar.gz}" />
+		<delete file="${file_src.zip}" />
+		<delete file="${file_bin.zip}" />
+		<delete>
+			<fileset dir="${class_dir}">
+			 	 <include name="**/*.class"/>
+			 	 <include name="**/*.xml"/>
+			 	 <include name="**/*.properties"/>
+			 	 <include name="**/*.script"/>
+			    <exclude name="**/CVS"/>
+				<exclude name="**/.svn"/>
+			</fileset>
+		</delete>
+	</target>
+
+	<target name="init" description="clean">
+		<mkdir dir="${build_dir}" />
+		<mkdir dir="${bin_dir}" />
+		<mkdir dir="${class_dir}" />
+		<mkdir dir="${tmp_dir}/${project_name}-${project_version}" />
+		<mkdir dir="${tmp_dir}/${project_name}-${project_version}/bin" />
+		
+		<echo file="${project_home}/VERSION">${project_name}_v${project_version}</echo>
+	</target>
+
+	<target name="java.compile" depends="init" description="compile the source">
+		<javac srcdir="${java_dir}" destdir="${class_dir}" deprecation="on" >
+			<compilerarg value="-Xlint:unchecked -source 1.5"/>
+			<classpath refid="project.class.path" />
+		</javac>
+      <copy todir="${class_dir}">
+         <fileset dir="${java_dir}">
+            <exclude name="**/CVS" />
+         	<exclude name="**/.svn" />
+            <include name="**/*.xml" />
+            <include name="**/*.properties" />
+         </fileset>
+      </copy>
+      <copy todir="${class_dir}">
+         <fileset dir="${res_dir}">
+            <exclude name="**/CVS" />
+            <exclude name="**/.svn" />
+			<include name="**/*.*" />
+         </fileset>
+      </copy>
+	</target>
+
+	<target name="jar.create" depends="java.compile" description="generate the distribution">
+		<jar jarfile="${jar_file}">
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+				<section name="${project_name}">
+					<attribute name="Specification-Title"
+						value="${project_name}" />
+					<attribute name="Specification-Version"
+						value="${project_version}" />
+					<attribute name="Specification-Vendor" value="" />
+					<attribute name="Implementation-Title"
+						value="${project_name}" />
+					<attribute name="Implementation-Version"
+						value="${project_version}" />
+				</section>
+			</manifest>
+			<fileset dir="${class_dir}" includes="**/*.class" />
+			<fileset dir="${class_dir}" includes="**/*.xml" />
+			<fileset dir="${class_dir}" includes="**/*.properties" />
+			<fileset dir="${class_dir}" includes="**/*.gif" />
+			<fileset dir="${class_dir}" includes="**/*.htm" />
+		</jar>
+	</target>
+
+	<target name="fixWin32" description="Fix CR+LF Windows files">
+		<fixcrlf srcdir="${project_home}" includes="**/*.bat"
+			eol="crlf" />
+	</target>
+
+	<target name="dist.izpack" depends="jar.create,fixWin32"
+		description="create distributable package">
+
+		<IzPack input="${project_home}/IzPack.xml"
+		        output="${izpack.setup.jar.file}"
+		        installerType="standard"
+		        basedir="${project_home}" />		
+
+		<antcall target="checksum">
+			<param name="file" value="${izpack.setup.jar.file}" />
+		</antcall>
+	</target>
+
+	<target name="dist.web" depends="check_keystore_password,jar.create">
+		<delete file="${web_dir}/javaws" />
+		
+		<mkdir dir="${web_dir}/javaws"/>
+		
+		<copy file="${jnlp_file}" todir="${web_dir}/javaws" />
+		
+		<copy file="${jar_file}"
+			todir="${web_dir}/javaws" />
+		
+		<copy todir="${web_dir}/javaws">
+			<fileset dir="${project_home}/lib">
+				<exclude name="**/CVS" />
+				<exclude name="**/.svn" />
+			</fileset>
+		</copy>		
+		
+		<signjar alias="MQJExplorer" keystore="keystore.dat" storepass="${keystore_password}" lazy="true">
+		  <path>
+		    <fileset dir="${web_dir}/javaws" includes="**/*.jar" />
+		  </path>
+		</signjar>		
+	</target>
+		
+	<target name="dist.binaries" depends="jar.create" description="create distributable package">
+		<copy file="${project_home}/KEYS"
+			todir="${tmp_dir}/${project_name}-${project_version}" />
+		<copy file="${project_home}/README"
+			todir="${tmp_dir}/${project_name}-${project_version}" />
+		<copy file="${project_home}/COPYING"
+			todir="${tmp_dir}/${project_name}-${project_version}" />
+		<copy file="${project_home}/runme.sh"
+			todir="${tmp_dir}/${project_name}-${project_version}" />
+		<copy file="${project_home}/runme.bat"
+			todir="${tmp_dir}/${project_name}-${project_version}" />
+
+		<copy file="${jar_file}"
+			todir="${tmp_dir}/${project_name}-${project_version}/bin" />
+		<copy
+			todir="${tmp_dir}/${project_name}-${project_version}/lib">
+			<fileset dir="${project_home}/lib">
+				<exclude name="**/CVS" />
+				<exclude name="**/.svn" />
+			</fileset>
+		</copy>
+
+		<copy
+			todir="${tmp_dir}/${project_name}-${project_version}/icons">
+			<fileset dir="${project_home}/icons">
+				<exclude name="**/CVS" />
+				<exclude name="**/.svn" />
+			</fileset>
+		</copy>
+
+		<zip destfile="${file_bin.zip}">
+			<zipfileset
+				dir="${tmp_dir}/${project_name}-${project_version}"
+				prefix="${project_name}-${project_version}" />
+		</zip>
+		<antcall target="checksum">
+			<param name="file" value="${file_bin.zip}" />
+		</antcall>
+
+		<tar tarfile="${file_bin.tar}">
+			<tarfileset
+				dir="${tmp_dir}/${project_name}-${project_version}"
+				prefix="${project_name}-${project_version}" />
+		</tar>
+		<gzip zipfile="${file_bin.tar.gz}" src="${file_bin.tar}" />
+		<delete file="${file_bin.tar}" />
+		<antcall target="checksum">
+			<param name="file" value="${file_bin.tar.gz}" />
+		</antcall>
+	</target>
+
+	<target name="dist.sources" depends="dist.binaries" description="create distributable package">
+		<copy
+			todir="${tmp_dir}/${project_name}-${project_version}/lib">
+			<fileset dir="${project_home}/lib">
+				<include name="**/standalone-compiler.jar" />	
+			</fileset>
+		</copy>
+
+		<mkdir
+			dir="${tmp_dir}/${project_name}-${project_version}/classes" />
+
+		<copy file="${project_home}/build.xml"
+			todir="${tmp_dir}/${project_name}-${project_version}" />
+
+		<copy
+			todir="${tmp_dir}/${project_name}-${project_version}/java">
+			<fileset dir="${java_dir}">
+				<exclude name="**/CVS" />
+			</fileset>
+		</copy>
+
+      <copy
+         todir="${tmp_dir}/${project_name}-${project_version}/test">
+         <fileset dir="${test_dir}">
+            <exclude name="**/CVS" />
+			<exclude name="**/.svn" />
+         </fileset>
+      </copy>
+
+		<copy
+			todir="${tmp_dir}/${project_name}-${project_version}/lib">
+			<fileset dir="${project_home}/lib">
+				<exclude name="**/CVS" />
+				<exclude name="**/.svn" />
+			</fileset>
+		</copy>
+
+		<zip destfile="${file_src.zip}">
+			<zipfileset
+				dir="${tmp_dir}/${project_name}-${project_version}"
+				prefix="${project_name}-${project_version}" />
+		</zip>
+		<antcall target="checksum">
+			<param name="file" value="${file_src.zip}" />
+		</antcall>
+
+		<tar tarfile="${file_src.tar}">
+			<tarfileset
+				dir="${tmp_dir}/${project_name}-${project_version}"
+				prefix="${project_name}-${project_version}" />
+		</tar>
+		<gzip zipfile="${file_src.tar.gz}" src="${file_src.tar}" />
+		<delete file="${file_src.tar}" />
+		<antcall target="checksum">
+			<param name="file" value="${file_src.tar.gz}" />
+		</antcall>
+	</target>
+
+	<target name="dist" description="create distributable package">
+		<antcall target="dist.binaries" />
+		<antcall target="dist.sources" />
+		<antcall target="dist.izpack" />
+		<antcall target="dist.web" />
+	</target>
+
+        <target name="checksum">
+                <delete file="${file}.md5" />
+                <delete file="${file}.sha" />
+                <delete file="${file}.asc" />
+                <checksum file="${file}" forceOverwrite="yes" algorithm="MD5" format="MD5SUM" fileext=".md5" />
+                <checksum file="${file}" forceOverwrite="yes" algorithm="SHA" format="MD5SUM" fileext=".sha" />
+                <antcall target="gpg_sign">
+                        <param name="file" value="${file}" />
+                </antcall>
+        </target>
+
+        <target name="check_keystore_password" description="Check">
+                <fail message="Add the parameter on command line: -Dkeystore_password=PASSWORD">
+                        <condition>
+                                <not>
+                                        <isset property="keystore_password" />
+                                </not>
+                        </condition>
+                </fail>
+        </target>
+
+        <target name="check_gpg_password" description="Check">
+                <fail message="Add the parameter on command line: -Dgpg_password=PASSWORD">
+                        <condition>
+                                <not>
+                                        <isset property="gpg_password" />
+                                </not>
+                        </condition>
+                </fail>
+        </target>
+
+        <target name="gpg_sign" depends="check_gpg_password">
+                <exec executable="./gpg_sign.sh" os="Linux" vmlauncher="false" spawn="false" dir="${project_home}">
+                        <arg line="${gpg_password} ${file}" />
+                </exec>
+                <exec executable="cmd.exe" os="Windows XP" vmlauncher="false" spawn="false">
+                        <arg line="/c echo ${gpg_password}|C:\Programmi\GNU\GnuPG\gpg.exe --batch --passphrase-fd 0 -u marcoratto@gmail.com -b -a -s ${file}" />
+                </exec>
+        </target>
+		
+	<target name="all" depends="clean,init,java.compile,jar.create">
+	</target>
+
+	<target name="info">
+		<echo>${izpack_home}</echo>		
+	</target>
+
+</project>
+
