@@ -25,5 +25,5 @@ SET CPATH=%PRGDIR%lib\IBM_MQSeries-6.0.2.8\providerutil.jar;%CPATH%
 SET CPATH=%PRGDIR%lib\IBM_MQSeries-6.0.2.8\rmm.jar;%CPATH%
 SET CPATH=%PRGDIR%lib\log4j\log4j-1.2.15.jar;%CPATH%
 
-%JAVA_HOME%\bin\java -Dlog4j.debug -classpath %CPATH% com.kolban.mqjexplorer.MQJExplorer
+"%JAVA_HOME%\bin\java" -Dlog4j.debug -classpath "%CPATH%" com.kolban.mqjexplorer.MQJExplorer
 endlocal
