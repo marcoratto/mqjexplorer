@@ -12,9 +12,13 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import org.apache.log4j.Logger;
+
 public class TopicDlg extends JDialog
 {
-    class IvjEventHandler
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+
+	class IvjEventHandler
         implements ActionListener, WindowListener
     {
 
@@ -1147,7 +1151,7 @@ public class TopicDlg extends JDialog
         }
         catch(Exception exception)
         {
-            System.out.println("Exception: " + exception.toString());
+            logger.info("Exception: " + exception.toString());
         }
         dispose();
         returnCode = 1;

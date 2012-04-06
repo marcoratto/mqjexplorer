@@ -15,12 +15,16 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.apache.log4j.Logger;
+
 // Referenced classes of package com.kolban.mqjexplorer.codewiz:
 //            Project
 
 public class ProjectChooser extends JDialog
 {
-    class ProjectCellRenderer extends JLabel
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+
+	class ProjectCellRenderer extends JLabel
         implements ListCellRenderer
     {
 
@@ -784,18 +788,18 @@ public class ProjectChooser extends JDialog
     {
         if(!(new File(getDirectoryName().getText())).isDirectory())
         {
-            System.out.println("Not a directory ....!");
+            logger.info("Not a directory ....!");
             return;
         }
         File file = new File(getDirectoryName().getText(), getProjectName().getText().trim());
         if(file.exists())
         {
-            System.out.println("Already exists ...!");
+            logger.info("Already exists ...!");
             return;
         }
         if(!file.mkdir())
         {
-            System.out.println("Failed to make directory!");
+            logger.info("Failed to make directory!");
             return;
         } else
         {

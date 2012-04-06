@@ -13,6 +13,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import org.apache.log4j.Logger;
+
 // Referenced classes of package com.kolban.mqjexplorer:
 //            MQJExplorerView, MQJExplorer, QueueManagerModel, NamelistListModel, 
 //            NamelistListTableModel, TextIconRenderer, Profile
@@ -20,6 +22,7 @@ import javax.swing.*;
 public class NamelistView extends JPanel
     implements MouseListener, MQJExplorerView, ActionListener
 {
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
 
     public NamelistView()
     {
@@ -81,7 +84,7 @@ public class NamelistView extends JPanel
             return;
         } else
         {
-            System.out.println("NamelistView::actionPerformed: Command not processed : " + s);
+            logger.info("NamelistView::actionPerformed: Command not processed : " + s);
             return;
         }
     }
@@ -119,7 +122,7 @@ public class NamelistView extends JPanel
 
     public void deleteSelectedNamelist()
     {
-        System.out.println("Deleting NameList");
+        logger.info("Deleting NameList");
         int i = table.getSelectedRow();
         if(i < 0)
             return;
@@ -129,7 +132,7 @@ public class NamelistView extends JPanel
         }
         catch(MQException mqexception)
         {
-            System.out.println("deleteSelectedNameList: " + mqexception.toString());
+            logger.info("deleteSelectedNameList: " + mqexception.toString());
         }
         nameListListTableModel.fireTableDataChanged();
         if(i < table.getRowCount())
@@ -277,7 +280,7 @@ public class NamelistView extends JPanel
         }
         catch(Exception exception)
         {
-            System.out.println("setQueueManagerModel: " + exception.toString());
+            logger.info("setQueueManagerModel: " + exception.toString());
         }
     }
 

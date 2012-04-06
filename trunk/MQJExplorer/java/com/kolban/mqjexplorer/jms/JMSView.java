@@ -19,6 +19,8 @@ import javax.naming.NameClassPair;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 
+import org.apache.log4j.Logger;
+
 // Referenced classes of package com.kolban.mqjexplorer.jms:
 //            QueueDlg, JNDINameSpace, JMSTableModel, QueueConnectionFactoryDlg, 
 //            TopicDlg, TopicConnectionFactoryDlg, XAQueueConnectionFactoryDlg, XATopicConnectionFactoryDlg, 
@@ -27,6 +29,8 @@ import javax.swing.table.AbstractTableModel;
 public class JMSView extends JPanel
     implements MQJExplorerView
 {
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+	
     class IvjEventHandler
         implements ActionListener, MouseListener
     {
@@ -273,7 +277,7 @@ public class JMSView extends JPanel
         }
         catch(Exception exception)
         {
-            System.out.println("Exception: " + exception.toString());
+            logger.info("Exception: " + exception.toString());
         }
     }
 
@@ -297,7 +301,7 @@ public class JMSView extends JPanel
         }
         catch(Exception exception)
         {
-            System.out.println("Exception: " + exception.toString());
+            logger.info("Exception: " + exception.toString());
         }
     }
 
@@ -321,7 +325,7 @@ public class JMSView extends JPanel
         }
         catch(Exception exception)
         {
-            System.out.println("Exception: " + exception.toString());
+            logger.info("Exception: " + exception.toString());
         }
     }
 
@@ -345,7 +349,7 @@ public class JMSView extends JPanel
         }
         catch(Exception exception)
         {
-            System.out.println("Exception: " + exception.toString());
+            logger.info("Exception: " + exception.toString());
         }
     }
 
@@ -364,7 +368,7 @@ public class JMSView extends JPanel
         }
         catch(Exception exception)
         {
-            System.out.println("Exception: " + exception.toString());
+            logger.info("Exception: " + exception.toString());
         }
     }
 
@@ -608,7 +612,7 @@ public class JMSView extends JPanel
                 }
                 catch(Exception exception)
                 {
-                    System.out.println("Exception: " + exception.toString());
+                    logger.info("Exception: " + exception.toString());
                 }
             }
         }
@@ -632,7 +636,7 @@ public class JMSView extends JPanel
                 }
                 catch(Exception exception1)
                 {
-                    System.out.println("Exception: " + exception1.toString());
+                    logger.info("Exception: " + exception1.toString());
                 }
             }
         }
@@ -656,7 +660,7 @@ public class JMSView extends JPanel
                 }
                 catch(Exception exception2)
                 {
-                    System.out.println("Exception: " + exception2.toString());
+                    logger.info("Exception: " + exception2.toString());
                 }
             }
         }
@@ -680,7 +684,7 @@ public class JMSView extends JPanel
                 }
                 catch(Exception exception3)
                 {
-                    System.out.println("Exception: " + exception3.toString());
+                    logger.info("Exception: " + exception3.toString());
                 }
             }
         }
@@ -704,7 +708,7 @@ public class JMSView extends JPanel
                 }
                 catch(Exception exception4)
                 {
-                    System.out.println("Exception: " + exception4.toString());
+                    logger.info("Exception: " + exception4.toString());
                 }
             }
         }
@@ -728,7 +732,7 @@ public class JMSView extends JPanel
                 }
                 catch(Exception exception5)
                 {
-                    System.out.println("Exception: " + exception5.toString());
+                    logger.info("Exception: " + exception5.toString());
                 }
             }
         }
@@ -752,7 +756,7 @@ public class JMSView extends JPanel
                 }
                 catch(Exception exception6)
                 {
-                    System.out.println("Exception: " + exception6.toString());
+                    logger.info("Exception: " + exception6.toString());
                 }
             }
         }
@@ -776,7 +780,7 @@ public class JMSView extends JPanel
                 }
                 catch(Exception exception7)
                 {
-                    System.out.println("Exception: " + exception7.toString());
+                    logger.info("Exception: " + exception7.toString());
                 }
             }
         }
@@ -833,7 +837,7 @@ public class JMSView extends JPanel
         }
         catch(Exception exception)
         {
-            System.out.println("Exception: " + exception.toString());
+            logger.info("Exception: " + exception.toString());
         }
     }
 
@@ -857,7 +861,7 @@ public class JMSView extends JPanel
         }
         catch(Exception exception)
         {
-            System.out.println("Exception: " + exception.toString());
+            logger.info("Exception: " + exception.toString());
         }
     }
 
@@ -881,7 +885,7 @@ public class JMSView extends JPanel
         }
         catch(Exception exception)
         {
-            System.out.println("Exception: " + exception.toString());
+            logger.info("Exception: " + exception.toString());
         }
     }
 
@@ -905,7 +909,7 @@ public class JMSView extends JPanel
         }
         catch(Exception exception)
         {
-            System.out.println("Exception: " + exception.toString());
+            logger.info("Exception: " + exception.toString());
         }
     }
 

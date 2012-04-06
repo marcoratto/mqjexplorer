@@ -11,10 +11,14 @@ import java.util.Vector;
 import javax.naming.*;
 import javax.swing.JOptionPane;
 
+import org.apache.log4j.Logger;
+
 public class JNDINameSpace
     implements Serializable
 {
 
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+	
     public JNDINameSpace()
     {
         providerURL = null;
@@ -35,7 +39,7 @@ public class JNDINameSpace
     {
         if(initialContext == null || providerURL == null)
         {
-            System.out.println("No context or provider URL supplied!");
+            logger.info("No context or provider URL supplied!");
             return;
         }
         if(isConnected())
@@ -59,7 +63,7 @@ public class JNDINameSpace
                 catch(Exception _ex) { }
             context = null;
             JOptionPane.showMessageDialog(null, namingexception.getExplanation() + namingexception.getRootCause() == null ? "" : ((Object) (namingexception.getRootCause().getMessage())), "Connect error", 0);
-            System.out.println("Exception: " + namingexception.toString());
+            logger.info("Exception: " + namingexception.toString());
         }
     }
 
@@ -153,20 +157,20 @@ public class JNDINameSpace
             {
                 Binding binding = (Binding)namingenumeration.next();
                 String s = binding.getClassName();
-                System.out.println("Name: " + binding.getName() + " ClassName: " + s);
+                logger.info("Name: " + binding.getName() + " ClassName: " + s);
                 if(binding.getObject() instanceof Context)
                 {
-                    System.out.println("Subcontext ...");
+                    logger.info("Subcontext ...");
                     subContextBindings.addElement(binding);
                 }
                 if(s.equals("com.ibm.mq.jms.MQQueue"))
                 {
-                    System.out.println("Got queue (by name): " + binding.getName());
+                    logger.info("Got queue (by name): " + binding.getName());
                     managedObjects.addElement(binding);
                 }
                 if(s.equals("com.ibm.mq.jms.MQTopic"))
                 {
-                    System.out.println("Got topic (by name): " + binding.getName());
+                    logger.info("Got topic (by name): " + binding.getName());
                     managedObjects.addElement(binding);
                 }
                 if(s.equals("com.ibm.mq.jms.MQQueueConnectionFactory"))
@@ -185,7 +189,7 @@ public class JNDINameSpace
         }
         catch(Exception exception)
         {
-            System.out.println("Exception: " + exception.toString());
+            logger.info("Exception: " + exception.toString());
         }
     }
 

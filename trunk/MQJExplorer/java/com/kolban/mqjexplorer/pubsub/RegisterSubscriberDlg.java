@@ -18,12 +18,16 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import org.apache.log4j.Logger;
+
 // Referenced classes of package com.kolban.mqjexplorer.pubsub:
 //            RegistrationOptions, MQPubSub, PubSubError, RegistrationOptionsListener
 
 public class RegisterSubscriberDlg extends JDialog
 {
-    class IvjEventHandler
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+
+	class IvjEventHandler
         implements RegistrationOptionsListener, FooterListener
     {
 
@@ -330,7 +334,7 @@ public class RegisterSubscriberDlg extends JDialog
         }
         catch(Exception exception)
         {
-            System.out.println("Exception: " + exception.toString());
+            logger.info("Exception: " + exception.toString());
             return false;
         }
         return true;

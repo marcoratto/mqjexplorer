@@ -11,13 +11,17 @@ import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
 import javax.swing.ImageIcon;
 
+import org.apache.log4j.Logger;
+
 // Referenced classes of package com.kolban.mqjexplorer.codewiz:
 //            Parser
 
 public class Project
 {
 
-    public Project()
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+
+	public Project()
     {
         name = null;
         description = null;
@@ -42,7 +46,7 @@ public class Project
         }
         catch(IOException ioexception)
         {
-            System.out.println("Exception: " + ioexception.toString());
+            logger.info("Exception: " + ioexception.toString());
         }
     }
 
@@ -50,13 +54,13 @@ public class Project
     {
         if(contentsFileName == null)
         {
-            System.out.println("Error: No contents file specified!");
+            logger.info("Error: No contents file specified!");
             return;
         }
         InputStream inputstream = readFile(contentsFileName);
         if(inputstream == null)
         {
-            System.out.println("Error: Unable to read contents file: " + contentsFileName);
+            logger.info("Error: Unable to read contents file: " + contentsFileName);
             return;
         }
         Parser parser = new Parser(hashtable);
@@ -75,12 +79,12 @@ public class Project
                     {
                         String s = stringtokenizer.nextToken();
                         String s1 = stringtokenizer.nextToken();
-                        System.out.println("From: " + s + " -> " + s1);
+                        logger.info("From: " + s + " -> " + s1);
                         buildOutput(file, s, s1, parser);
                     }
                     catch(NoSuchElementException _ex)
                     {
-                        System.out.println("Error with format: " + s2);
+                        logger.info("Error with format: " + s2);
                     }
                 }
             }
@@ -88,7 +92,7 @@ public class Project
         }
         catch(IOException ioexception)
         {
-            System.out.println("Exception: " + ioexception.toString());
+            logger.info("Exception: " + ioexception.toString());
         }
     }
 
@@ -113,7 +117,7 @@ public class Project
         ZipEntry zipentry = jarFile.getEntry(s);
         if(zipentry == null)
         {
-            System.out.println("No such project icon: " + s);
+            logger.info("No such project icon: " + s);
             return;
         }
         long l = zipentry.getSize();
@@ -127,7 +131,7 @@ public class Project
         }
         catch(IOException ioexception)
         {
-            System.out.println("Exception: " + ioexception.toString());
+            logger.info("Exception: " + ioexception.toString());
         }
     }
 
@@ -155,13 +159,13 @@ public class Project
                     loadIcon(iconFileName);
                 } else
                 if(s.length() > 0)
-                    System.out.println("Error at line " + linenumberreader.getLineNumber() + ": " + s);
+                    logger.info("Error at line " + linenumberreader.getLineNumber() + ": " + s);
             }
 
         }
         catch(Exception exception)
         {
-            System.out.println("Exception: " + exception.toString());
+            logger.info("Exception: " + exception.toString());
         }
         try
         {
@@ -175,7 +179,7 @@ public class Project
         ZipEntry zipentry = jarFile.getEntry(s);
         if(zipentry == null)
         {
-            System.out.println("No such file: " + s);
+            logger.info("No such file: " + s);
             return null;
         }
         try
@@ -185,7 +189,7 @@ public class Project
         }
         catch(IOException ioexception)
         {
-            System.out.println("Exception: " + ioexception.toString());
+            logger.info("Exception: " + ioexception.toString());
         }
         return null;
     }

@@ -1,8 +1,22 @@
-// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
-// Jad home page: http://www.kpdus.com/jad.html
-// Decompiler options: packimports(3) 
-// Source File Name:   Help.java
-
+/*
+ * Copyright (C) 2012 Marco Ratto
+ *
+ * This file is part of the project MQJExplorer.
+ *
+ * MQJExplorer is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * any later version.
+ *
+ * MQJExplorer is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with MQJExplorer; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
 package com.kolban.mqjexplorer;
 
 import java.awt.Dimension;
@@ -10,9 +24,13 @@ import java.awt.event.ActionListener;
 import javax.help.DefaultHelpBroker;
 import javax.help.HelpSet;
 
+import org.apache.log4j.Logger;
+
 public class Help
 {
 
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+	
     public Help()
     {
         try
@@ -25,7 +43,7 @@ public class Help
         }
         catch(Exception _ex)
         {
-            System.out.println("HelpSet MQJExplorer.hs not found");
+            logger.info("HelpSet MQJExplorer.hs not found");
             return;
         }
     }

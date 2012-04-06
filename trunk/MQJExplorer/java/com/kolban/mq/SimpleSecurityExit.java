@@ -1,8 +1,22 @@
-// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
-// Jad home page: http://www.kpdus.com/jad.html
-// Decompiler options: packimports(3) 
-// Source File Name:   SimpleSecurityExit.java
-
+/*
+ * Copyright (C) 2012 Marco Ratto
+ *
+ * This file is part of the project MQJExplorer.
+ *
+ * MQJExplorer is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * any later version.
+ *
+ * MQJExplorer is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with MQJExplorer; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
 package com.kolban.mq;
 
 import com.ibm.mq.*;
@@ -12,10 +26,13 @@ import java.awt.event.*;
 import java.io.*;
 import javax.swing.*;
 
-public class SimpleSecurityExit extends JDialog
-    implements MQSecurityExit
+import org.apache.log4j.Logger;
+
+public class SimpleSecurityExit extends JDialog implements MQSecurityExit
 {
-    class IvjEventHandler
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+
+	class IvjEventHandler
         implements ActionListener
     {
 
@@ -502,7 +519,7 @@ public class SimpleSecurityExit extends JDialog
             s = "Unknown: " + mqchannelexit.exitReason;
             break;
         }
-        System.out.println("Security exit invoked: reason: " + s);
+        logger.info("Security exit invoked: reason: " + s);
         switch(mqchannelexit.exitReason)
         {
         case 15: // '\017'
@@ -513,7 +530,7 @@ public class SimpleSecurityExit extends JDialog
             ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream();
             try
             {
-                System.out.println("Agent buffer size = " + abyte0.length);
+                logger.info("Agent buffer size = " + abyte0.length);
                 bytearrayoutputstream.write("SEC1".getBytes());
                 bytearrayoutputstream.write(0);
                 bytearrayoutputstream.write(0);
@@ -530,10 +547,9 @@ public class SimpleSecurityExit extends JDialog
                 bytearrayoutputstream.close();
                 mqchannelexit.exitResponse = -4;
                 return abyte1;
-            }
-            catch(Exception exception)
-            {
-                System.out.println("Exception: " + exception.toString());
+            } catch(Exception e) {
+                logger.info("Exception: " + e.toString());
+                e.printStackTrace();
             }
             mqchannelexit.exitResponse = -1;
             break;

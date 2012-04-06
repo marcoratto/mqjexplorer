@@ -5,6 +5,9 @@
   		<variable name="JDKPathPanel.minVersion" value="1.5" />
 		<variable name="JDKPathPanel.maxVersion" value="1.6" />
         <variable name="JDKPathPanel.skipIfValid" value="no" />
+        <variable name="Version" value="0.14" />
+        <variable name="ProductName" value="MQJExplorer" />
+        <variable name="INSTALL_PATH" value="${APPLICATIONS_DEFAULT_ROOT}${FILE_SEPARATOR}MQJExplorer"/>
 	</variables>
 
     <!-- 
@@ -12,7 +15,7 @@
     -->
     <info>
         <appname>MQJExplorer</appname>
-        <appversion>0.13</appversion>
+        <appversion>${Version}</appversion>
         <authors>
             <author name="Marco Ratto" email="marcoratto@gmail.com"/>
 			<author name="Neil Kolban" email="kolban@kolban.com"/>
@@ -84,10 +87,11 @@
         </pack>
         
         <pack name="Docs" required="no">
-            <description>The docs</description>
+            <description>Documentation</description>
             <file src="./VERSION" targetdir="$INSTALL_PATH"/>
             <file src="./README" targetdir="$INSTALL_PATH"/>
         </pack>
+
         <pack name="Sources" required="no">
             <description>The sources</description>
             <file src="./java" targetdir="$INSTALL_PATH"/>

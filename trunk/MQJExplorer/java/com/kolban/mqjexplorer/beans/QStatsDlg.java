@@ -21,13 +21,17 @@ import java.util.Date;
 import javax.swing.*;
 import javax.swing.table.TableModel;
 
+import org.apache.log4j.Logger;
+
 // Referenced classes of package com.kolban.mqjexplorer.beans:
 //            QStatsTableModel
 
 public class QStatsDlg extends JDialog
     implements ActionListener
 {
-    class IvjEventHandler
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+
+	class IvjEventHandler
         implements ActionListener, ComponentListener, ItemListener, WindowListener
     {
 
@@ -1348,7 +1352,7 @@ public class QStatsDlg extends JDialog
         }
         catch(Exception exception)
         {
-            System.out.println("Exception: " + exception.toString());
+            logger.info("Exception: " + exception.toString());
         }
         getLastUpdatedTime().setText(simpleDateFormat.format(new Date()));
         getStop().setIcon(yellowBall);

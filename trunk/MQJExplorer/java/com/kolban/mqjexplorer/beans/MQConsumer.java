@@ -5,12 +5,16 @@
 
 package com.kolban.mqjexplorer.beans;
 
+import org.apache.log4j.Logger;
+
 import com.ibm.mq.*;
 
 public class MQConsumer
     implements Runnable
 {
 
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+	
     public MQConsumer()
     {
         stop = false;
@@ -45,7 +49,7 @@ public class MQConsumer
         }
         catch(Exception exception)
         {
-            System.out.println("MQConsumer::run(): " + exception.toString());
+            logger.info("MQConsumer::run(): " + exception.toString());
         }
         mqgetmessageoptions.options = 8257;
         mqgetmessageoptions.waitInterval = 1000;
@@ -71,7 +75,7 @@ public class MQConsumer
                     break;
 
                 default:
-                    System.out.println("Get exception ... " + mqexception.toString());
+                    logger.info("Get exception ... " + mqexception.toString());
                     stop = true;
                     break;
 
@@ -88,7 +92,7 @@ public class MQConsumer
                 mqqueue.close();
             }
             catch(Exception _ex) { }
-        System.out.println("MQConsumer thread ended ...");
+        logger.info("MQConsumer thread ended ...");
     }
 
     public void setQMgr(MQQueueManager mqqueuemanager)

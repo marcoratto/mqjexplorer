@@ -1,8 +1,22 @@
-// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
-// Jad home page: http://www.kpdus.com/jad.html
-// Decompiler options: packimports(3) 
-// Source File Name:   XMLEntryAssist.java
-
+/*
+ * Copyright (C) 2012 Marco Ratto
+ *
+ * This file is part of the project MQJExplorer.
+ *
+ * MQJExplorer is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * any later version.
+ *
+ * MQJExplorer is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with MQJExplorer; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
 package com.kolban.wmqi;
 
 import com.kolban.swing.KCardLayout;
@@ -14,13 +28,17 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 import javax.swing.*;
+
+import org.apache.log4j.Logger;
 import org.apache.xerces.parsers.DOMParser;
 import org.w3c.dom.*;
 import org.xml.sax.*;
 
 public class XMLEntryAssist extends JDialog
 {
-    class EntryAssistErrorHandler
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+
+	class EntryAssistErrorHandler
         implements ErrorHandler
     {
 
@@ -35,8 +53,8 @@ public class XMLEntryAssist extends JDialog
         public void fatalError(SAXParseException saxparseexception)
             throws SAXException
         {
-            System.out.println("<ErrorHandler>Fatal Error: " + saxparseexception.toString());
-            System.out.println("<ErrorHandler>at " + saxparseexception.getColumnNumber() + "," + saxparseexception.getLineNumber());
+            logger.info("<ErrorHandler>Fatal Error: " + saxparseexception.toString());
+            logger.info("<ErrorHandler>at " + saxparseexception.getColumnNumber() + "," + saxparseexception.getLineNumber());
             SwingUtils.setCaretPosition(saxparseexception.getLineNumber() - 1, saxparseexception.getColumnNumber(), getScreenData());
             getScreenData().requestFocus();
             getMessageArea().setVisible(true);
@@ -550,7 +568,7 @@ public class XMLEntryAssist extends JDialog
         }
         catch(Exception exception)
         {
-            System.out.println("Exception from parse(): " + exception.toString());
+            logger.info("Exception from parse(): " + exception.toString());
             return false;
         }
         setDocument(domparser.getDocument());
@@ -1591,7 +1609,7 @@ public class XMLEntryAssist extends JDialog
         if(kcardlayout.getCurrentCardName().equals(getSourcePanel().getName()))
         {
             getMessageArea().setVisible(false);
-            System.out.println("Here are results");
+            logger.info("Here are results");
             if(!buildResults())
                 return;
         }
@@ -1714,7 +1732,7 @@ public class XMLEntryAssist extends JDialog
 
                 if(!XMLUtils.isTagOnly(node))
                 {
-                    System.out.println(s1);
+                    logger.info(s1);
                     Node node2 = node.getFirstChild();
                     String s2;
                     for(s2 = null; node2 != null && s2 == null; node2 = node2.getNextSibling())
@@ -1727,7 +1745,7 @@ public class XMLEntryAssist extends JDialog
                 int l = namednodemap.getLength();
                 for(int i1 = 0; i1 < l; i1++)
                 {
-                    System.out.println(s1 + ".(XML.attr)" + namednodemap.item(i1).getNodeName());
+                    logger.info(s1 + ".(XML.attr)" + namednodemap.item(i1).getNodeName());
                     outputOneLine(s1 + ".(XML.attr)" + namednodemap.item(i1).getNodeName(), namednodemap.item(i1).getNodeValue());
                 }
 
@@ -1750,7 +1768,7 @@ public class XMLEntryAssist extends JDialog
                 stack.push(node1);
 
         }
-        System.out.println("Done: " + stack.size() + "IsEmpty:" + stack.isEmpty());
+        logger.info("Done: " + stack.size() + "IsEmpty:" + stack.isEmpty());
     }
 
     private JPanel ivjFooter;

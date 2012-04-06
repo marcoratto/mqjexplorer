@@ -15,15 +15,21 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.PrintStream;
 import java.util.EventObject;
+
+import javax.jms.JMSException;
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
+
+import org.apache.log4j.Logger;
 
 // Referenced classes of package com.kolban.mqjexplorer.jms:
 //            XAQueueConnectionFactoryDlg
 
 public class WASQueueConnectionFactoryDlg extends JDialog
 {
-    class IvjEventHandler
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+
+	class IvjEventHandler
         implements FooterListener, WindowListener
     {
 
@@ -791,7 +797,7 @@ public class WASQueueConnectionFactoryDlg extends JDialog
         }
         catch(Exception exception)
         {
-            System.out.println("Exception: " + exception.toString());
+            logger.info("Exception: " + exception.toString());
         }
         returnCode = 1;
         dispose();
@@ -804,8 +810,13 @@ public class WASQueueConnectionFactoryDlg extends JDialog
         getTransport().setValue(mqxaqueueconnectionfactory.getTransportType());
         getClientID().setText(mqxaqueueconnectionfactory.getClientId());
         getQueueManager().setText(mqxaqueueconnectionfactory.getQueueManager());
-        getTempModel().setText(mqxaqueueconnectionfactory.getTemporaryModel());
-        getRetention().setValue(mqxaqueueconnectionfactory.getMessageRetention());
+        try {
+			getTempModel().setText(mqxaqueueconnectionfactory.getTemporaryModel());
+	        getRetention().setValue(mqxaqueueconnectionfactory.getMessageRetention());
+		} catch (JMSException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     public void setManagedObjectName(String s)

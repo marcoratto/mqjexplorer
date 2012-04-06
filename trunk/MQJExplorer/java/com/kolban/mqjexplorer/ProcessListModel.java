@@ -19,11 +19,14 @@ import com.kolban.mqjexplorer.mqattributes.UserData;
 import java.util.Vector;
 import javax.swing.ImageIcon;
 
+import org.apache.log4j.Logger;
+
 // Referenced classes of package com.kolban.mqjexplorer:
 //            TextIcon
 
 public class ProcessListModel
 {
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
 
     public ProcessListModel()
     {
@@ -58,7 +61,7 @@ public class ProcessListModel
         }
         catch(Exception exception)
         {
-            System.out.println("deleteProcess: " + exception.toString());
+            logger.info("deleteProcess: " + exception.toString());
         }
     }
 
@@ -182,7 +185,7 @@ public class ProcessListModel
     {
         try
         {
-            System.out.println("** Refreshing all processes --");
+            logger.info("** Refreshing all processes --");
             PCFMessage pcfmessage = new PCFMessage(7);
             pcfmessage.addParameter(2012, "*");
             int ai[] = {
@@ -194,7 +197,7 @@ public class ProcessListModel
         }
         catch(Exception exception)
         {
-            System.out.println("Exception (ProcessListModel::refreshAll): " + exception.toString());
+            logger.info("Exception (ProcessListModel::refreshAll): " + exception.toString());
         }
     }
 
@@ -252,7 +255,7 @@ public class ProcessListModel
         }
         catch(Exception exception)
         {
-            System.out.println("Exception: " + exception.toString());
+            logger.info("Exception: " + exception.toString());
         }
     }
 

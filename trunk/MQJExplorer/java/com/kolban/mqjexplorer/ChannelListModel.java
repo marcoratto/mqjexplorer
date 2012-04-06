@@ -53,12 +53,15 @@ import com.kolban.mqjexplorer.mqattributes.UserIdentifier;
 import java.util.Vector;
 import javax.swing.ImageIcon;
 
+import org.apache.log4j.Logger;
+
 // Referenced classes of package com.kolban.mqjexplorer:
 //            TextIcon
 
 public class ChannelListModel
 {
-
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+	
     public ChannelListModel()
     {
         responses = null;
@@ -94,7 +97,7 @@ public class ChannelListModel
         }
         catch(Exception exception)
         {
-            System.out.println("deleteChannel: " + exception.toString());
+            logger.info("deleteChannel: " + exception.toString());
         }
     }
 
@@ -123,7 +126,7 @@ public class ChannelListModel
         }
         catch(Exception exception)
         {
-            System.out.println("deleteChannel: " + exception.toString());
+            logger.info("deleteChannel: " + exception.toString());
         }
     }
 
@@ -463,7 +466,7 @@ public class ChannelListModel
     {
         try
         {
-            System.out.println("** Refreshing all channels --");
+            logger.info("** Refreshing all channels --");
             PCFMessage pcfmessage = new PCFMessage(25);
             pcfmessage.addParameter(3501, "*");
             pcfmessage.addParameter(1511, 5);
@@ -487,7 +490,7 @@ public class ChannelListModel
         }
         catch(Exception exception)
         {
-            System.out.println("Exception (ChannelListModel::refreshAll): " + exception.toString());
+            logger.info("Exception (ChannelListModel::refreshAll): " + exception.toString());
         }
     }
 
@@ -545,7 +548,7 @@ public class ChannelListModel
         }
         catch(Exception exception)
         {
-            System.out.println("Exception:refreshChannel: " + exception.toString());
+            logger.info("Exception:refreshChannel: " + exception.toString());
         }
     }
 
@@ -586,7 +589,7 @@ public class ChannelListModel
         }
         catch(Exception exception1)
         {
-            System.out.println("refreshChannelStatus:Exception: " + exception1.toString());
+            logger.info("refreshChannelStatus:Exception: " + exception1.toString());
         }
     }
 
@@ -600,7 +603,7 @@ public class ChannelListModel
         }
         catch(Exception exception)
         {
-            System.out.println("Exception (ChannelListModel::refreshChannelStatusAll): " + exception.toString());
+            logger.info("Exception (ChannelListModel::refreshChannelStatusAll): " + exception.toString());
         }
     }
 

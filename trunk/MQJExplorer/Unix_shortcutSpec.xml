@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <shortcuts>
 	
-  <programGroup defaultName="MQJExplorer" location="applications"/>
+  <programGroup defaultName="Accessories/MQJExplorer" location="applications"/>
    
    <shortcut     
      name="MQJExplorer"
@@ -22,11 +22,13 @@
      createForAll="true"
      description="MQJExplorer $APP_VER" 
 	 Categories="Application;Network;WebDevelopment;">
+     
      <createForPack name="MQJExplorer"/>
+     
    </shortcut>
    
       <shortcut
-     name="Uninstaller MQJExplorer"
+     name="Uninstaller"
      programGroup="yes"
      desktop="no"
      applications="no"
@@ -41,7 +43,9 @@
      type="Application"
      encoding="UTF-8"
      description="MQJExplorer $APP_VER uninstaller">
+     
      <createForPack name="MQJExplorer" />
+     
    </shortcut>
    
 </shortcuts>

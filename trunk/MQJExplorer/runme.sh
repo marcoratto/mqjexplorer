@@ -57,8 +57,13 @@ fi
 
 if [ ! -x "$JAVACMD" ] ; then
   echo "Error: JAVA_HOME is not defined correctly."
-  echo "  We cannot execute $JAVACMD"
+  echo "I cannot execute $JAVACMD"
   exit 1
+fi
+
+if [ ! -h "$HOME/Desktop/MQJExplorer.desktop" ]
+then
+	ln -s /usr/share/applications/MQJExplorer.desktop $HOME/Desktop/MQJExplorer.desktop
 fi
 
 "$JAVACMD" $JAVA_OPTS -classpath $CPATH -Dlog4j.debug com.kolban.mqjexplorer.MQJExplorer

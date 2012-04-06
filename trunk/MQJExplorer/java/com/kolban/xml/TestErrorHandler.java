@@ -1,47 +1,64 @@
-// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
-// Jad home page: http://www.kpdus.com/jad.html
-// Decompiler options: packimports(3) 
-// Source File Name:   TestErrorHandler.java
-
+/*
+ * Copyright (C) 2012 Marco Ratto
+ *
+ * This file is part of the project MQJExplorer.
+ *
+ * MQJExplorer is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * any later version.
+ *
+ * MQJExplorer is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with MQJExplorer; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
 package com.kolban.xml;
 
+import org.apache.log4j.Logger;
 import org.xml.sax.*;
 
 public class TestErrorHandler
     implements ErrorHandler
 {
 
-    public TestErrorHandler()
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+
+	public TestErrorHandler()
     {
     }
 
     public void error(SAXParseException saxparseexception)
         throws SAXException
     {
-        System.out.println("Error!");
+        logger.info("Error!");
         logInformation(saxparseexception);
     }
 
     public void fatalError(SAXParseException saxparseexception)
         throws SAXException
     {
-        System.out.println("Fatal Error!");
+        logger.info("Fatal Error!");
         logInformation(saxparseexception);
         throw (SAXException)saxparseexception.getException();
     }
 
     public void logInformation(SAXParseException saxparseexception)
     {
-        System.out.println("Error at: (" + saxparseexception.getLineNumber() + "," + saxparseexception.getColumnNumber() + ")");
-        System.out.println("PublicID: " + saxparseexception.getPublicId());
-        System.out.println("SystemID: " + saxparseexception.getSystemId());
-        System.out.println("Message: " + saxparseexception.getMessage());
+        logger.info("Error at: (" + saxparseexception.getLineNumber() + "," + saxparseexception.getColumnNumber() + ")");
+        logger.info("PublicID: " + saxparseexception.getPublicId());
+        logger.info("SystemID: " + saxparseexception.getSystemId());
+        logger.info("Message: " + saxparseexception.getMessage());
     }
 
     public void warning(SAXParseException saxparseexception)
         throws SAXException
     {
-        System.out.println("Warning!");
+        logger.info("Warning!");
         logInformation(saxparseexception);
         throw (SAXException)saxparseexception.getException();
     }

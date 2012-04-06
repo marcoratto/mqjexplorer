@@ -11,8 +11,11 @@ import com.kolban.mq.PCFUtils;
 import java.util.Enumeration;
 import java.util.Vector;
 
+import org.apache.log4j.Logger;
+
 public class PubSubTopicInfo
 {
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
 
     public PubSubTopicInfo()
     {
@@ -157,7 +160,7 @@ public class PubSubTopicInfo
                         break;
 
                     default:
-                        System.out.println("Unexpected PCF: " + pcfparameter.toString());
+                        logger.info("Unexpected PCF: " + pcfparameter.toString());
                         break;
                     }
                     if(!enumeration.hasMoreElements())

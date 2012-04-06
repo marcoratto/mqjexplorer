@@ -13,6 +13,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import org.apache.log4j.Logger;
+
 // Referenced classes of package com.kolban.mqjexplorer:
 //            MQJExplorerView, MQJExplorer, QueueManagerModel, ProcessListModel, 
 //            ProcessListTableModel, TextIconRenderer, Profile
@@ -21,7 +23,9 @@ public class ProcessView extends JPanel
     implements MouseListener, MQJExplorerView, ActionListener
 {
 
-    public ProcessView()
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+
+	public ProcessView()
     {
         queueManagerModel = null;
         showSystemToggleButton = null;
@@ -113,7 +117,7 @@ public class ProcessView extends JPanel
 
     public void deleteSelectedProcess()
     {
-        System.out.println("Deleting process");
+        logger.info("Deleting process");
         int i = table.getSelectedRow();
         if(i < 0)
             return;
@@ -123,7 +127,7 @@ public class ProcessView extends JPanel
         }
         catch(MQException mqexception)
         {
-            System.out.println("deleteSelectedProcess: " + mqexception.toString());
+            logger.info("deleteSelectedProcess: " + mqexception.toString());
         }
         processListTableModel.fireTableDataChanged();
         if(i < table.getRowCount())
@@ -271,7 +275,7 @@ public class ProcessView extends JPanel
         }
         catch(Exception exception)
         {
-            System.out.println("setQueueManagerModel: " + exception.toString());
+            logger.info("setQueueManagerModel: " + exception.toString());
         }
     }
 

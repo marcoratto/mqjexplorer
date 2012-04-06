@@ -15,9 +15,13 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import org.apache.log4j.Logger;
+
 public class PropertiesLocalQueue extends JDialog
 {
-    class IvjEventHandler
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+
+	class IvjEventHandler
         implements ActionListener
     {
 
@@ -265,7 +269,7 @@ public class PropertiesLocalQueue extends JDialog
         }
         catch(PCFException pcfexception)
         {
-            System.out.println("changeQueue: " + pcfexception.toString());
+            logger.info("changeQueue: " + pcfexception.toString());
             throw pcfexception;
         }
     }

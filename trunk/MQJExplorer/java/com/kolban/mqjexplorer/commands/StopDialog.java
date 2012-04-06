@@ -9,12 +9,16 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import org.apache.log4j.Logger;
+
 // Referenced classes of package com.kolban.mqjexplorer.commands:
 //            ExecuteCommand
 
 public class StopDialog extends JDialog
 {
-    class IvjEventHandler
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+
+	class IvjEventHandler
         implements ActionListener, ItemListener
     {
 
@@ -719,7 +723,7 @@ public class StopDialog extends JDialog
 
     private void handleException(Throwable throwable)
     {
-        System.out.println("--------- UNCAUGHT EXCEPTION ---------");
+        logger.info("--------- UNCAUGHT EXCEPTION ---------");
         throwable.printStackTrace(System.out);
     }
 

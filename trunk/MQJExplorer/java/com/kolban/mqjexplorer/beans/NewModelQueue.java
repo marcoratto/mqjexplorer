@@ -15,9 +15,13 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import org.apache.log4j.Logger;
+
 public class NewModelQueue extends JDialog
 {
-    class IvjEventHandler
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+
+	class IvjEventHandler
         implements ActionListener
     {
 
@@ -268,7 +272,7 @@ public class NewModelQueue extends JDialog
         }
         catch(PCFException pcfexception)
         {
-            System.out.println("createQueue: " + pcfexception.toString());
+            logger.info("createQueue: " + pcfexception.toString());
             throw pcfexception;
         }
     }
@@ -553,7 +557,7 @@ public class NewModelQueue extends JDialog
         }
         catch(MQException mqexception)
         {
-            System.out.println("ok_ActionEvents: " + mqexception.toString());
+            logger.info("ok_ActionEvents: " + mqexception.toString());
         }
     }
 

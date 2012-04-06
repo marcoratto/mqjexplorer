@@ -5,22 +5,49 @@
 
 package com.kolban.mqjexplorer.beans;
 
-import com.ibm.mq.*;
-import com.kolban.mq.PCFEventMessage;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Dialog;
+import java.awt.FlowLayout;
+import java.awt.Frame;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.*;
-import javax.swing.*;
+import java.util.Vector;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.JSplitPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
+import org.apache.log4j.Logger;
+
+import com.ibm.mq.MQException;
+import com.ibm.mq.MQGetMessageOptions;
+import com.ibm.mq.MQMessage;
+import com.ibm.mq.MQQueue;
+import com.ibm.mq.MQQueueManager;
+import com.kolban.mq.PCFEventMessage;
+
 public class EventDlg extends JDialog
 {
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+	
     class EventTableModel extends AbstractTableModel
     {
 
@@ -90,7 +117,7 @@ public class EventDlg extends JDialog
                 processQueue(performanceEventQueue);
             }
 
-            System.out.println("Worker thread ended!");
+            logger.info("Worker thread ended!");
         }
 
         public void end()
@@ -111,9 +138,9 @@ public class EventDlg extends JDialog
                 {
                     MQMessage mqmessage = new MQMessage();
                     mqqueue.get(mqmessage, mqgetmessageoptions);
-                    System.out.println("Got an event message!");
+                    logger.info("Got an event message!");
                     PCFEventMessage pcfeventmessage = new PCFEventMessage(mqmessage);
-                    System.out.println("Command: " + pcfeventmessage.getCommand() + ", Reason: " + pcfeventmessage.getType());
+                    logger.info("Command: " + pcfeventmessage.getCommand() + ", Reason: " + pcfeventmessage.getType());
                     tableModel.addEventMessage(pcfeventmessage);
                     flag = true;
                 } while(true);
@@ -123,7 +150,7 @@ public class EventDlg extends JDialog
                 switch(mqexception.reasonCode)
                 {
                 default:
-                    System.out.println("Exception: " + mqexception.toString());
+                    logger.info("Exception: " + mqexception.toString());
                     finished = true;
                     break;
 
@@ -133,7 +160,7 @@ public class EventDlg extends JDialog
             }
             catch(IOException ioexception)
             {
-                System.out.println("Exception: " + ioexception.toString());
+                logger.info("Exception: " + ioexception.toString());
                 finished = true;
             }
             if(flag)
@@ -851,7 +878,7 @@ public class EventDlg extends JDialog
         } else
         {
             int i = getEventTable().getSelectedRow();
-            System.out.println("Selection changed ... " + i);
+            logger.info("Selection changed ... " + i);
             getEventDetails().setText(tableModel.getEventMessage(i).toString());
             return;
         }
@@ -877,7 +904,7 @@ public class EventDlg extends JDialog
         }
         catch(MQException mqexception)
         {
-            System.out.println("Exception: " + mqexception.toString());
+            logger.info("Exception: " + mqexception.toString());
         }
     }
 

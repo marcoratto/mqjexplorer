@@ -10,8 +10,13 @@ import java.awt.event.*;
 import java.io.*;
 import javax.swing.*;
 
+import org.apache.log4j.Logger;
+
 public class ConsoleLog extends JFrame
 {
+	
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+	
     class IvjEventHandler
         implements ActionListener, MouseListener
     {
@@ -471,7 +476,7 @@ public class ConsoleLog extends JFrame
             }
             catch(Exception exception)
             {
-                System.out.println("Exception::save:: " + exception.toString());
+                logger.info("Exception::save:: " + exception.toString());
             }
     }
 
