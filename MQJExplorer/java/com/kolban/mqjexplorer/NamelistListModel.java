@@ -16,11 +16,14 @@ import com.kolban.mqjexplorer.mqattributes.ProcessName;
 import java.util.Vector;
 import javax.swing.ImageIcon;
 
+import org.apache.log4j.Logger;
+
 // Referenced classes of package com.kolban.mqjexplorer:
 //            TextIcon
 
 public class NamelistListModel
 {
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
 
     public NamelistListModel()
     {
@@ -55,7 +58,7 @@ public class NamelistListModel
         }
         catch(Exception exception)
         {
-            System.out.println("deleteNameList: " + exception.toString());
+            logger.info("deleteNameList: " + exception.toString());
         }
     }
 
@@ -166,7 +169,7 @@ public class NamelistListModel
         }
         catch(Exception exception)
         {
-            System.out.println("Exception: NamelistListModel::getValueAt(): " + exception.toString());
+            logger.info("Exception: NamelistListModel::getValueAt(): " + exception.toString());
             return "";
         }
         return "Cell(" + Integer.toString(i) + "," + s + ")";
@@ -176,7 +179,7 @@ public class NamelistListModel
     {
         try
         {
-            System.out.println("** Refreshing all Namelists --");
+            logger.info("** Refreshing all Namelists --");
             PCFMessage pcfmessage = new PCFMessage(36);
             pcfmessage.addParameter(2010, "*");
             responses = pcfmessageagent.send(pcfmessage);
@@ -184,7 +187,7 @@ public class NamelistListModel
         }
         catch(Exception exception)
         {
-            System.out.println("Exception (NameListListModel::refreshAll): " + exception.toString());
+            logger.info("Exception (NameListListModel::refreshAll): " + exception.toString());
         }
     }
 
@@ -238,7 +241,7 @@ public class NamelistListModel
         }
         catch(Exception exception)
         {
-            System.out.println("Exception: " + exception.toString());
+            logger.info("Exception: " + exception.toString());
         }
     }
 

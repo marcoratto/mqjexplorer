@@ -9,9 +9,13 @@ import java.io.*;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
+import org.apache.log4j.Logger;
+
 public class ExecuteCommand
     implements Runnable
 {
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+	
     class UpdateTextFiled
         implements Runnable
     {
@@ -97,8 +101,8 @@ public class ExecuteCommand
             BufferedReader bufferedreader = new BufferedReader(inputstreamreader);
             String s;
             while((s = bufferedreader.readLine()) != null) 
-                System.out.println(": " + s);
-            System.out.println("No more data");
+                logger.info(": " + s);
+            logger.info("No more data");
             process.waitFor();
             textArea.append("Command ended with: " + process.exitValue());
         }

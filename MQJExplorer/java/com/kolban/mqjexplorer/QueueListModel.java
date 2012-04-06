@@ -13,13 +13,17 @@ import com.kolban.mqjexplorer.utils.Filter;
 import java.util.Vector;
 import javax.swing.ImageIcon;
 
+import org.apache.log4j.Logger;
+
 // Referenced classes of package com.kolban.mqjexplorer:
 //            TextIcon
 
 public class QueueListModel
 {
 
-    public QueueListModel()
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+
+	public QueueListModel()
     {
         responses = null;
         filteredResponses = null;
@@ -58,7 +62,7 @@ public class QueueListModel
         }
         catch(Exception exception)
         {
-            System.out.println("deleteQueue: " + exception.toString());
+            logger.info("deleteQueue: " + exception.toString());
         }
     }
 
@@ -675,7 +679,7 @@ public class QueueListModel
     {
         try
         {
-            System.out.println("** Refreshing all queues --");
+            logger.info("** Refreshing all queues --");
             PCFMessage pcfmessage = new PCFMessage(13);
             pcfmessage.addParameter(2016, "*");
             pcfmessage.addParameter(20, 1001);
@@ -684,7 +688,7 @@ public class QueueListModel
         }
         catch(Exception exception)
         {
-            System.out.println("Exception: " + exception.toString());
+            logger.info("Exception: " + exception.toString());
         }
     }
 
@@ -739,7 +743,7 @@ public class QueueListModel
         }
         catch(Exception exception)
         {
-            System.out.println("Exception: " + exception.toString());
+            logger.info("Exception: " + exception.toString());
         }
     }
 

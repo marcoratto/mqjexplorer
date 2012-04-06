@@ -8,9 +8,13 @@ package com.kolban.mqjexplorer.codewiz;
 import java.io.*;
 import java.util.Hashtable;
 
+import org.apache.log4j.Logger;
+
 public class Parser
 {
-    private class Tree
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+
+	private class Tree
     {
 
         Tree parent;
@@ -155,7 +159,7 @@ public class Parser
                     if(tree1.include)
                     {
                         s = replaceMacro(s);
-                        System.out.println(">>" + s);
+                        logger.info(">>" + s);
                     }
                     break;
                 }
@@ -170,7 +174,7 @@ public class Parser
         }
         catch(Exception exception)
         {
-            System.out.println("Exception: " + exception.toString());
+            logger.info("Exception: " + exception.toString());
         }
         try
         {
@@ -261,7 +265,7 @@ public class Parser
                     if(tree1.include)
                     {
                         s = replaceMacro(s);
-                        System.out.println(">>" + s);
+                        logger.info(">>" + s);
                         bufferedwriter.write(s);
                         bufferedwriter.newLine();
                     }
@@ -278,7 +282,7 @@ public class Parser
         }
         catch(Exception exception)
         {
-            System.out.println("Exception: " + exception.toString());
+            logger.info("Exception: " + exception.toString());
         }
         try
         {

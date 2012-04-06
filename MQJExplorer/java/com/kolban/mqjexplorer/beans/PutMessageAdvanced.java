@@ -70,22 +70,26 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.Document;
 
+import org.apache.log4j.Logger;
+
 // Referenced classes of package com.kolban.mqjexplorer.beans:
 //            Encoding
 
 public class PutMessageAdvanced extends JFrame
     implements ActionListener
 {
-    class PutterThread
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+
+	class PutterThread
         implements Runnable
     {
 
         public void run()
         {
-            System.out.println("In thread!");
+            logger.info("In thread!");
             if(message == null)
             {
-                System.out.println("Message not set for putting!!");
+                logger.info("Message not set for putting!!");
                 return;
             }
             byte abyte0[] = ((MQMD) (message)).messageId;

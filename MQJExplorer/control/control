@@ -1,9 +1,9 @@
 Package: MQJExplorer
-Version: 0.13
+Version: 0.14
 Section: java
 Priority: optional
 Architecture: i386
 Maintainer: Marco Ratto <marcoratto@gmail.com>
-Depends: menu, sun-java6-jre | sun-java6-jdk | sun-java5-jre | sun-java5-jdk 
+Depends: menu, sun-java6-jre | sun-java6-jdk | sun-java5-jre | sun-java5-jdk | openjdk-6-jdk | openjdk-6-jre
 Description: MQJExplorer
-Installed-Size: 9224
+Installed-Size: 26532

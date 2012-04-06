@@ -12,11 +12,17 @@ import com.kolban.swing.FooterListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.EventObject;
+
+import javax.jms.JMSException;
 import javax.swing.*;
+
+import org.apache.log4j.Logger;
 
 public class XATopicConnectionFactoryDlg extends JDialog
 {
-    class IvjEventHandler
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+
+	class IvjEventHandler
         implements FooterListener, WindowListener
     {
 
@@ -1178,7 +1184,7 @@ public class XATopicConnectionFactoryDlg extends JDialog
         }
         catch(Exception exception)
         {
-            System.out.println("Exception: " + exception.toString());
+            logger.info("Exception: " + exception.toString());
         }
         dispose();
     }
@@ -1189,11 +1195,16 @@ public class XATopicConnectionFactoryDlg extends JDialog
         getTransport().setValue(mqxatopicconnectionfactory.getTransportType());
         getClientID().setText(mqxatopicconnectionfactory.getClientId());
         getQueueManager().setText(mqxatopicconnectionfactory.getQueueManager());
-        getConsumerQueue().setText(mqxatopicconnectionfactory.getBrokerCCSubQueue());
-        getControlQueue().setText(mqxatopicconnectionfactory.getBrokerControlQueue());
-        getPublishQueue().setText(mqxatopicconnectionfactory.getBrokerPubQueue());
-        getSubscriptionQueue().setText(mqxatopicconnectionfactory.getBrokerSubQueue());
-        getBrokerQueueManager().setText(mqxatopicconnectionfactory.getBrokerQueueManager());
+        try {
+			getConsumerQueue().setText(mqxatopicconnectionfactory.getBrokerCCSubQueue());
+	        getControlQueue().setText(mqxatopicconnectionfactory.getBrokerControlQueue());
+	        getPublishQueue().setText(mqxatopicconnectionfactory.getBrokerPubQueue());
+	        getSubscriptionQueue().setText(mqxatopicconnectionfactory.getBrokerSubQueue());
+	        getBrokerQueueManager().setText(mqxatopicconnectionfactory.getBrokerQueueManager());
+		} catch (JMSException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         getVersion().setText(Integer.toString(mqxatopicconnectionfactory.getVersion()));
     }
 

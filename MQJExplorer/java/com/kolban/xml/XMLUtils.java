@@ -1,15 +1,13 @@
-// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
-// Jad home page: http://www.kpdus.com/jad.html
-// Decompiler options: packimports(3) 
-// Source File Name:   XMLUtils.java
-
 package com.kolban.xml;
 
 import java.util.Vector;
+
+import org.apache.log4j.Logger;
 import org.w3c.dom.*;
 
-public class XMLUtils
-{
+public class XMLUtils {
+	
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
 
     public XMLUtils()
     {
@@ -77,8 +75,8 @@ public class XMLUtils
 
     public static void logTree(Node node)
     {
-        System.out.println("-----------");
-        System.out.println("Node name: " + node.getNodeName());
+        
+        logger.info("Node name: " + node.getNodeName());
         String s;
         switch(node.getNodeType())
         {
@@ -134,7 +132,7 @@ public class XMLUtils
             s = "Unknown: " + node.getNodeType();
             break;
         }
-        System.out.println("Node type: " + s);
+        logger.info("Node type: " + s);
         NamedNodeMap namednodemap = node.getAttributes();
         boolean flag;
         if(namednodemap == null)
@@ -144,22 +142,22 @@ public class XMLUtils
             flag = false;
         else
             flag = true;
-        System.out.println("Has attributes: " + flag);
-        System.out.println("Value: \"" + node.getNodeValue() + "\"");
+        logger.info("Has attributes: " + flag);
+        logger.info("Value: \"" + node.getNodeValue() + "\"");
         Node node1;
         switch(node.getNodeType())
         {
         case 10: // '\n'
             DocumentType documenttype = (DocumentType)node;
-            System.out.println("SystemId: " + documenttype.getSystemId());
-            System.out.println("DTD Name: " + documenttype.getName());
-            System.out.println("Internal subset: " + documenttype.getInternalSubset());
+            logger.info("SystemId: " + documenttype.getSystemId());
+            logger.info("DTD Name: " + documenttype.getName());
+            logger.info("Internal subset: " + documenttype.getInternalSubset());
             NamedNodeMap namednodemap1 = documenttype.getEntities();
             int i = namednodemap1.getLength();
             for(int j = 0; j < i; j++)
             {
                 Node node2 = namednodemap1.item(j);
-                System.out.println("Entity: " + node2.getNodeName() + "=" + node2.getNodeValue());
+                logger.info("Entity: " + node2.getNodeName() + "=" + node2.getNodeValue());
             }
 
             // fall through
@@ -172,4 +170,12 @@ public class XMLUtils
             logTree(node1);
 
     }
+    
+    public static String getTagValue(String sTag, Element eElement) {
+    	NodeList nlList = eElement.getElementsByTagName(sTag).item(0).getChildNodes();
+     
+            Node nValue = (Node) nlList.item(0);
+     
+    	return nValue.getNodeValue();
+     }
 }

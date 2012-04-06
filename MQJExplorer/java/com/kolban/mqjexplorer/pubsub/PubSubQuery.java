@@ -14,13 +14,17 @@ import com.kolban.utils.StringUtils;
 import java.util.Enumeration;
 import java.util.Vector;
 
+import org.apache.log4j.Logger;
+
 // Referenced classes of package com.kolban.mqjexplorer.pubsub:
 //            MQPubSub, PubSubError, PubSubTopicInfo
 
 public class PubSubQuery
 {
 
-    public PubSubQuery()
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+
+	public PubSubQuery()
     {
         responseQueue = null;
         queueManagerName = null;
@@ -54,7 +58,7 @@ public class PubSubQuery
         PubSubError pubsuberror = MQPubSub.execute(queueManager, mqrfh);
         if(pubsuberror != null)
         {
-            System.out.println("Query error (RegSub): " + pubsuberror.toString());
+            logger.info("Query error (RegSub): " + pubsuberror.toString());
             return;
         }
         mqrfh.reset();
@@ -65,7 +69,7 @@ public class PubSubQuery
         pubsuberror = MQPubSub.execute(queueManager, mqrfh);
         if(pubsuberror != null)
         {
-            System.out.println("Query error (ReqUpdate): " + pubsuberror.toString());
+            logger.info("Query error (ReqUpdate): " + pubsuberror.toString());
         } else
         {
             MQGetMessageOptions mqgetmessageoptions = new MQGetMessageOptions();
@@ -82,19 +86,19 @@ public class PubSubQuery
                 for(int j = 0; j < i; j++)
                     streamNameVector.add(PCFUtils.getStringParameter(3036, j, pcfmessage));
 
-                System.out.println("Control: " + pcfmessage.getControl() + " " + pcfmessage.getMsgSeqNumber());
+                logger.info("Control: " + pcfmessage.getControl() + " " + pcfmessage.getMsgSeqNumber());
                 PCFParameter pcfparameter;
-                for(Enumeration enumeration = pcfmessage.getParameters(); enumeration.hasMoreElements(); System.out.println(pcfparameter.getParameter() + " " + pcfparameter.getStringValue()))
+                for(Enumeration enumeration = pcfmessage.getParameters(); enumeration.hasMoreElements(); logger.info(pcfparameter.getParameter() + " " + pcfparameter.getStringValue()))
                     pcfparameter = (PCFParameter)enumeration.nextElement();
 
                 int k = PCFUtils.countItems(3038, pcfmessage);
                 for(int l = 0; l < k; l++)
-                    System.out.println(PCFUtils.getStringParameter(3038, l, pcfmessage));
+                    logger.info(PCFUtils.getStringParameter(3038, l, pcfmessage));
 
             }
             catch(Exception exception)
             {
-                System.out.println("Exception: " + exception.toString());
+                logger.info("Exception: " + exception.toString());
             }
         }
         mqrfh.reset();
@@ -105,7 +109,7 @@ public class PubSubQuery
         pubsuberror = MQPubSub.execute(queueManager, mqrfh);
         if(pubsuberror != null)
         {
-            System.out.println("Query error (DeregSub): " + pubsuberror.toString());
+            logger.info("Query error (DeregSub): " + pubsuberror.toString());
             return;
         } else
         {
@@ -135,7 +139,7 @@ public class PubSubQuery
         PubSubError pubsuberror = MQPubSub.execute(queueManager, mqrfh);
         if(pubsuberror != null)
         {
-            System.out.println("Query error (RegSub): " + pubsuberror.toString());
+            logger.info("Query error (RegSub): " + pubsuberror.toString());
         } else
         {
             mqrfh.reset();
@@ -146,7 +150,7 @@ public class PubSubQuery
             pubsuberror = MQPubSub.execute(queueManager, mqrfh);
             if(pubsuberror != null)
             {
-                System.out.println("Query error (ReqUpdate): " + pubsuberror.toString());
+                logger.info("Query error (ReqUpdate): " + pubsuberror.toString());
                 return;
             }
             MQGetMessageOptions mqgetmessageoptions = new MQGetMessageOptions();
@@ -160,7 +164,7 @@ public class PubSubQuery
                 {
                     responseQueue.get(mqmessage, mqgetmessageoptions);
                     PCFMessage pcfmessage = new PCFMessage(mqmessage);
-                    System.out.println("Control: " + pcfmessage.getControl() + " " + pcfmessage.getMsgSeqNumber());
+                    logger.info("Control: " + pcfmessage.getControl() + " " + pcfmessage.getMsgSeqNumber());
                     String s2 = pcfmessage.getStringParameterValue(3031);
                     if(s2 != null)
                     {
@@ -199,18 +203,18 @@ public class PubSubQuery
                         }
                     }
                     PCFParameter pcfparameter;
-                    for(Enumeration enumeration = pcfmessage.getParameters(); enumeration.hasMoreElements(); System.out.println(pcfparameter.getParameter() + " " + pcfparameter.getStringValue()))
+                    for(Enumeration enumeration = pcfmessage.getParameters(); enumeration.hasMoreElements(); logger.info(pcfparameter.getParameter() + " " + pcfparameter.getStringValue()))
                         pcfparameter = (PCFParameter)enumeration.nextElement();
 
                     int i = PCFUtils.countItems(3038, pcfmessage);
                     for(int j = 0; j < i; j++)
-                        System.out.println(PCFUtils.getStringParameter(3038, j, pcfmessage));
+                        logger.info(PCFUtils.getStringParameter(3038, j, pcfmessage));
 
                 } while(true);
             }
             catch(Exception exception)
             {
-                System.out.println("Exception: " + exception.toString());
+                logger.info("Exception: " + exception.toString());
             }
         }
         mqrfh.reset();
@@ -221,7 +225,7 @@ public class PubSubQuery
         pubsuberror = MQPubSub.execute(queueManager, mqrfh);
         if(pubsuberror != null)
         {
-            System.out.println("Query error (DeregSub): " + pubsuberror.toString());
+            logger.info("Query error (DeregSub): " + pubsuberror.toString());
             return;
         } else
         {
@@ -310,7 +314,7 @@ public class PubSubQuery
         }
         catch(MQException mqexception)
         {
-            System.out.println("Exception: " + mqexception.toString());
+            logger.info("Exception: " + mqexception.toString());
             close();
         }
     }

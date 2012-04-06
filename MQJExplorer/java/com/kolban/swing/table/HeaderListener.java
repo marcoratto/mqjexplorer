@@ -5,11 +5,10 @@
 
 package com.kolban.swing.table;
 
-import java.awt.event.*;
-import javax.swing.table.JTableHeader;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-// Referenced classes of package com.kolban.swing.table:
-//            SortButtonRenderer, SortableTableModel
+import javax.swing.table.JTableHeader;
 
 public class HeaderListener extends MouseAdapter
 {

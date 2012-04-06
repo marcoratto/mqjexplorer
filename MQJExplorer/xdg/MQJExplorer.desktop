@@ -2,7 +2,7 @@
 Encoding=UTF-8
 Type=Application
 
-Exec=/opt/MQJExplorer/runme.sh
+Exec=/usr/local/MQJExplorer/runme.sh
 Icon=MQJExplorer.png
 
 Name=MQJExplorer
@@ -17,17 +17,17 @@ Name[nl]=MQJExplorer
 Name[pt_BR]=MQJExplorer
 Name[zh_CN]=MQJExplorer
 Name[zh_TW]=MQJExplorer
-Comment=IBM MQJExplorer 0.13
-Comment[de]=IBM MQJExplorer 0.13
-Comment[en_US]=IBM MQJExplorer 0.13
-Comment[es]=IBM MQJExplorer 0.13
-Comment[fr]=IBM MQJExplorer 0.13
-Comment[it]=IBM MQJExplorer 0.13
-Comment[ja]=IBM MQJExplorer 0.13
-Comment[ko]=IBM MQJExplorer 0.13
-Comment[nl]=IBM MQJExplorer 0.13
-Comment[pt_BR]=IBM MQJExplorer 0.13
-Comment[zh_CN]=IBM MQJExplorer 0.13
-Comment[zh_TW]=IBM MQJExplorer 0.13
+Comment=IBM MQJExplorer 0.14
+Comment[de]=IBM MQJExplorer 0.14
+Comment[en_US]=IBM MQJExplorer 0.14
+Comment[es]=IBM MQJExplorer 0.14
+Comment[fr]=IBM MQJExplorer 0.14
+Comment[it]=IBM MQJExplorer 0.14
+Comment[ja]=IBM MQJExplorer 0.14
+Comment[ko]=IBM MQJExplorer 0.14
+Comment[nl]=IBM MQJExplorer 0.14
+Comment[pt_BR]=IBM MQJExplorer 0.14
+Comment[zh_CN]=IBM MQJExplorer 0.14
+Comment[zh_TW]=IBM MQJExplorer 0.14
 
-Categories=
+Categories=Application;Programming;Accessories;Other

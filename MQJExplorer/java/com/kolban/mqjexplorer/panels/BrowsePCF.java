@@ -16,8 +16,12 @@ import java.util.Vector;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 
+import org.apache.log4j.Logger;
+
 public class BrowsePCF extends JPanel
 {
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+	
     class PCFTableModel extends AbstractTableModel
     {
 
@@ -528,7 +532,7 @@ public class BrowsePCF extends JPanel
         }
         catch(Exception exception)
         {
-            System.out.println("Exception: " + exception.toString());
+            logger.info("Exception: " + exception.toString());
         }
     }
 

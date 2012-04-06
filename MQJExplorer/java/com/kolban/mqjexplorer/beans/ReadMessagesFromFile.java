@@ -15,10 +15,14 @@ import java.io.File;
 import java.util.*;
 import javax.swing.*;
 
+import org.apache.log4j.Logger;
+
 public class ReadMessagesFromFile extends JDialog
     implements Observer
 {
-    class IvjEventHandler
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+
+	class IvjEventHandler
         implements ActionListener
     {
 
@@ -473,7 +477,7 @@ public class ReadMessagesFromFile extends JDialog
         int i = ((Integer)obj).intValue();
         if(getProgress().getMaximum() == 0)
         {
-            System.out.println("Max = " + i);
+            logger.info("Max = " + i);
             getProgress().setMaximum(i);
             getProgress().setValue(0);
         } else

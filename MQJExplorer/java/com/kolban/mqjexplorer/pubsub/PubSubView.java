@@ -13,13 +13,17 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 
+import org.apache.log4j.Logger;
+
 // Referenced classes of package com.kolban.mqjexplorer.pubsub:
 //            TopicDlg, PubSubQuery, PubSubTopicInfo, RegisterSubscriberDlg
 
 public class PubSubView extends JPanel
     implements MQJExplorerView
 {
-    class PubSubTableModel extends AbstractTableModel
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+
+	class PubSubTableModel extends AbstractTableModel
     {
 
         public int getRowCount()
@@ -195,7 +199,7 @@ public class PubSubView extends JPanel
     public void actionPerformed(ActionEvent actionevent)
     {
         String s = actionevent.getActionCommand();
-        System.out.println("PubSubView: Action: \"" + s + "\"");
+        logger.info("PubSubView: Action: \"" + s + "\"");
         if(s.equals("pubSubRegSub"))
         {
             registerSubscriber("");
@@ -626,7 +630,7 @@ public class PubSubView extends JPanel
 
     public void refresh()
     {
-        System.out.println("PubSubView refresh");
+        logger.info("PubSubView refresh");
         try
         {
             pubSubQuery.setCurrentStream((String)getStreamCombo().getSelectedItem());

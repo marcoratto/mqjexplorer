@@ -1,7 +1,22 @@
-// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
-// Jad home page: http://www.kpdus.com/jad.html
-// Decompiler options: packimports(3) 
-// Source File Name:   MQRFH.java
+/*
+ * Copyright (C) 2012 Marco Ratto
+ *
+ * This file is part of the project MQJExplorer.
+ *
+ * MQJExplorer is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * any later version.
+ *
+ * MQJExplorer is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with MQJExplorer; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
 
 package com.kolban.mq;
 
@@ -10,9 +25,13 @@ import com.ibm.mq.MQMessage;
 import com.kolban.utils.StringUtils;
 import java.util.Vector;
 
+import org.apache.log4j.Logger;
+
 public class MQRFH
 {
 
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+	
     public MQRFH()
     {
         nameVector = null;
@@ -76,7 +95,7 @@ public class MQRFH
             mqmessage.writeString(format);
             mqmessage.writeInt4(flags);
             mqmessage.writeString(s);
-            System.out.println("NVS: " + s);
+            logger.info("NVS: " + s);
             mqmessage.format = "MQHRF   ";
         }
         catch(Exception _ex) { }
@@ -227,7 +246,7 @@ public class MQRFH
         }
         catch(Exception exception)
         {
-            System.out.println("setFromMessage: " + exception.toString());
+            logger.info("setFromMessage: " + exception.toString());
         }
     }
 

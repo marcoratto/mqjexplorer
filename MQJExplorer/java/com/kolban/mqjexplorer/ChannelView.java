@@ -14,6 +14,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import org.apache.log4j.Logger;
+
 // Referenced classes of package com.kolban.mqjexplorer:
 //            MQJExplorerView, QueueManagerModel, ChannelListModel, MQJExplorer, 
 //            ChannelListTableModel, TextIconRenderer, Profile
@@ -21,7 +23,9 @@ import javax.swing.*;
 public class ChannelView extends JPanel
     implements MouseListener, MQJExplorerView, ActionListener
 {
-
+	
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+	
     public ChannelView()
     {
         queueManagerModel = null;
@@ -125,7 +129,7 @@ public class ChannelView extends JPanel
             return;
         } else
         {
-            System.out.println("Unhandled command: " + s);
+            logger.info("Unhandled command: " + s);
             return;
         }
     }
@@ -213,7 +217,7 @@ public class ChannelView extends JPanel
         case 5: // '\005'
         case 6: // '\006'
         default:
-            System.out.println("Channel type not handled!!");
+            logger.info("Channel type not handled!!");
             break;
         }
         String s = channeldlg.getChannelName();
@@ -234,7 +238,7 @@ public class ChannelView extends JPanel
 
     public void deleteSelectedChannel()
     {
-        System.out.println("Deleting channel");
+        logger.info("Deleting channel");
         int i = table.getSelectedRow();
         if(i < 0)
             return;
@@ -246,7 +250,7 @@ public class ChannelView extends JPanel
         }
         catch(MQException mqexception)
         {
-            System.out.println("deleteSelectedChannel: " + mqexception.toString());
+            logger.info("deleteSelectedChannel: " + mqexception.toString());
         }
         channelListTableModel.fireTableDataChanged();
         if(i < table.getRowCount())
@@ -492,7 +496,7 @@ public class ChannelView extends JPanel
         }
         catch(Exception exception)
         {
-            System.out.println("setQueueManagerModel: " + exception.toString());
+            logger.info("setQueueManagerModel: " + exception.toString());
         }
     }
 
@@ -511,7 +515,7 @@ public class ChannelView extends JPanel
 
     public void startSelectedChannel()
     {
-        System.out.println("Start channel");
+        logger.info("Start channel");
         int i = table.getSelectedRow();
         if(i < 0)
             return;
@@ -523,7 +527,7 @@ public class ChannelView extends JPanel
         }
         catch(MQException mqexception)
         {
-            System.out.println("startSelectedChannel: " + mqexception.toString());
+            logger.info("startSelectedChannel: " + mqexception.toString());
         }
         channelListTableModel.fireTableDataChanged();
         if(i < table.getRowCount())
@@ -532,7 +536,7 @@ public class ChannelView extends JPanel
 
     public void stopSelectedChannel()
     {
-        System.out.println("Stop channel");
+        logger.info("Stop channel");
         int i = table.getSelectedRow();
         if(i < 0)
             return;
@@ -558,7 +562,7 @@ public class ChannelView extends JPanel
         }
         catch(MQException mqexception)
         {
-            System.out.println("stopSelectedChannel: " + mqexception.toString());
+            logger.info("stopSelectedChannel: " + mqexception.toString());
         }
         channelListTableModel.fireTableDataChanged();
         if(i < table.getRowCount())

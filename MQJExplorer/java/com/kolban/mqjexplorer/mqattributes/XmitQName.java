@@ -5,6 +5,8 @@
 
 package com.kolban.mqjexplorer.mqattributes;
 
+import org.apache.log4j.Logger;
+
 import com.kolban.utils.StringUtils;
 
 // Referenced classes of package com.kolban.mqjexplorer.mqattributes:
@@ -12,6 +14,7 @@ import com.kolban.utils.StringUtils;
 
 public class XmitQName extends QNameComboBox
 {
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
 
     public XmitQName()
     {
@@ -27,7 +30,7 @@ public class XmitQName extends QNameComboBox
     {
         if(as == null)
         {
-            System.out.println("XmitQName::values: No values supplied");
+            logger.info("XmitQName::values: No values supplied");
             return;
         }
         for(int i = 0; i < as.length; i++)

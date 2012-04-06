@@ -10,11 +10,17 @@ import com.kolban.mqjexplorer.mqattributes.*;
 import com.kolban.swing.NumericTextField;
 import java.awt.*;
 import java.awt.event.*;
+
+import javax.jms.JMSException;
 import javax.swing.*;
+
+import org.apache.log4j.Logger;
 
 public class TopicConnectionFactoryDlg extends JDialog
 {
-    class IvjEventHandler
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+
+	class IvjEventHandler
         implements ActionListener, WindowListener
     {
 
@@ -1928,7 +1934,7 @@ public class TopicConnectionFactoryDlg extends JDialog
         }
         catch(Exception exception)
         {
-            System.out.println("Exception: " + exception.toString());
+            logger.info("Exception: " + exception.toString());
         }
         dispose();
     }
@@ -1949,12 +1955,17 @@ public class TopicConnectionFactoryDlg extends JDialog
         getSendExitData().setText(mqtopicconnectionfactory.getSendExitInit());
         getSecurityExit().setText(mqtopicconnectionfactory.getSecurityExit());
         getSecurityExitData().setText(mqtopicconnectionfactory.getSecurityExitInit());
-        getConsumerQueue().setText(mqtopicconnectionfactory.getBrokerCCSubQueue());
-        getControlQueue().setText(mqtopicconnectionfactory.getBrokerControlQueue());
-        getPublishQueue().setText(mqtopicconnectionfactory.getBrokerPubQueue());
-        getSubscriptionQueue().setText(mqtopicconnectionfactory.getBrokerSubQueue());
-        getBrokerQueueManager().setText(mqtopicconnectionfactory.getBrokerQueueManager());
-        getVersion().setText(Integer.toString(mqtopicconnectionfactory.getVersion()));
+        try {
+			getConsumerQueue().setText(mqtopicconnectionfactory.getBrokerCCSubQueue());
+	        getControlQueue().setText(mqtopicconnectionfactory.getBrokerControlQueue());
+	        getPublishQueue().setText(mqtopicconnectionfactory.getBrokerPubQueue());
+	        getSubscriptionQueue().setText(mqtopicconnectionfactory.getBrokerSubQueue());
+	        getBrokerQueueManager().setText(mqtopicconnectionfactory.getBrokerQueueManager());
+	        getVersion().setText(Integer.toString(mqtopicconnectionfactory.getVersion()));
+		} catch (JMSException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     public void setManagedObjectName(String s)

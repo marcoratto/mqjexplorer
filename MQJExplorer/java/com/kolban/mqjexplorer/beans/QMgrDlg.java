@@ -15,9 +15,13 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import org.apache.log4j.Logger;
+
 public class QMgrDlg extends JDialog
 {
-    class IvjEventHandler
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+
+	class IvjEventHandler
         implements ActionListener
     {
 
@@ -250,7 +254,7 @@ public class QMgrDlg extends JDialog
         }
         catch(Exception exception)
         {
-            System.out.println("Exception: " + exception.toString());
+            logger.info("Exception: " + exception.toString());
         }
         SwingUtils.setCenter(MQJExplorer.mainFrame, this);
         setTitle(queuemanagermodel.getQueueManagerName() + " Properties");
@@ -308,7 +312,7 @@ public class QMgrDlg extends JDialog
         }
         catch(PCFException pcfexception)
         {
-            System.out.println("doChangeRequester: " + pcfexception.toString());
+            logger.info("doChangeRequester: " + pcfexception.toString());
             throw pcfexception;
         }
     }
@@ -577,7 +581,7 @@ public class QMgrDlg extends JDialog
         }
         catch(Exception exception)
         {
-            System.out.println("Exception: " + exception.toString());
+            logger.info("Exception: " + exception.toString());
         }
         dispose();
     }

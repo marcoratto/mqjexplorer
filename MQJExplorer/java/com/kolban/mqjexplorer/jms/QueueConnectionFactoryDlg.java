@@ -10,11 +10,17 @@ import com.kolban.mqjexplorer.mqattributes.*;
 import com.kolban.swing.NumericTextField;
 import java.awt.*;
 import java.awt.event.*;
+
+import javax.jms.JMSException;
 import javax.swing.*;
+
+import org.apache.log4j.Logger;
 
 public class QueueConnectionFactoryDlg extends JDialog
 {
-    class IvjEventHandler
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+
+	class IvjEventHandler
         implements ActionListener, WindowListener
     {
 
@@ -1626,7 +1632,7 @@ public class QueueConnectionFactoryDlg extends JDialog
         }
         catch(Exception exception)
         {
-            System.out.println("Exception: " + exception.toString());
+            logger.info("Exception: " + exception.toString());
         }
         dispose();
         returnCode = 1;
@@ -1642,8 +1648,13 @@ public class QueueConnectionFactoryDlg extends JDialog
         getHostName().setText(mqqueueconnectionfactory.getHostName());
         getChannel().setText(mqqueueconnectionfactory.getChannel());
         getCCSID().setValue(mqqueueconnectionfactory.getCCSID());
-        getTempModel().setText(mqqueueconnectionfactory.getTemporaryModel());
-        getRetention().setValue(mqqueueconnectionfactory.getMessageRetention());
+        try {
+			getTempModel().setText(mqqueueconnectionfactory.getTemporaryModel());
+	        getRetention().setValue(mqqueueconnectionfactory.getMessageRetention());
+		} catch (JMSException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         getReceiveExit().setText(mqqueueconnectionfactory.getReceiveExit());
         getReceiveExitData().setText(mqqueueconnectionfactory.getReceiveExitInit());
         getSendExit().setText(mqqueueconnectionfactory.getSendExit());

@@ -16,12 +16,16 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import org.apache.log4j.Logger;
+
 // Referenced classes of package com.kolban.mqjexplorer.beans:
 //            NewAliasQueue
 
 public class NewRemoteQueue extends JDialog
 {
-    class IvjEventHandler
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+
+	class IvjEventHandler
         implements ActionListener
     {
 
@@ -223,7 +227,7 @@ public class NewRemoteQueue extends JDialog
         }
         catch(PCFException pcfexception)
         {
-            System.out.println("createAliasQueue: " + pcfexception.toString());
+            logger.info("createAliasQueue: " + pcfexception.toString());
             throw pcfexception;
         }
     }
@@ -460,7 +464,7 @@ public class NewRemoteQueue extends JDialog
         }
         catch(Exception exception)
         {
-            System.out.println("ok_ActionEvents: " + exception.toString());
+            logger.info("ok_ActionEvents: " + exception.toString());
         }
     }
 
@@ -481,7 +485,7 @@ public class NewRemoteQueue extends JDialog
         }
         catch(Exception exception)
         {
-            System.out.println("setMessageTemplate: " + exception.toString());
+            logger.info("setMessageTemplate: " + exception.toString());
         }
     }
 

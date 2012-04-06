@@ -5,6 +5,8 @@
 
 package com.kolban.mqjexplorer.pubsub;
 
+import org.apache.log4j.Logger;
+
 import com.ibm.mq.*;
 import com.kolban.mq.MQRFH;
 
@@ -14,6 +16,8 @@ import com.kolban.mq.MQRFH;
 public class MQPubSub
 {
 
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+	
     public MQPubSub()
     {
     }
@@ -31,7 +35,7 @@ public class MQPubSub
         {
             MQQueue mqqueue1 = mqqueuemanager.accessQueue("SYSTEM.BROKER.CONTROL.QUEUE", 8208);
             mqqueue = mqqueuemanager.accessQueue("AMQSPSD.PERMDYN.MODEL.QUEUE", 1, null, "MQJ.*", null);
-            System.out.println("Response queue: " + ((MQManagedObject) (mqqueue)).name);
+            logger.info("Response queue: " + ((MQManagedObject) (mqqueue)).name);
             MQMessage mqmessage = mqrfh.getMessage();
             mqmessage.messageType = 1;
             mqmessage.replyToQueueName = ((MQManagedObject) (mqqueue)).name;
@@ -44,19 +48,19 @@ public class MQPubSub
             mqgetmessageoptions.options = 1;
             mqgetmessageoptions.waitInterval = 5000;
             mqqueue.get(mqmessage1, mqgetmessageoptions);
-            System.out.println("Got a response!!");
+            logger.info("Got a response!!");
             MQRFH mqrfh1 = new MQRFH();
             mqrfh1.setFromMessage(mqmessage1);
             String s = mqrfh1.getValue("MQPSReason");
             if(s != null && !s.equals("0"))
             {
                 pubsuberror = new PubSubError(mqrfh1);
-                System.out.println(pubsuberror.toString());
+                logger.info(pubsuberror.toString());
             }
         }
         catch(MQException mqexception)
         {
-            System.out.println("Exception: " + mqexception.toString());
+            logger.info("Exception: " + mqexception.toString());
             pubsuberror = new PubSubError(mqexception);
         }
         if(mqqueue != null)

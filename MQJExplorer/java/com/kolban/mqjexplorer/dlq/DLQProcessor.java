@@ -5,6 +5,8 @@
 
 package com.kolban.mqjexplorer.dlq;
 
+import org.apache.log4j.Logger;
+
 import com.ibm.mq.*;
 import com.kolban.mq.MQDLH;
 
@@ -15,6 +17,8 @@ public class DLQProcessor
     implements Runnable
 {
 
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+	
     public DLQProcessor()
     {
     }
@@ -32,7 +36,7 @@ public class DLQProcessor
         mqdlh.setFromMessage(mqmessage);
         if(dlqrule.getReason() >= 0 && dlqrule.getReason() == mqdlh.reason)
         {
-            System.out.println("Matched reason!");
+            logger.info("Matched reason!");
             return true;
         } else
         {
@@ -61,7 +65,7 @@ public class DLQProcessor
 
             } else
             {
-                System.out.println("Skipped ... not a DLQ message");
+                logger.info("Skipped ... not a DLQ message");
             }
         }
         catch(MQException _ex) { }

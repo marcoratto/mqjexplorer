@@ -1,39 +1,31 @@
 #!/bin/bash
-set -x
+#set -x
 
-PACKAGE_DIR=build/MQJExplorer_v0.13
-PACKAGE_NAME=MQJExplorer_v0.13_all
+PACKAGE_VER=0.14
+PACKAGE_DIR=build/MQJExplorer_v${PACKAGE_VER}
+PACKAGE_NAME=MQJExplorer_v${PACKAGE_VER}_all
 PACKAGE_FILE=${PACKAGE_NAME}.deb
 
-if [ "$USER" != "root" ]
-then
-	echo "ERROR: Run the script as root."
-	exit 1
-fi
 if [ $# -eq 0 ]
 then
-	echo "Parameter: gpg_password"
+	echo "Parameter: GPG_PASSWORD"
 	exit 2
 fi
-gpg_password=$1
-TARGET_DIR=/opt/MQJExplorer
+GPG_PASSWORD=$1
 
-rm -rf $TARGET_DIR
-
-if [ ! -d "$TARGET_DIR" ]
-then
-	mkdir $TARGET_DIR
-fi
-chmod 0777 $TARGET_DIR
-
-cp -r ./bin ./icons ./lib ./xdg ./runme.sh ./runme.bat ./VERSION ./COPYING ./KEYS ./README ./AUTHORS ./THANKS $TARGET_DIR
-
-find $TARGET_DIR -type d -exec chmod 0755 "{}" \;
-find $TARGET_DIR -type f -exec chmod 0644 "{}" \;
-chmod 0755 $TARGET_DIR/runme.sh
-
+rm -f control/md5sums
 rm -f data.tar.gz
-tar cPvzf data.tar.gz $TARGET_DIR
+rm -rf ./debian.tmp 2>/dev/null
+
+mkdir -p ./debian.tmp/usr/local
+
+cp -r ./tmp/MQJExplorer-${PACKAGE_VER} ./debian.tmp/usr/local
+TARGET_DIR=./debian.tmp/usr/local/MQJExplorer-${PACKAGE_VER}
+
+cd ./debian.tmp
+find usr -type f -exec md5sum -b "{}" \; >../control/md5sums
+tar cPvzf ../data.tar.gz ./usr
+cd ..
 RET_CODE=$?
 if [ $RET_CODE -ne 0 ]
 then
@@ -41,13 +33,6 @@ then
 	exit 1
 fi
 ls -al data.tar.gz
-
-if [ ! -f control/md5sums ]
-then
-	rm -f control/md5sums
-	find $TARGET_DIR -type f -exec md5sum -b "{}" \; >../control/md5sums
-fi
-ls -al control/md5sums
 
 tar cvzf ./control.tar.gz -C control control md5sums postinst preinst prerm
 ls -al control.tar.gz
@@ -59,7 +44,7 @@ CUR_DIR=`pwd`
 cd ${PACKAGE_DIR}
 md5sum -b ${PACKAGE_FILE} >${PACKAGE_FILE}.md5
 sha1sum -b ${PACKAGE_FILE} >${PACKAGE_FILE}.sha
-echo ${gpg_password}|gpg --batch --passphrase-fd 0 -u 'marcoratto@gmail.com' -b -a -s ${PACKAGE_FILE}
+sh ./gpg_sign.sh ${GPG_PASSWORD} "${PACKAGE_FILE}"
 cd "$CUR_DIR"
 
 dpkg -I ${PACKAGE_DIR}/${PACKAGE_FILE}

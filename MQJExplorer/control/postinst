@@ -1,17 +1,17 @@
 #!/bin/sh
-
-installDir="/opt/MQJExplorer"
+TARGET_LINK=/usr/local/MQJExplorer
+TARGET_DIR=/usr/local/MQJExplorer-0.14
 
 installAll() {
-        rm -f /usr/local/bin/MQJExplorer 2>/dev/null
-        ln -s ${installDir}/runme.sh /usr/local/bin/MQJExplorer 2>/dev/null
-
-	cp $installDir/xdg/MQJExplorer.png /usr/share/icons
-
-	if [ -x "`which xdg-desktop-menu 2>/dev/null`" ]
-	then
-		xdg-desktop-menu install --novendor ${installDir}/xdg/MQJExplorer.directory ${installDir}/xdg/MQJExplorer.desktop
-	fi
+    ln -s ${TARGET_DIR} ${TARGET_LINK}
+    rm -f /usr/local/bin/MQJExplorer 2>/dev/null
+    ln -s ${TARGET_LINK}/runme.sh /usr/bin/MQJExplorer 2>/dev/null
+    
+	cp "${TARGET_LINK}/xdg/MQJExplorer.desktop" "/usr/share/applications"
+	cp "${TARGET_DIR}/xdg/MQJExplorer.directory" "/usr/share/desktop-directories"
+	cp "${TARGET_LINK}/xdg/MQJExplorer.png" /usr/share/pixmaps
+		
+	update-menus	
 }
 
 case "$1" in
@@ -32,4 +32,3 @@ case "$1" in
         exit 0
     ;;
 esac
-

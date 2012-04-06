@@ -42,7 +42,8 @@
 	<property name="file_bin.zip"
 		value="${build_dir}/${project_name}_v${project_version}.bin.zip" />
 	<property name="izpack.setup.jar.file" value="${build_dir}/${project_name}_v${project_version}_setup.jar" />
-	<property name="izpack.setup.exe.file" value="${build_dir}/${project_name}_v${project_version}_setup.exe" />
+	<property name="makeself.file" value="${build_dir}/${project_name}_v${project_version}_setup.sh" />
+	<property name="debian.file" value="${build_dir}/${project_name}_v${project_version}_all.deb" />
 	
 	<path id="project.class.path">
 		<fileset dir="${lib_dir}">
@@ -50,12 +51,36 @@
 		</fileset>
 	</path>
 
+	<!--
+	<manifestclasspath property="manifest.class.path" jarfile="${jar_file}" >
+		<classpath>
+			<fileset dir="${lib_dir}">
+				<include name="**/*.jar" />
+			</fileset>
+			<fileset dir="${bin_dir}">
+				<include name="**/*.jar" />
+			</fileset>			
+		</classpath>
+	</manifestclasspath>
+	-->
+	<pathconvert property="manifest.class.path" pathsep=" " dirsep="/">
+			<path id="cp">
+				<fileset dir="${lib_dir}">
+					<include name="**/*.jar" />
+				</fileset>
+				<fileset dir="${bin_dir}">
+					<include name="**/*.jar" />
+				</fileset>			
+			</path>
+			<flattenmapper/>
+	</pathconvert>
+	
 	<path id="izpack.classpath">
 		<fileset dir="${izpack_home}/lib">
 			<include name="**/*.jar" />
 		</fileset>
 	</path>
-	
+		
 	<taskdef name="IzPack" classpathref="izpack.classpath" classname="com.izforge.izpack.ant.IzPackTask"/>
 
 	<target name="clean" description="clean up">
@@ -124,6 +149,7 @@
 					<attribute name="Implementation-Version"
 						value="${project_version}" />
 				</section>
+			    <attribute name="Class-Path" value="${manifest.class.path}"/>
 			</manifest>
 			<fileset dir="${class_dir}" includes="**/*.class" />
 			<fileset dir="${class_dir}" includes="**/*.xml" />
@@ -138,8 +164,41 @@
 			eol="crlf" />
 	</target>
 
-	<target name="dist.izpack" depends="jar.create,fixWin32"
-		description="create distributable package">
+	<target name="dist" description="create distributable package">
+		<!-- zip and tar.gz files -->
+		<antcall target="dist.binaries" />
+
+		<!-- zip and tar.gz files -->
+		<antcall target="dist.sources" />
+
+		<!-- sh setup -->
+		<antcall target="dist.makeself" />
+
+		<!-- debian package -->
+		<antcall target="dist.debian" />
+
+		<!-- jar setup -->
+		<antcall target="dist.izpack" />
+
+		<!-- Java Web Start -->
+		<antcall target="dist.web" />
+	</target>
+
+	<target name="dist.debian" depends="prepare.sources" description="create shell auto-install">
+		
+	</target>
+	
+	<target name="dist.makeself" depends="prepare.sources" description="create shell auto-install">
+        <exec executable="makeself" os="Linux" vmlauncher="false" spawn="false" dir="${project_home}">
+                <arg line="--gzip ${tmp_dir} ${makeself.file} ${project_name} ./MQJExplorer-0.14/post_extract.sh" />
+        </exec>
+
+		<antcall target="checksum">
+			<param name="file" value="${makeself.file}" />
+		</antcall>
+	</target>
+	
+	<target name="dist.izpack" depends="jar.create,fixWin32" description="create jar setup file">
 
 		<IzPack input="${project_home}/IzPack.xml"
 		        output="${izpack.setup.jar.file}"
@@ -152,10 +211,13 @@
 	</target>
 
 	<target name="dist.web" depends="check_keystore_password,jar.create">
-		<delete file="${web_dir}/javaws" />
-		
-		<mkdir dir="${web_dir}/javaws"/>
-		
+		<delete>
+			<fileset dir="${web_dir}/javaws">
+			    <exclude name="**/CVS"/>
+				<exclude name="**/.svn"/>
+			</fileset>
+		</delete>
+				
 		<copy file="${jnlp_file}" todir="${web_dir}/javaws" />
 		
 		<copy file="${jar_file}"
@@ -175,36 +237,7 @@
 		</signjar>		
 	</target>
 		
-	<target name="dist.binaries" depends="jar.create" description="create distributable package">
-		<copy file="${project_home}/KEYS"
-			todir="${tmp_dir}/${project_name}-${project_version}" />
-		<copy file="${project_home}/README"
-			todir="${tmp_dir}/${project_name}-${project_version}" />
-		<copy file="${project_home}/COPYING"
-			todir="${tmp_dir}/${project_name}-${project_version}" />
-		<copy file="${project_home}/runme.sh"
-			todir="${tmp_dir}/${project_name}-${project_version}" />
-		<copy file="${project_home}/runme.bat"
-			todir="${tmp_dir}/${project_name}-${project_version}" />
-
-		<copy file="${jar_file}"
-			todir="${tmp_dir}/${project_name}-${project_version}/bin" />
-		<copy
-			todir="${tmp_dir}/${project_name}-${project_version}/lib">
-			<fileset dir="${project_home}/lib">
-				<exclude name="**/CVS" />
-				<exclude name="**/.svn" />
-			</fileset>
-		</copy>
-
-		<copy
-			todir="${tmp_dir}/${project_name}-${project_version}/icons">
-			<fileset dir="${project_home}/icons">
-				<exclude name="**/CVS" />
-				<exclude name="**/.svn" />
-			</fileset>
-		</copy>
-
+	<target name="dist.binaries" depends="prepare.binaries" description="create distributable package">
 		<zip destfile="${file_bin.zip}">
 			<zipfileset
 				dir="${tmp_dir}/${project_name}-${project_version}"
@@ -227,6 +260,55 @@
 	</target>
 
 	<target name="dist.sources" depends="dist.binaries" description="create distributable package">
+		<zip destfile="${file_src.zip}">
+			<zipfileset
+				dir="${tmp_dir}/${project_name}-${project_version}"
+				prefix="${project_name}-${project_version}" />
+		</zip>
+		<antcall target="checksum">
+			<param name="file" value="${file_src.zip}" />
+		</antcall>
+
+		<tar tarfile="${file_src.tar}">
+			<tarfileset
+				dir="${tmp_dir}/${project_name}-${project_version}"
+				prefix="${project_name}-${project_version}" />
+		</tar>
+		<gzip zipfile="${file_src.tar.gz}" src="${file_src.tar}" />
+		<delete file="${file_src.tar}" />
+		<antcall target="checksum">
+			<param name="file" value="${file_src.tar.gz}" />
+		</antcall>
+	</target>
+
+	<target name="prepare.binaries" depends="jar.create" description="create distributable package">
+		<copy file="${project_home}/KEYS"
+			todir="${tmp_dir}/${project_name}-${project_version}" />
+		<copy file="${project_home}/README"
+			todir="${tmp_dir}/${project_name}-${project_version}" />
+		<copy file="${project_home}/COPYING"
+			todir="${tmp_dir}/${project_name}-${project_version}" />
+		<copy file="${project_home}/runme.sh"
+			todir="${tmp_dir}/${project_name}-${project_version}" />
+		<copy file="${project_home}/runme.bat"
+			todir="${tmp_dir}/${project_name}-${project_version}" />
+		<copy file="${project_home}/post_extract.sh"
+			todir="${tmp_dir}/${project_name}-${project_version}" />
+		<copy file="${project_home}/uninstall.sh"
+			todir="${tmp_dir}/${project_name}-${project_version}" />
+
+		<copy file="${jar_file}"
+			todir="${tmp_dir}/${project_name}-${project_version}/bin" />
+		<copy
+			todir="${tmp_dir}/${project_name}-${project_version}/lib">
+			<fileset dir="${project_home}/lib">
+				<exclude name="**/CVS" />
+				<exclude name="**/.svn" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="prepare.sources" depends="prepare.binaries" description="create distributable package">
 		<copy
 			todir="${tmp_dir}/${project_name}-${project_version}/lib">
 			<fileset dir="${project_home}/lib">
@@ -255,6 +337,22 @@
          </fileset>
       </copy>
 
+	      <copy
+	         todir="${tmp_dir}/${project_name}-${project_version}/xdg">
+	         <fileset dir="${project_home}/xdg">
+	            <exclude name="**/CVS" />
+				<exclude name="**/.svn" />
+	         </fileset>
+	      </copy>
+
+	      <copy
+	         todir="${tmp_dir}/${project_name}-${project_version}/icons">
+	         <fileset dir="${project_home}/icons">
+	            <exclude name="**/CVS" />
+				<exclude name="**/.svn" />
+	         </fileset>
+	      </copy>
+
 		<copy
 			todir="${tmp_dir}/${project_name}-${project_version}/lib">
 			<fileset dir="${project_home}/lib">
@@ -262,35 +360,8 @@
 				<exclude name="**/.svn" />
 			</fileset>
 		</copy>
-
-		<zip destfile="${file_src.zip}">
-			<zipfileset
-				dir="${tmp_dir}/${project_name}-${project_version}"
-				prefix="${project_name}-${project_version}" />
-		</zip>
-		<antcall target="checksum">
-			<param name="file" value="${file_src.zip}" />
-		</antcall>
-
-		<tar tarfile="${file_src.tar}">
-			<tarfileset
-				dir="${tmp_dir}/${project_name}-${project_version}"
-				prefix="${project_name}-${project_version}" />
-		</tar>
-		<gzip zipfile="${file_src.tar.gz}" src="${file_src.tar}" />
-		<delete file="${file_src.tar}" />
-		<antcall target="checksum">
-			<param name="file" value="${file_src.tar.gz}" />
-		</antcall>
 	</target>
-
-	<target name="dist" description="create distributable package">
-		<antcall target="dist.binaries" />
-		<antcall target="dist.sources" />
-		<antcall target="dist.izpack" />
-		<antcall target="dist.web" />
-	</target>
-
+	
         <target name="checksum">
                 <delete file="${file}.md5" />
                 <delete file="${file}.sha" />
@@ -335,8 +406,8 @@
 	</target>
 
 	<target name="info">
-		<echo>${izpack_home}</echo>		
+		<echo>${izpack_home}</echo>
+		<echo>${manifest.class.path}</echo>
 	</target>
 
 </project>
-

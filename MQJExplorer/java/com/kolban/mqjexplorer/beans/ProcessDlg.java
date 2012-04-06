@@ -15,9 +15,13 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import org.apache.log4j.Logger;
+
 public class ProcessDlg extends JDialog
 {
-    class IvjEventHandler
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+
+	class IvjEventHandler
         implements ActionListener
     {
 
@@ -188,7 +192,7 @@ public class ProcessDlg extends JDialog
         }
         catch(Exception exception)
         {
-            System.out.println("change: " + exception.toString());
+            logger.info("change: " + exception.toString());
         }
         pack();
         SwingUtils.setCenter(frame, this);
@@ -239,7 +243,7 @@ public class ProcessDlg extends JDialog
         }
         catch(Exception exception)
         {
-            System.out.println("change: " + exception.toString());
+            logger.info("change: " + exception.toString());
         }
         pack();
         SwingUtils.setCenter(frame, this);
@@ -262,7 +266,7 @@ public class ProcessDlg extends JDialog
         }
         catch(PCFException pcfexception)
         {
-            System.out.println("doChange: " + pcfexception.toString());
+            logger.info("doChange: " + pcfexception.toString());
             throw pcfexception;
         }
     }
@@ -283,7 +287,7 @@ public class ProcessDlg extends JDialog
         }
         catch(PCFException pcfexception)
         {
-            System.out.println("doChange: " + pcfexception.toString());
+            logger.info("doChange: " + pcfexception.toString());
             throw pcfexception;
         }
     }

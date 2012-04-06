@@ -12,9 +12,13 @@ import java.io.*;
 import java.util.*;
 import javax.swing.*;
 
+import org.apache.log4j.Logger;
+
 public class FileTail extends JFrame
     implements Runnable
 {
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+	
     class IvjEventHandler
         implements ActionListener, WindowListener
     {
@@ -120,7 +124,7 @@ public class FileTail extends JFrame
         }
         catch(Exception exception)
         {
-            System.out.println("Exception: " + exception.toString());
+            logger.info("Exception: " + exception.toString());
         }
         settings.font = getFileData().getFont();
         settings.fileNames.clear();
@@ -647,7 +651,7 @@ public class FileTail extends JFrame
         }
         catch(FileNotFoundException _ex)
         {
-            System.out.println("File not found!!!");
+            logger.info("File not found!!!");
             thread = null;
             reader = null;
             return;
@@ -696,7 +700,7 @@ public class FileTail extends JFrame
         }
         catch(IOException ioexception)
         {
-            System.out.println("Exception: " + ioexception.toString());
+            logger.info("Exception: " + ioexception.toString());
         }
     }
 

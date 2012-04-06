@@ -1,8 +1,22 @@
-// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
-// Jad home page: http://www.kpdus.com/jad.html
-// Decompiler options: packimports(3) 
-// Source File Name:   TableSorter.java
-
+/*
+ * Copyright (C) 2012 Marco Ratto
+ *
+ * This file is part of the project MQJExplorer.
+ *
+ * MQJExplorer is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * any later version.
+ *
+ * MQJExplorer is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with MQJExplorer; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
 package com.kolban.swing;
 
 import java.awt.event.*;
@@ -13,13 +27,17 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
+import org.apache.log4j.Logger;
+
 // Referenced classes of package com.kolban.swing:
 //            TableMap
 
 public class TableSorter extends TableMap
 {
 
-    public TableSorter()
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+
+	public TableSorter()
     {
         sortingColumns = new Vector();
         ascending = true;
@@ -45,7 +63,7 @@ public class TableSorter extends TableMap
                 TableColumnModel tablecolumnmodel = tableView.getColumnModel();
                 int i = tablecolumnmodel.getColumnIndexAtX(mouseevent.getX());
                 int j = tableView.convertColumnIndexToModel(i);
-                System.out.println("Mouse on header!");
+                logger.info("Mouse on header!");
                 if((mouseevent.getModifiers() & 8) != 0 && j != -1)
                 {
                     int k = mouseevent.getModifiers() & 1;

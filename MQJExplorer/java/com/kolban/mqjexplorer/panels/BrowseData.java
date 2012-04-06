@@ -5,20 +5,56 @@
 
 package com.kolban.mqjexplorer.panels;
 
-import com.ibm.mq.*;
-import com.kolban.mq.MQUtils;
-import com.kolban.utils.StringUtils;
-import com.kolban.xml.DOMTree;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.CardLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.LayoutManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.ByteArrayInputStream;
-import javax.swing.*;
+
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeCellRenderer;
+
+import org.apache.log4j.Logger;
 import org.apache.xerces.parsers.DOMParser;
 import org.xml.sax.InputSource;
 
+import com.ibm.mq.MQMD;
+import com.ibm.mq.MQMessage;
+import com.ibm.mq.MQQueueManager;
+import com.kolban.mq.MQUtils;
+import com.kolban.utils.StringUtils;
+import com.kolban.xml.DOMTree;
+
 public class BrowseData extends JPanel
 {
+	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
+	
     class XMLTreeCellRenderer extends DefaultTreeCellRenderer
     {
 
@@ -394,7 +430,7 @@ public class BrowseData extends JPanel
         if(mqmessage != null)
             setFromMessage(mqmessage, qMgr, qName, row);
         else
-            System.out.println("Failed to get message: " + row);
+            logger.info("Failed to get message: " + row);
     }
 
     private JButton getAllDataButton()
@@ -824,7 +860,7 @@ public class BrowseData extends JPanel
 
     private void handleException(Throwable throwable)
     {
-        System.out.println("--------- UNCAUGHT EXCEPTION ---------");
+        logger.info("--------- UNCAUGHT EXCEPTION ---------");
         throwable.printStackTrace(System.out);
     }
 
@@ -973,8 +1009,8 @@ public class BrowseData extends JPanel
         byte abyte0[] = new byte[1];
         String s1 = "";
         String s2 = "";
-        System.out.println("ScrollPane width: " + getTextScrollPane().getWidth());
-        System.out.println("Text width: " + getDataArea().getWidth());
+        logger.info("ScrollPane width: " + getTextScrollPane().getWidth());
+        logger.info("Text width: " + getDataArea().getWidth());
         try
         {
             FontMetrics fontmetrics = getDataArea().getFontMetrics(getDataArea().getFont());
@@ -1025,7 +1061,7 @@ public class BrowseData extends JPanel
         }
         catch(Exception _ex) { }
         getDataArea().setCaretPosition(0);
-        System.out.println("Text width: " + getDataArea().getWidth());
+        logger.info("Text width: " + getDataArea().getWidth());
     }
 
     private void setCharacterData(MQMessage mqmessage)
@@ -1097,7 +1133,7 @@ public class BrowseData extends JPanel
         }
         catch(Exception exception)
         {
-            System.out.println("Exception: XML: ->  " + exception.toString());
+            logger.info("Exception: XML: ->  " + exception.toString());
         }
     }
 
