@@ -548,7 +548,7 @@ public class SimpleSecurityExit extends JDialog implements MQSecurityExit
                 mqchannelexit.exitResponse = -4;
                 return abyte1;
             } catch(Exception e) {
-                logger.info("Exception: " + e.toString());
+                logger.error("Exception: " + e.toString());
                 e.printStackTrace();
             }
             mqchannelexit.exitResponse = -1;

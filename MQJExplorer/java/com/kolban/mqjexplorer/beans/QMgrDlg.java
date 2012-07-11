@@ -254,7 +254,7 @@ public class QMgrDlg extends JDialog
         }
         catch(Exception exception)
         {
-            logger.info("Exception: " + exception.toString());
+            logger.error("Exception: " + exception.toString());
         }
         SwingUtils.setCenter(MQJExplorer.mainFrame, this);
         setTitle(queuemanagermodel.getQueueManagerName() + " Properties");
@@ -581,7 +581,7 @@ public class QMgrDlg extends JDialog
         }
         catch(Exception exception)
         {
-            logger.info("Exception: " + exception.toString());
+            logger.error("Exception: " + exception.toString());
         }
         dispose();
     }

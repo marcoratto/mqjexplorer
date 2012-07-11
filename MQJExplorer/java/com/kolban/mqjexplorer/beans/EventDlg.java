@@ -150,7 +150,7 @@ public class EventDlg extends JDialog
                 switch(mqexception.reasonCode)
                 {
                 default:
-                    logger.info("Exception: " + mqexception.toString());
+                    logger.error("Exception: " + mqexception.toString());
                     finished = true;
                     break;
 
@@ -160,7 +160,7 @@ public class EventDlg extends JDialog
             }
             catch(IOException ioexception)
             {
-                logger.info("Exception: " + ioexception.toString());
+                logger.error("Exception: " + ioexception.toString());
                 finished = true;
             }
             if(flag)
@@ -904,7 +904,7 @@ public class EventDlg extends JDialog
         }
         catch(MQException mqexception)
         {
-            logger.info("Exception: " + mqexception.toString());
+            logger.error("Exception: " + mqexception.toString());
         }
     }
 

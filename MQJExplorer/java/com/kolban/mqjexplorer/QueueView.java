@@ -49,6 +49,7 @@ import javax.swing.JTable;
 import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 
 import org.apache.log4j.Logger;
@@ -76,6 +77,7 @@ import com.kolban.mqjexplorer.beans.PutTestMessage;
 import com.kolban.mqjexplorer.beans.QStatsDlg;
 import com.kolban.mqjexplorer.beans.ReadMessagesFromFile;
 import com.kolban.mqjexplorer.beans.WriteMessagesToFile;
+import com.kolban.mqjexplorer.guibeans.QFullBar;
 import com.kolban.mqjexplorer.guibeans.QFullBarTableRenderer;
 import com.kolban.mqjexplorer.utils.Filter;
 import com.kolban.swing.ColumnSelector2;
@@ -93,9 +95,12 @@ public class QueueView extends JPanel implements MQJExplorerView, ActionListener
 	public class SortedQueueListTableModel extends QueueListTableModel implements SortableTableModel {
 		
 		private void checkForChangedRows() {
+			logger.trace("checkForChangedRows()");
+			
 			int i = getRowCount();
 			if (indexes == null || i == indexes.length)
 				return;
+			
 			int ai[] = new int[i];
 			if (i > indexes.length) {
 				System.arraycopy(indexes, 0, ai, 0, indexes.length);
@@ -105,16 +110,19 @@ public class QueueView extends JPanel implements MQJExplorerView, ActionListener
 			} else {
 				System.arraycopy(indexes, 0, ai, 0, i);
 			}
-			indexes = ai;
+			indexes = ai;			
 		}
 
 		public int[] getIndexes() {
+			logger.trace("getIndexes()");
 			int i = getRowCount();
-			if (indexes != null && indexes.length == i)
+			if (indexes != null && indexes.length == i) {
 				return indexes;
+			}
 			indexes = new int[i];
-			for (int j = 0; j < i; j++)
+			for (int j = 0; j < i; j++) {			
 				indexes[j] = j;
+			}
 
 			return indexes;
 		}
@@ -122,20 +130,23 @@ public class QueueView extends JPanel implements MQJExplorerView, ActionListener
 		public Object getValueAt(int i, int j) {
 			int k = i;
 			checkForChangedRows();
-			if (indexes != null)
+			if (indexes != null) {
 				k = indexes[i];
+			}
 			return super.getValueAt(k, j);
 		}
 
 		public void setValueAt(Object obj, int i, int j) {
 			int k = i;
 			checkForChangedRows();
-			if (indexes != null)
+			if (indexes != null) {
 				k = indexes[i];
-			super.setValueAt(obj, k, j);
+			}
+			super.setValueAt(obj, k, j);		
 		}
 
 		public void sortByColumn(int i, boolean flag) {
+			logger.trace("sortByColumn()");
 			checkForChangedRows();
 			if (sorter == null) {
 				sorter = new TableSorter(this);				
@@ -210,6 +221,7 @@ public class QueueView extends JPanel implements MQJExplorerView, ActionListener
 	}
 
 	public QueueView() {
+		logger.trace("QueueView()");
 		lastFilePath = null;
 		profile = null;
 		ivjJMenuItem1 = null;
@@ -249,6 +261,7 @@ public class QueueView extends JPanel implements MQJExplorerView, ActionListener
 
 	public QueueView(LayoutManager layoutmanager) {
 		super(layoutmanager);
+		logger.trace("QueueView()");
 		lastFilePath = null;
 		profile = null;
 		ivjJMenuItem1 = null;
@@ -288,6 +301,7 @@ public class QueueView extends JPanel implements MQJExplorerView, ActionListener
 
 	public QueueView(LayoutManager layoutmanager, boolean flag) {
 		super(layoutmanager, flag);
+		logger.trace("QueueView()");
 		lastFilePath = null;
 		profile = null;
 		ivjJMenuItem1 = null;
@@ -327,6 +341,7 @@ public class QueueView extends JPanel implements MQJExplorerView, ActionListener
 
 	public QueueView(boolean flag) {
 		super(flag);
+		logger.trace("QueueView()");
 		lastFilePath = null;
 		profile = null;
 		ivjJMenuItem1 = null;
@@ -365,6 +380,7 @@ public class QueueView extends JPanel implements MQJExplorerView, ActionListener
 	}
 
 	public void actionPerformed(ActionEvent actionevent) {
+		logger.trace("actionPerformed()");
 		String s = actionevent.getActionCommand();
 		if (s.equals("refreshQueue")) {
 			refreshSelectedQueue();
@@ -480,6 +496,7 @@ public class QueueView extends JPanel implements MQJExplorerView, ActionListener
 	}
 
 	public void addToolBarButtons(JToolBar jtoolbar, Dimension dimension) {
+		logger.trace("addToolBarButtons()");
 		showLocalQueuesToggleButton = new JToggleButton(new ImageIcon(
 				getClass().getResource("/icons/localQueues.gif")));
 		showLocalQueuesToggleButton.setToolTipText("Local Queues");
@@ -558,6 +575,7 @@ public class QueueView extends JPanel implements MQJExplorerView, ActionListener
 	}
 
 	public void browse() {
+		logger.trace("browse()");
 		String s = getSelectedQueueName();
 		if (s == null)
 			return;
@@ -570,11 +588,12 @@ public class QueueView extends JPanel implements MQJExplorerView, ActionListener
 			SwingUtils.setCenter(MQJExplorer.mainFrame, messagelistdlg);
 			messagelistdlg.setVisible(true);
 		} catch (Exception exception) {
-			logger.info("Exception: " + exception.toString());
+			logger.error("Exception: " + exception.toString());
 		}
 	}
 
 	public void clearSelectedQueue() {
+		logger.trace("clearSelectedQueue()");
 		int i = table.getSelectedRow();
 		if (i < 0)
 			return;
@@ -782,7 +801,7 @@ public class QueueView extends JPanel implements MQJExplorerView, ActionListener
 			consumer.pack();
 			consumer.setVisible(true);
 		} catch (Exception exception) {
-			logger.info("Exception: " + exception.toString());
+			logger.error("Exception: " + exception.toString());
 		}
 	}
 
@@ -919,7 +938,7 @@ public class QueueView extends JPanel implements MQJExplorerView, ActionListener
 			mqqueue.setInhibitGet(i);
 			mqqueue.close();
 		} catch (MQException mqexception) {
-			logger.info("Exception while enabling queue: "
+			logger.error("Exception while enabling queue: "
 					+ mqexception.toString());
 		}
 		refreshSelectedQueue();
@@ -1416,6 +1435,7 @@ public class QueueView extends JPanel implements MQJExplorerView, ActionListener
 
 	public void handleMenuAction(ActionEvent actionevent) {
 		String s = actionevent.getActionCommand();
+		logger.trace("handleMenuAction()");
 		if (s.equals("refreshQueue")) {
 			refreshSelectedQueue();
 			return;
@@ -1528,7 +1548,7 @@ public class QueueView extends JPanel implements MQJExplorerView, ActionListener
 			depleteSelectedQueue();
 			return;
 		} else {
-			logger.info("** Uncaught command: " + s);
+			logger.info("Uncaught command: " + s);
 			return;
 		}
 	}
@@ -1544,7 +1564,7 @@ public class QueueView extends JPanel implements MQJExplorerView, ActionListener
         tableMetaData = new TableMetaData();
         tableMetaData.setTable(table);
         tableMetaData.synchronizeTable();
-        table.setAutoResizeMode(0);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
         table.setSelectionMode(0);
         table.setShowGrid(false);
         table.setPreferredScrollableViewportSize(new Dimension(500, 300));
@@ -1575,18 +1595,19 @@ public class QueueView extends JPanel implements MQJExplorerView, ActionListener
 		GridBagConstraints gridbagconstraints = new GridBagConstraints();
 		setLayout(gridbaglayout);
 		table = new JTable(new SortedQueueListTableModel());
-				
+						
 		TableColumnModel tablecolumnmodel = table.getColumnModel();
-		for (int i = 0; i < table.getColumnCount(); i++) {
+		for (int i = 0; i < table.getColumnCount(); i++) {						
 			tablecolumnmodel.getColumn(i).setHeaderRenderer(sortButtonRenderer);			
 		}
 
-		javax.swing.table.JTableHeader jtableheader = table.getTableHeader();
-		jtableheader.addMouseListener(new HeaderListener(jtableheader, sortButtonRenderer));		
+		JTableHeader jtableheader = table.getTableHeader();
+		jtableheader.addMouseListener(new HeaderListener(table, jtableheader, sortButtonRenderer));		
+		jtableheader.setReorderingAllowed(true);
 		
-		table.setDefaultRenderer(com.kolban.mqjexplorer.TextIcon.class, new TextIconRenderer());
+		table.setDefaultRenderer(TextIcon.class, new TextIconRenderer());
 		
-		table.setDefaultRenderer(com.kolban.mqjexplorer.guibeans.QFullBar.class,new QFullBarTableRenderer());
+		table.setDefaultRenderer(QFullBar.class, new QFullBarTableRenderer());
 
         tableMetaData = new TableMetaData();
         tableMetaData.setTable(table);
@@ -1607,13 +1628,13 @@ public class QueueView extends JPanel implements MQJExplorerView, ActionListener
 		gridbagconstraints.weighty = 1.0D;
 		add(jscrollpane, gridbagconstraints);
 		table.addKeyListener(new KeyAdapter() {
-
 			public void keyPressed(KeyEvent keyevent) {
 				if (keyevent.getKeyCode() == 116)
 					refreshSelectedQueue();
 			}
 
 		});
+
 		table.addMouseListener(new MouseAdapter() {
 
 			public void mouseClicked(MouseEvent mouseevent) {
@@ -1844,8 +1865,8 @@ public class QueueView extends JPanel implements MQJExplorerView, ActionListener
 				((SortedQueueListTableModel) table.getModel())
 						.fireTableDataChanged();
 			}
-		} catch (Exception exception) {
-			logger.info("setQueueManagerModel: " + exception.toString());
+		} catch (Exception e) {
+			logger.info(e.getMessage(), e);
 		}
 	}
 
@@ -1853,7 +1874,7 @@ public class QueueView extends JPanel implements MQJExplorerView, ActionListener
 		profile = profile1;
 		TableColumnModel tablecolumnmodel = table.getColumnModel();
 		for (int i = 0; i < table.getColumnCount(); i++) {
-			tablecolumnmodel.getColumn(i).setHeaderRenderer(sortButtonRenderer);
+			tablecolumnmodel.getColumn(i).setHeaderRenderer(sortButtonRenderer);			
 		}
 		profile1.getQueueViewTableMetaData().setTable(table);
 		profile1.getQueueViewTableMetaData().synchronizeTable();

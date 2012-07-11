@@ -70,7 +70,7 @@ public class MQUtils
         catch(MQException mqexception1)
         {
             mqmessage = null;
-            logger.info("Exception: " + mqexception1.toString());
+            logger.error("Exception: " + mqexception1.toString());
         }
         try
         {
@@ -183,7 +183,7 @@ public class MQUtils
         }
         catch(Exception exception1)
         {
-            logger.info("Exception: " + exception1.toString());
+        	logger.error("Exception: " + exception1.toString());
             exception = exception1;
         }
         if(mqqueue != null)
@@ -243,7 +243,7 @@ public class MQUtils
         }
         catch(Exception exception)
         {
-            logger.info("Exception writing MQMessage: " + exception.toString());
+        	logger.error("Exception writing MQMessage: " + exception.toString());
         }
     }
 
@@ -284,13 +284,13 @@ public class MQUtils
             catch(MQException mqexception)
             {
                 if(mqexception.reasonCode != 2033)
-                    logger.info("Exception: " + mqexception.toString());
+                	logger.error("Exception: " + mqexception.toString());
             }
             objectoutputstream.flush();
         }
         catch(Exception exception)
         {
-            logger.info("Exception: " + exception.toString());
+        	logger.error("Exception: " + exception.toString());
         }
         if(objectoutputstream != null)
             try

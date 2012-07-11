@@ -197,7 +197,7 @@ public class ProcessListModel
         }
         catch(Exception exception)
         {
-            logger.info("Exception (ProcessListModel::refreshAll): " + exception.toString());
+            logger.error("Exception (ProcessListModel::refreshAll): " + exception.toString());
         }
     }
 
@@ -255,7 +255,7 @@ public class ProcessListModel
         }
         catch(Exception exception)
         {
-            logger.info("Exception: " + exception.toString());
+            logger.error("Exception: " + exception.toString());
         }
     }
 

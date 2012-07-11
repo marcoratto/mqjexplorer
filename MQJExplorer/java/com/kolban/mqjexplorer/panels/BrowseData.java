@@ -1133,7 +1133,7 @@ public class BrowseData extends JPanel
         }
         catch(Exception exception)
         {
-            logger.info("Exception: XML: ->  " + exception.toString());
+            logger.error("Exception: XML: ->  " + exception.toString());
         }
     }
 

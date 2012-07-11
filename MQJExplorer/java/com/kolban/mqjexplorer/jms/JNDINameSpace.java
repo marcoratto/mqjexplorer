@@ -63,7 +63,7 @@ public class JNDINameSpace
                 catch(Exception _ex) { }
             context = null;
             JOptionPane.showMessageDialog(null, namingexception.getExplanation() + namingexception.getRootCause() == null ? "" : ((Object) (namingexception.getRootCause().getMessage())), "Connect error", 0);
-            logger.info("Exception: " + namingexception.toString());
+            logger.error("Exception: " + namingexception.toString());
         }
     }
 
@@ -189,7 +189,7 @@ public class JNDINameSpace
         }
         catch(Exception exception)
         {
-            logger.info("Exception: " + exception.toString());
+            logger.error("Exception: " + exception.toString());
         }
     }
 

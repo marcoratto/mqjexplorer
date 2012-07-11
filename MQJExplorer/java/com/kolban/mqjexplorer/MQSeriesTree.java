@@ -40,6 +40,7 @@ import javax.swing.event.*;
 import javax.swing.tree.*;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.chainsaw.Main;
 
 // Referenced classes of package com.kolban.mqjexplorer:
 //            MQJExplorer, QueueManagerModel, MQSeriesTreeListener
@@ -608,7 +609,7 @@ public class MQSeriesTree implements TreeSelectionListener, MouseListener,Action
 			} while (true);
 		} catch (EOFException _ex) {
 		} catch (Exception exception) {
-			logger.info("Exception " + exception.toString());
+			logger.error("Exception " + exception.toString());
 		}
 		try {
 			objectinputstream.close();
@@ -886,13 +887,11 @@ public class MQSeriesTree implements TreeSelectionListener, MouseListener,Action
 				.getLastPathComponent();
 		if (mqjexplorernode.getType() != 2)
 			return;
-		boolean flag = selectQueueManager(mqjexplorernode
-				.getQueueManagerModel().isLocal(), mqjexplorernode
-				.getQueueManagerModel().getQueueManagerName(), mqjexplorernode
-				.getQueueManagerModel().getHostName()
-				+ "("
-				+ mqjexplorernode.getQueueManagerModel().getPort() + ")",
-				mqjexplorernode.getQueueManagerModel().getChannel());
+		boolean flag = selectQueueManager(mqjexplorernode.getQueueManagerModel().isLocal(), 
+				mqjexplorernode.getQueueManagerModel().getQueueManagerName(), 
+				mqjexplorernode.getQueueManagerModel().getHostName() + "(" + mqjexplorernode.getQueueManagerModel().getPort() + ")",
+				mqjexplorernode.getQueueManagerModel().getChannel(),
+				mqjexplorernode.getQueueManagerModel().getQueueManagerType());
 		if (flag)
 			removeSelectedQueueManager();
 	}
@@ -1019,19 +1018,25 @@ public class MQSeriesTree implements TreeSelectionListener, MouseListener,Action
 			objectoutputstream.flush();
 			fileoutputstream.close();
 		} catch (Exception exception) {
-			logger.info("Exception " + exception.toString());
+			logger.error("Exception " + exception.toString());
 		}
 	}
 
-	public boolean selectQueueManager(boolean flag, String s, String s1, String s2) {
+	public boolean selectQueueManager(boolean flag, 
+			String queueManagerName, 
+			String connectionName, 
+			String channelName, 
+			String queueManagerType) {
+		
 		ShowQueueManager showqueuemanager = new ShowQueueManager(
 				MQJExplorer.mainFrame);
 		showqueuemanager.pack();
-		if (s != null) {
+		if (queueManagerName != null) {
 			showqueuemanager.setLocal(flag);
-			showqueuemanager.setQueueManagerName(s);
-			showqueuemanager.setConnectionName(s1);
-			showqueuemanager.setChannelName(s2);
+			showqueuemanager.setQueueManagerName(queueManagerName);
+			showqueuemanager.setConnectionName(connectionName);
+			showqueuemanager.setChannelName(channelName);
+			showqueuemanager.setQueueManagerType(queueManagerType);
 		}
 		SwingUtils.setCenter(MQJExplorer.mainFrame, showqueuemanager);
 		showqueuemanager.setVisible(true);
@@ -1043,13 +1048,13 @@ public class MQSeriesTree implements TreeSelectionListener, MouseListener,Action
 					.getQueueManagerName());
 		} else {			
 			queuemanagermodel.setChannel(showqueuemanager.getChannelName());
-			queuemanagermodel.setQueueManagerName(showqueuemanager
-					.getQueueManagerName());
+			queuemanagermodel.setQueueManagerName(showqueuemanager.getQueueManagerName());
+			queuemanagermodel.setQueueManagerType(showqueuemanager.getQueueManagerType());
 			try {
 				queuemanagermodel.parseConnectionString(showqueuemanager
 						.getConnectionName());
 			} catch (Exception exception) {
-				logger.info("Exception: " + exception.toString());
+				logger.error("Exception: " + exception.toString());
 				return false;
 			}
 		}

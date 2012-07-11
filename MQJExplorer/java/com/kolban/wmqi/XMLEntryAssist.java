@@ -568,7 +568,7 @@ public class XMLEntryAssist extends JDialog
         }
         catch(Exception exception)
         {
-            logger.info("Exception from parse(): " + exception.toString());
+            logger.error("Exception from parse(): " + exception.toString());
             return false;
         }
         setDocument(domparser.getDocument());

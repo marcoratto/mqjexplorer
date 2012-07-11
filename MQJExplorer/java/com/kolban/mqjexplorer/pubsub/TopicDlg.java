@@ -790,7 +790,7 @@ public class TopicDlg extends JDialog
                 tablecolumnmodel.getColumn(i).setHeaderRenderer(sortButtonRenderer);
 
             javax.swing.table.JTableHeader jtableheader = getTable().getTableHeader();
-            jtableheader.addMouseListener(new HeaderListener(jtableheader, sortButtonRenderer));
+            jtableheader.addMouseListener(new HeaderListener(this.ivjTable, jtableheader, sortButtonRenderer));
             getTable().getSelectionModel().setSelectionMode(0);
             setName("TopicDlg");
             setDefaultCloseOperation(0);
@@ -955,16 +955,5 @@ public class TopicDlg extends JDialog
     private JMenuItem ivjJMenuItem2;
     private JSeparator ivjJSeparator1;
     private SortButtonRenderer sortButtonRenderer;
-
-
-
-
-
-
-
-
-
-
-
 
 }

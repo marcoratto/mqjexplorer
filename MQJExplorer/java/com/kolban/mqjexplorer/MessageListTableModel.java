@@ -296,8 +296,8 @@ public class MessageListTableModel extends AbstractTableModel {
 							throw mqexception2;
 					}
 
-				while (i < Configuration.getInstance()
-						.getMaxMessagesForBrowsing()) {
+				// TODO: while (i < mqqueue.getCurrentDepth()) {
+				while (i < Configuration.getInstance().getMaxMessagesForBrowsing()) {				
 					MQMessage mqmessage1 = new MQMessage();
 					try {
 						i++;
@@ -315,7 +315,7 @@ public class MessageListTableModel extends AbstractTableModel {
 			}
 			mqqueue.close();
 		} catch (Exception exception) {
-			logger.info("Exception: " + exception.toString());
+			logger.error("Exception: " + exception.toString());
 		}
 		fireTableDataChanged();
 	}

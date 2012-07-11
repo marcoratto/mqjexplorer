@@ -80,7 +80,7 @@ public class StringUtils
             }
             catch(NumberFormatException numberformatexception)
             {
-                logger.info("Exception: " + numberformatexception.toString() + " at " + j * 2 + " for 2");
+                logger.error("Exception: " + numberformatexception.toString() + " at " + j * 2 + " for 2");
             }
 
         return abyte0;

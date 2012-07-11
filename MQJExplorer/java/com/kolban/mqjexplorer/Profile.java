@@ -213,11 +213,16 @@ public class Profile {
 					   int port = Integer.parseInt(XMLUtils.getTagValue("Port", eElement));
 					   String channel = XMLUtils.getTagValue("Channel", eElement);
 					   
+					   String queueManagerType = XMLUtils.getTagValue("QueueManagerType", eElement);
+					   if ((queueManagerType == null) || (queueManagerType.trim().length() == 0)){
+						   queueManagerType = "D";
+					   }					   
 					   queueManagerModel = new QueueManagerModel();
 					   queueManagerModel.setHostName(hostname);
   					   queueManagerModel.setPort(port);
 					   queueManagerModel.setQueueManagerName(queueManagerName);
 					   queueManagerModel.setChannel(channel);
+					   queueManagerModel.setQueueManagerType(queueManagerType);
 					   tree.addQueueManager(queueManagerModel);					   
 				   }
 			}	 
@@ -270,6 +275,13 @@ public class Profile {
 						String hostName = queueManagerModel.getHostName();
 						int port = queueManagerModel.getPort();
 						String channel = queueManagerModel.getChannel();
+						String queueManagerType = queueManagerModel.getQueueManagerType();
+						
+						if ((queueManagerType == null) || 
+							(queueManagerType.trim().length() == 0)) {
+							queueManagerType = "D";
+							logger.info("queueManagerType forced to " + queueManagerType);
+						}
 						
 						boolean local = queueManagerModel.isLocal();
 						
@@ -277,16 +289,22 @@ public class Profile {
 						hostnameElement.setTextContent(hostName);
 						Element portElement = doc.createElement("Port");
 						portElement.setTextContent("" + port);
+
 						Element queueManagerNameElement = doc.createElement("QueueManagerName");
 						queueManagerNameElement.setTextContent(queueManagerName);
+						
 						Element channelElement = doc.createElement("Channel");
 						channelElement.setTextContent(channel);
-						
+
+						Element queueManagerTypeElement = doc.createElement("QueueManagerType");
+						queueManagerTypeElement.setTextContent(queueManagerType);
+
 						Element queueManagerElement = doc.createElement("QueueManager");						
 						queueManagerElement.appendChild(hostnameElement);
 						queueManagerElement.appendChild(portElement);						
 						queueManagerElement.appendChild(queueManagerNameElement);
 						queueManagerElement.appendChild(channelElement);
+						queueManagerElement.appendChild(queueManagerTypeElement);
 						queueManagersElement.appendChild(queueManagerElement);
 					}
 				}

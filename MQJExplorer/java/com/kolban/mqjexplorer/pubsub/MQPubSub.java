@@ -60,7 +60,7 @@ public class MQPubSub
         }
         catch(MQException mqexception)
         {
-            logger.info("Exception: " + mqexception.toString());
+            logger.error("Exception: " + mqexception.toString());
             pubsuberror = new PubSubError(mqexception);
         }
         if(mqqueue != null)

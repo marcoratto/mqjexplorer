@@ -67,11 +67,6 @@ import com.kolban.swing.SwingUtils;
 import com.kolban.utils.TeeOutStreams;
 import com.kolban.wmqi.XMLEntryAssist;
 
-// Referenced classes of package com.kolban.mqjexplorer:
-//            MQSeriesTreeListener, MQJExplorerView, QueueView, ProcessView, 
-//            Help, Profile, MQSeriesTree, ChannelView, 
-//            NamelistView, SplashView, Splash, QueueManagerModel
-
 public class MQJExplorer extends JFrame implements MQSeriesTreeListener {
 
 	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
@@ -112,7 +107,7 @@ public class MQJExplorer extends JFrame implements MQSeriesTreeListener {
 	}
 
 	public MQJExplorer() {
-		logger.trace("MQJExplorer.MQJExplorer():start");
+		logger.trace("MQJExplorer()");
 
 		queueView = null;
 		processView = null;
@@ -147,11 +142,10 @@ public class MQJExplorer extends JFrame implements MQSeriesTreeListener {
 		ivjToolBar = null;
 		ivjJMenuItem7 = null;
 		initialize();
-
-		logger.trace("MQJExplorer.MQJExplorer():end");
 	}
 
 	public void about() {
+		logger.trace("about()");
 		AboutDlg aboutdlg = new AboutDlg();
 		aboutdlg.pack();
 		SwingUtils.setCenter(this, aboutdlg);
@@ -288,7 +282,7 @@ public class MQJExplorer extends JFrame implements MQSeriesTreeListener {
 	}
 
 	public void exit() {
-		logger.info("Program ending ...");
+		logger.trace("exit()");
 		MQEnvironment.removeConnectionPoolToken(mqPoolToken);
 		System.exit(0);
 	}
@@ -863,6 +857,7 @@ public class MQJExplorer extends JFrame implements MQSeriesTreeListener {
 	}
 
 	public void showQueueManager() {
+		logger.trace("showQueueManager()");
 		ShowQueueManager showqueuemanager = new ShowQueueManager(mainFrame);
 		showqueuemanager.pack();
 		SwingUtils.setCenter(this, showqueuemanager);
@@ -881,7 +876,7 @@ public class MQJExplorer extends JFrame implements MQSeriesTreeListener {
 				queuemanagermodel.parseConnectionString(showqueuemanager
 						.getConnectionName());
 			} catch (Exception exception) {
-				logger.info("Exception: " + exception.toString());
+				logger.error("Exception: " + exception.toString());
 				return;
 			}
 		}
@@ -891,6 +886,11 @@ public class MQJExplorer extends JFrame implements MQSeriesTreeListener {
 			} catch (MQException _ex) {
 			}
 		mqseriesTree.addQueueManager(queuemanagermodel);
+		try {
+			save();
+		} catch (Throwable throwable) {
+			handleException(throwable);
+		}
 	}
 
 	public void tailFile() {

@@ -169,7 +169,7 @@ public class NamelistListModel
         }
         catch(Exception exception)
         {
-            logger.info("Exception: NamelistListModel::getValueAt(): " + exception.toString());
+            logger.error("Exception: NamelistListModel::getValueAt(): " + exception.toString());
             return "";
         }
         return "Cell(" + Integer.toString(i) + "," + s + ")";
@@ -187,7 +187,7 @@ public class NamelistListModel
         }
         catch(Exception exception)
         {
-            logger.info("Exception (NameListListModel::refreshAll): " + exception.toString());
+            logger.error("Exception (NameListListModel::refreshAll): " + exception.toString());
         }
     }
 
@@ -241,7 +241,7 @@ public class NamelistListModel
         }
         catch(Exception exception)
         {
-            logger.info("Exception: " + exception.toString());
+            logger.error("Exception: " + exception.toString());
         }
     }
 

@@ -1352,7 +1352,7 @@ public class QStatsDlg extends JDialog
         }
         catch(Exception exception)
         {
-            logger.info("Exception: " + exception.toString());
+            logger.error("Exception: " + exception.toString());
         }
         getLastUpdatedTime().setText(simpleDateFormat.format(new Date()));
         getStop().setIcon(yellowBall);
