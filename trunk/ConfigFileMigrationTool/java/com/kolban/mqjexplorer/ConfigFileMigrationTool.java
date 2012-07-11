@@ -107,12 +107,15 @@ public class ConfigFileMigrationTool {
 						queueManagerNameElement.setTextContent(queueManagerName);
 						Element channelElement = doc.createElement("Channel");
 						channelElement.setTextContent(channel);
+						Element queueManagerTypeElement = doc.createElement("QueueManagerType");
+						queueManagerTypeElement.setTextContent("D");
 						
 						Element queueManagerElement = doc.createElement("QueueManager");						
 						queueManagerElement.appendChild(hostnameElement);
 						queueManagerElement.appendChild(portElement);						
 						queueManagerElement.appendChild(queueManagerNameElement);
 						queueManagerElement.appendChild(channelElement);
+						queueManagerElement.appendChild(queueManagerTypeElement);
 						queueManagersElement.appendChild(queueManagerElement);
 						
 					}
