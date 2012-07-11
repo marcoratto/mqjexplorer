@@ -98,7 +98,7 @@ public class PubSubQuery
             }
             catch(Exception exception)
             {
-                logger.info("Exception: " + exception.toString());
+                logger.error("Exception: " + exception.toString());
             }
         }
         mqrfh.reset();
@@ -214,7 +214,7 @@ public class PubSubQuery
             }
             catch(Exception exception)
             {
-                logger.info("Exception: " + exception.toString());
+                logger.error("Exception: " + exception.toString());
             }
         }
         mqrfh.reset();
@@ -314,7 +314,7 @@ public class PubSubQuery
         }
         catch(MQException mqexception)
         {
-            logger.info("Exception: " + mqexception.toString());
+            logger.error("Exception: " + mqexception.toString());
             close();
         }
     }

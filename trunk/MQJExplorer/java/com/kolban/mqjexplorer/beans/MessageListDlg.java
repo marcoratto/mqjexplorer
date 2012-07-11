@@ -854,7 +854,7 @@ public class MessageListDlg extends JDialog {
 			mqqueue.get(mqmessage1, mqgetmessageoptions);
 			getMessageListTableModel().removeMessage(i);
 		} catch (MQException mqexception) {
-			logger.info("Exception: " + mqexception.toString());
+			logger.error("Exception: " + mqexception.toString());
 		}
 		if (mqqueue != null)
 			try {

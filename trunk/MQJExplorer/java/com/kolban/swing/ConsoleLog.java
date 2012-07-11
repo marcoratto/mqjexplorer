@@ -476,7 +476,7 @@ public class ConsoleLog extends JFrame
             }
             catch(Exception exception)
             {
-                logger.info("Exception::save:: " + exception.toString());
+                logger.error("Exception::save:: " + exception.toString());
             }
     }
 

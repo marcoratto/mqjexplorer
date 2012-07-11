@@ -334,7 +334,7 @@ public class RegisterSubscriberDlg extends JDialog
         }
         catch(Exception exception)
         {
-            logger.info("Exception: " + exception.toString());
+            logger.error("Exception: " + exception.toString());
             return false;
         }
         return true;

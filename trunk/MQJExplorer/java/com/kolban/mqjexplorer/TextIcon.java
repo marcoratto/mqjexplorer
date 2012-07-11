@@ -6,41 +6,38 @@
 package com.kolban.mqjexplorer;
 
 import javax.swing.Icon;
+import javax.swing.JLabel;
 
-public class TextIcon
-    implements Comparable
-{
+public class TextIcon extends JLabel implements Comparable {
 
-    public TextIcon()
-    {
-    }
+	public TextIcon() {
+	}
 
-    public Icon getIcon()
-    {
-        return icon;
-    }
+	public Icon getIcon() {
+		return icon;
+	}
 
-    public String getText()
-    {
-        return text;
-    }
+	public String getText() {
+		return text;
+	}
 
-    public void setIcon(Icon icon1)
-    {
-        icon = icon1;
-    }
+	public void setIcon(Icon icon1) {
+		icon = icon1;
+	}
 
-    public void setText(String s)
-    {
-        text = s;
-    }
+	public void setText(String s) {
+		text = s;		
+	}
 
-    public int compareTo(Object obj)
-    {
-        TextIcon texticon = (TextIcon)obj;
-        return getText().compareTo(texticon.getText());
-    }
+	public int compareTo(Object obj) {
+		TextIcon texticon = (TextIcon) obj;
+		return getText().compareTo(texticon.getText());
+	}
+	
+	public String toString() {
+		return this.text;
+	}
 
-    private String text;
-    private Icon icon;
+	private String text;
+	private Icon icon;
 }

@@ -1191,7 +1191,7 @@ public class WASTopicConnectionFactoryDlg extends JDialog
         }
         catch(Exception exception)
         {
-            logger.info("Exception: " + exception.toString());
+            logger.error("Exception: " + exception.toString());
         }
         dispose();
     }

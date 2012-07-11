@@ -2135,9 +2135,9 @@ public class ChannelDlg extends JDialog {
 			dispose();
 		} catch (MQException mqexception) {
 			displayError(mqexception);
-			logger.info("Exception (handled) " + mqexception.toString());
+			logger.error("Exception (handled) " + mqexception.toString());
 		} catch (Exception exception) {
-			logger.info("Exception!! " + exception.toString());
+			logger.error("Exception!! " + exception.toString());
 		}
 	}
 

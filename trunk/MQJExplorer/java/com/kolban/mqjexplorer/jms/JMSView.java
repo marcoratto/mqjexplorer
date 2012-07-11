@@ -277,7 +277,7 @@ public class JMSView extends JPanel
         }
         catch(Exception exception)
         {
-            logger.info("Exception: " + exception.toString());
+            logger.error("Exception: " + exception.toString());
         }
     }
 
@@ -301,7 +301,7 @@ public class JMSView extends JPanel
         }
         catch(Exception exception)
         {
-            logger.info("Exception: " + exception.toString());
+            logger.error("Exception: " + exception.toString());
         }
     }
 
@@ -325,7 +325,7 @@ public class JMSView extends JPanel
         }
         catch(Exception exception)
         {
-            logger.info("Exception: " + exception.toString());
+            logger.error("Exception: " + exception.toString());
         }
     }
 
@@ -349,7 +349,7 @@ public class JMSView extends JPanel
         }
         catch(Exception exception)
         {
-            logger.info("Exception: " + exception.toString());
+            logger.error("Exception: " + exception.toString());
         }
     }
 
@@ -368,7 +368,7 @@ public class JMSView extends JPanel
         }
         catch(Exception exception)
         {
-            logger.info("Exception: " + exception.toString());
+            logger.error("Exception: " + exception.toString());
         }
     }
 
@@ -612,7 +612,7 @@ public class JMSView extends JPanel
                 }
                 catch(Exception exception)
                 {
-                    logger.info("Exception: " + exception.toString());
+                    logger.error("Exception: " + exception.toString());
                 }
             }
         }
@@ -636,7 +636,7 @@ public class JMSView extends JPanel
                 }
                 catch(Exception exception1)
                 {
-                    logger.info("Exception: " + exception1.toString());
+                    logger.error("Exception: " + exception1.toString());
                 }
             }
         }
@@ -660,7 +660,7 @@ public class JMSView extends JPanel
                 }
                 catch(Exception exception2)
                 {
-                    logger.info("Exception: " + exception2.toString());
+                    logger.error("Exception: " + exception2.toString());
                 }
             }
         }
@@ -684,7 +684,7 @@ public class JMSView extends JPanel
                 }
                 catch(Exception exception3)
                 {
-                    logger.info("Exception: " + exception3.toString());
+                    logger.error("Exception: " + exception3.toString());
                 }
             }
         }
@@ -708,7 +708,7 @@ public class JMSView extends JPanel
                 }
                 catch(Exception exception4)
                 {
-                    logger.info("Exception: " + exception4.toString());
+                    logger.error("Exception: " + exception4.toString());
                 }
             }
         }
@@ -732,7 +732,7 @@ public class JMSView extends JPanel
                 }
                 catch(Exception exception5)
                 {
-                    logger.info("Exception: " + exception5.toString());
+                    logger.error("Exception: " + exception5.toString());
                 }
             }
         }
@@ -756,7 +756,7 @@ public class JMSView extends JPanel
                 }
                 catch(Exception exception6)
                 {
-                    logger.info("Exception: " + exception6.toString());
+                    logger.error("Exception: " + exception6.toString());
                 }
             }
         }
@@ -780,7 +780,7 @@ public class JMSView extends JPanel
                 }
                 catch(Exception exception7)
                 {
-                    logger.info("Exception: " + exception7.toString());
+                    logger.error("Exception: " + exception7.toString());
                 }
             }
         }
@@ -837,7 +837,7 @@ public class JMSView extends JPanel
         }
         catch(Exception exception)
         {
-            logger.info("Exception: " + exception.toString());
+            logger.error("Exception: " + exception.toString());
         }
     }
 
@@ -861,7 +861,7 @@ public class JMSView extends JPanel
         }
         catch(Exception exception)
         {
-            logger.info("Exception: " + exception.toString());
+            logger.error("Exception: " + exception.toString());
         }
     }
 
@@ -885,7 +885,7 @@ public class JMSView extends JPanel
         }
         catch(Exception exception)
         {
-            logger.info("Exception: " + exception.toString());
+            logger.error("Exception: " + exception.toString());
         }
     }
 
@@ -909,7 +909,7 @@ public class JMSView extends JPanel
         }
         catch(Exception exception)
         {
-            logger.info("Exception: " + exception.toString());
+            logger.error("Exception: " + exception.toString());
         }
     }
 

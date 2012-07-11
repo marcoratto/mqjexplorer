@@ -46,7 +46,7 @@ public class Project
         }
         catch(IOException ioexception)
         {
-            logger.info("Exception: " + ioexception.toString());
+            logger.error("Exception: " + ioexception.toString());
         }
     }
 
@@ -92,7 +92,7 @@ public class Project
         }
         catch(IOException ioexception)
         {
-            logger.info("Exception: " + ioexception.toString());
+            logger.error("Exception: " + ioexception.toString());
         }
     }
 
@@ -131,7 +131,7 @@ public class Project
         }
         catch(IOException ioexception)
         {
-            logger.info("Exception: " + ioexception.toString());
+            logger.error("Exception: " + ioexception.toString());
         }
     }
 
@@ -165,7 +165,7 @@ public class Project
         }
         catch(Exception exception)
         {
-            logger.info("Exception: " + exception.toString());
+            logger.error("Exception: " + exception.toString());
         }
         try
         {
@@ -189,7 +189,7 @@ public class Project
         }
         catch(IOException ioexception)
         {
-            logger.info("Exception: " + ioexception.toString());
+            logger.error("Exception: " + ioexception.toString());
         }
         return null;
     }

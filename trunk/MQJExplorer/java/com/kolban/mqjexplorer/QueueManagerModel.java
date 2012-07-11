@@ -19,10 +19,7 @@
  */
 package com.kolban.mqjexplorer;
 
-import java.io.Externalizable;
 import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectOutput;
 import java.util.Properties;
 
 import javax.swing.JOptionPane;
@@ -40,15 +37,12 @@ import com.kolban.mq.PCFUtils;
 import com.kolban.mq.SimpleSecurityExit;
 import com.kolban.mqjexplorer.beans.QMgrDlg;
 
-// Referenced classes of package com.kolban.mqjexplorer:
-//            QueueListModel, ProcessListModel, ChannelListModel, NamelistListModel, 
-//            MQJExplorer
-
-public class QueueManagerModel implements Externalizable {
+public class QueueManagerModel {
 
 	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
 
 	public QueueManagerModel() {
+		logger.trace("QueueManagerModel()");
 		agent = null;
 		queueManagerName = null;
 		hostName = "";
@@ -69,6 +63,7 @@ public class QueueManagerModel implements Externalizable {
 	}
 
 	public void connect() throws MQException {
+		logger.trace("connect()");
 		// TODO: Change for Mainframe connection
 		Properties properties = new Properties();
 		properties.put("hostname", hostName);
@@ -127,7 +122,7 @@ public class QueueManagerModel implements Externalizable {
 				queueManager = null;
 			}
 		} catch (Exception exception) {
-			logger.info("Exception: " + exception.toString());
+			logger.error("Exception: " + exception.toString());
 		}
 	}
 
@@ -204,7 +199,7 @@ public class QueueManagerModel implements Externalizable {
 		try {
 			pcfmessageagent.send(pcfmessage);
 		} catch (IOException ioexception) {
-			logger.info("executePCF: " + ioexception.toString());
+			logger.error("executePCF: " + ioexception.toString());
 		}
 	}
 
@@ -259,7 +254,7 @@ public class QueueManagerModel implements Externalizable {
 			// properties);
 		} catch (MQException mqexception) {
 			mqexception.printStackTrace();
-			logger.info("Failed to connect to queue manager: "
+			logger.error("Failed to connect to queue manager: "
 					+ mqexception.toString());
 			mqqueuemanager = null;
 			throw mqexception;
@@ -376,39 +371,24 @@ public class QueueManagerModel implements Externalizable {
 		}
 	}
 
-	public void readExternal(ObjectInput objectinput) throws IOException {
-		try {
-			queueManagerName = (String) objectinput.readObject();
-			hostName = (String) objectinput.readObject();
-			port = objectinput.readInt();
-			queueListModel.setShowSystemQueues(objectinput.readBoolean());
-			queueListModel.setShowAliasQueues(objectinput.readBoolean());
-			queueListModel.setShowLocalQueues(objectinput.readBoolean());
-			queueListModel.setShowModelQueues(objectinput.readBoolean());
-			queueListModel.setShowRemoteQueues(objectinput.readBoolean());
-			queueListModel.setShowTempQueues(objectinput.readBoolean());
-			try {
-				if (isLocal())
-					connect();
-			} catch (MQException _ex) {
-			}
-		} catch (ClassNotFoundException classnotfoundexception) {
-			logger.info("Exception: "
-					+ classnotfoundexception.toString());
-		}
-	}
-
 	public void refreshQMgrProperties() {
 		try {
-			logger.info("** Refreshing queue manager --");
+			logger.info("Refreshing queue manager");
 			PCFMessage pcfmessage = new PCFMessage(2);
 			int ai[] = { 1009 };
 			pcfmessage.addParameter(1001, ai);
 			responses = agent.send(pcfmessage);
 		} catch (Exception exception) {
-			logger.info("Exception (QueueManagerModel::refresh): "
-					+ exception.toString());
+			logger.error("Exception (QueueManagerModel::refresh): " + exception.toString());
 		}
+	}
+
+	public String getQueueManagerType() {
+		return queueManagerType;
+	}
+
+	public void setQueueManagerType(String queueManagerType) {
+		this.queueManagerType = queueManagerType;
 	}
 
 	public void setChannel(String s) {
@@ -465,20 +445,9 @@ public class QueueManagerModel implements Externalizable {
 			return queueManagerName;
 	}
 
-	public void writeExternal(ObjectOutput objectoutput) throws IOException {
-		objectoutput.writeObject(queueManagerName);
-		objectoutput.writeObject(hostName);
-		objectoutput.writeInt(port);
-		objectoutput.writeBoolean(queueListModel.isShowSystemQueues());
-		objectoutput.writeBoolean(queueListModel.isShowAliasQueues());
-		objectoutput.writeBoolean(queueListModel.isShowLocalQueues());
-		objectoutput.writeBoolean(queueListModel.isShowModelQueues());
-		objectoutput.writeBoolean(queueListModel.isShowRemoteQueues());
-		objectoutput.writeBoolean(queueListModel.isShowTempQueues());
-	}
-
 	private transient PCFMessageAgent agent;
 	private String queueManagerName;
+	private String queueManagerType;
 	private String hostName;
 	private String channel;
 	private final int DEFAULT_PORT = 1414;
