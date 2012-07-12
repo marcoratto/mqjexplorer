@@ -20,19 +20,40 @@ public class ShowQueueManager extends JDialog {
 	
 	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
 	
-	class IvjEventHandler implements ActionListener, ItemListener,
-			PropertyChangeListener, DocumentListener {
+	class IvjEventHandler implements ActionListener, ItemListener, PropertyChangeListener, DocumentListener {
 
 		public void actionPerformed(ActionEvent actionevent) {
-			if (actionevent.getSource() == getCancel())
+			logger.info("ActionCommand is " + actionevent.getActionCommand());
+			logger.info("ID is " + actionevent.getID());
+			if (actionevent.getSource() == getCancel()) {
+				logger.info("Button Cancel");
 				connEtoC1(actionevent);
-			if (actionevent.getSource() == getOK())
+				return;
+			} 
+			if (actionevent.getSource() == getOK()) {
+				logger.info("Button OK");
 				connEtoC2(actionevent);
+				return;
+			} 
 			if (actionevent.getSource() == remoteMainframeRadioButton) {
+				logger.info("Radio Button Mainframe");
 				queueManagerType = "M";
-			}
+				return;
+			} 
 			if (actionevent.getSource() == remoteDistributedRadioButton) {
+				logger.info("Radio Button Distributed");
 				queueManagerType = "D";
+				return;
+			} 
+			if (actionevent.getSource() == defaultChannelButton) {	
+				logger.info("Button Default Channel");
+				if (remoteMainframeRadioButton.isSelected()) {
+					logger.info("Radio Button Mainframe");
+					setChannelName("SYSTEM.DEF.SVRCONN");
+				} else if (remoteDistributedRadioButton.isSelected()) {
+					logger.info("Radio Button Distributed");
+					setChannelName("SYSTEM.ADMIN.SVRCONN");
+				}
 			}
 		}
 
@@ -56,12 +77,15 @@ public class ShowQueueManager extends JDialog {
 
 		public void itemStateChanged(ItemEvent itemevent) {
 			if (itemevent.getSource() == getShowLocalRadioButton()) {
+				local = true;
 				connEtoM1(itemevent);		
 				connEtoM6(itemevent);			
 				connEtoC6(itemevent);
+				setChannelName("");
 			}
 			
-			if (itemevent.getSource() == getShowRemoteRadioButton()) {
+			if (itemevent.getSource() == getShowRemoteRadioButton()) {				
+				local = false;
 				connEtoM2(itemevent);
 				connEtoM3(itemevent);
 				connEtoM4(itemevent);
@@ -136,6 +160,7 @@ public class ShowQueueManager extends JDialog {
 		ivjBannerIcon = null;
 		ivjJPanel1 = null;
 		ivjJSeparator2 = null;
+		defaultChannelButton = null;
 		initialize();
 	}
 
@@ -544,6 +569,7 @@ public class ShowQueueManager extends JDialog {
 	private void connEtoM8(ItemEvent itemevent) {
 		try {
 			getRemoteChannelName().setEnabled(getShowRemoteRadioButton().isSelected());
+			getDefaultChannelButton().setEnabled(getShowRemoteRadioButton().isSelected());
 		} catch (Throwable throwable) {
 			handleException(throwable);
 		}
@@ -569,8 +595,7 @@ public class ShowQueueManager extends JDialog {
 			if (!ivjConnPtoP1Aligning) {
 				ivjConnPtoP1Aligning = true;
 				if (getLocalQueueManagerDocument() != null)
-					getLocalQueueManagerName().setDocument(
-							getLocalQueueManagerDocument());
+					getLocalQueueManagerName().setDocument(getLocalQueueManagerDocument());
 				ivjConnPtoP1Aligning = false;
 			}
 		} catch (Throwable throwable) {
@@ -583,8 +608,7 @@ public class ShowQueueManager extends JDialog {
 		try {
 			if (!ivjConnPtoP1Aligning) {
 				ivjConnPtoP1Aligning = true;
-				setLocalQueueManagerDocument(getLocalQueueManagerName()
-						.getDocument());
+				setLocalQueueManagerDocument(getLocalQueueManagerName().getDocument());
 				ivjConnPtoP1Aligning = false;
 			}
 		} catch (Throwable throwable) {
@@ -739,6 +763,20 @@ public class ShowQueueManager extends JDialog {
 				handleException(throwable);
 			}
 		return ivjCancel;
+	}
+
+	private JButton getDefaultChannelButton() {
+		if (defaultChannelButton == null)
+			try {
+				defaultChannelButton = new JButton();
+				defaultChannelButton.setName("Default Channel");				
+				defaultChannelButton.setMnemonic('D');
+				defaultChannelButton.setText("Default Channel");
+				defaultChannelButton.setEnabled(false);
+			} catch (Throwable throwable) {
+				handleException(throwable);
+			}
+		return defaultChannelButton;
 	}
 
 	public String getChannelName() {
@@ -976,14 +1014,18 @@ public class ShowQueueManager extends JDialog {
 				gridbagconstraints8.anchor = 17;
 				gridbagconstraints8.insets = new Insets(4, 4, 4, 4);
 				getJPanel1().add(getJLabel4(), gridbagconstraints8);
-				
+
+				JPanel panelChannelButton = new JPanel();
+				panelChannelButton.setLayout(new FlowLayout(2));
+				panelChannelButton.add(getRemoteChannelName());
+				panelChannelButton.add(getDefaultChannelButton());
 				GridBagConstraints gridbagconstraints9 = new GridBagConstraints();
 				gridbagconstraints9.gridx = 1;
 				gridbagconstraints9.gridy = 5;
 				gridbagconstraints9.fill = 2;
 				gridbagconstraints9.weightx = 1.0D;
 				gridbagconstraints9.insets = new Insets(4, 4, 4, 4);
-				getJPanel1().add(getRemoteChannelName(), gridbagconstraints9);
+				getJPanel1().add(panelChannelButton, gridbagconstraints9);
 
 				GridBagConstraints gridbagconstraints10 = new GridBagConstraints();
 				gridbagconstraints10.gridx = 0;
@@ -1083,7 +1125,7 @@ public class ShowQueueManager extends JDialog {
 		if (ivjRemoteChannelName == null)
 			try {
 				ivjRemoteChannelName = new JTextField();
-				ivjRemoteChannelName.setName("RemoteChannelName");
+				ivjRemoteChannelName.setName("Remote Channel Name");
 				ivjRemoteChannelName.setEnabled(false);
 				ivjRemoteChannelName.setColumns(20);
 			} catch (Throwable throwable) {
@@ -1178,13 +1220,18 @@ public class ShowQueueManager extends JDialog {
 	}
 
 	private void initConnections() throws Exception {
+		logger.trace("initConnections()");
+		
 		getShowLocalRadioButton().addItemListener(ivjEventHandler);
 		getShowRemoteRadioButton().addItemListener(ivjEventHandler);
 		getCancel().addActionListener(ivjEventHandler);
 		getOK().addActionListener(ivjEventHandler);
+		
 		getLocalQueueManagerName().addPropertyChangeListener(ivjEventHandler);
 		getRemoteQueueManagerName().addPropertyChangeListener(ivjEventHandler);
 		getRemoteConnectionName().addPropertyChangeListener(ivjEventHandler);
+		getDefaultChannelButton().addActionListener(ivjEventHandler);
+		
 		connPtoP1SetTarget();
 		connPtoP2SetTarget();
 		connPtoP3SetTarget();
@@ -1257,14 +1304,20 @@ public class ShowQueueManager extends JDialog {
 
 	public void setConnectionName(String s) {
 		connectionName = s;
-		if (!isLocal())
+		if (!isLocal()) {
 			getRemoteConnectionName().setText(connectionName);
+		}
 	}
 
-	public void setChannelName(String s) {
-		this.channelName = s;
-		if (!isLocal())
+	public void setChannelName(String value) {
+		if (!isLocal()) {
+			this.channelName = value;
 			this.getRemoteChannelName().setText(this.channelName);
+			logger.info("channelName is " + channelName);
+		} else {
+			this.channelName = "";
+			this.getRemoteChannelName().setText(this.channelName);			
+		}
 	}
 
 	private void setConnectionNameDocument(Document document) {
@@ -1412,6 +1465,8 @@ public class ShowQueueManager extends JDialog {
 	private JPanel ivjJPanel1;
 	private JSeparator ivjJSeparator2;
 
+	private JButton defaultChannelButton;
+	
 	private JPanel remoteMainframePanel;
 	private ButtonGroup buttonGroupMainframeDistributed;
 	private JRadioButton remoteMainframeRadioButton;
