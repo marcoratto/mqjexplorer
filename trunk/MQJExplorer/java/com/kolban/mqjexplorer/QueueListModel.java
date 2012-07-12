@@ -26,6 +26,7 @@ import com.kolban.mqjexplorer.guibeans.QFullBar;
 import com.kolban.mqjexplorer.utils.Filter;
 import java.util.Vector;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 
 import org.apache.log4j.Logger;
 

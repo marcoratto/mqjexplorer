@@ -714,7 +714,7 @@ public class MQJExplorer extends JFrame implements MQSeriesTreeListener {
 		cardPanel = new JPanel();
 		cardPanel.setLayout(new CardLayout());
 		queueView = new QueueView();
-		queueView.setProfile(Profile.getInstance());
+		// queueView.setProfile(Profile.getInstance());
 		processView = new ProcessView();
 		channelView = new ChannelView();
 		nameListView = new NamelistView();

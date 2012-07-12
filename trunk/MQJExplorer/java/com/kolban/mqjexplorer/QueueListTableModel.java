@@ -30,7 +30,7 @@ public class QueueListTableModel extends AbstractTableModel {
 
 	private final static Logger logger = Logger.getLogger("com.kolban.mqjexplorer");
 
-	public QueueListTableModel(QueueManagerModel queuemanagermodel) {
+	public QueueListTableModel() {
 		columnClasses = (new Class[] { TextIcon.class,
 				java.lang.String.class, java.lang.String.class,
 				java.lang.String.class, java.lang.String.class,
@@ -60,17 +60,13 @@ public class QueueListTableModel extends AbstractTableModel {
 				java.lang.String.class, java.lang.String.class,
 				java.lang.String.class, java.lang.String.class,
 				java.lang.String.class, java.lang.String.class });
-		queueManagerModel = queuemanagermodel;
+	
 	}
 
-	public Class getColumnClass(int i) {
-        switch(i)
-        {
-        case 0: // '\0'
-            return com.kolban.mqjexplorer.TextIcon.class;
-        }
-        return java.lang.String.class;
-	}
+    public Class getColumnClass(int i)
+    {
+        return columnClasses[i];
+    }
 
 	public int getColumnCount() {
 		return columnNames.length;
@@ -101,7 +97,9 @@ public class QueueListTableModel extends AbstractTableModel {
 	}
 
 	private QueueManagerModel queueManagerModel;
+	
 	private final Class columnClasses[];
+	
 	private final String columnNames[] = { "Name", "Open Input Count",
 			"Open Output Count", "Current Depth", "Maximum Depth",
 			"QFull Level", "Queue Type", "Cluster Name", "Cluster Namelist",
