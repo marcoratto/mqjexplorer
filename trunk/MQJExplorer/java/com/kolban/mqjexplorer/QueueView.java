@@ -1775,10 +1775,10 @@ public class QueueView extends JPanel implements MQJExplorerView, ActionListener
 	public void setProfile(Profile profile1) {
 		profile = profile1;
 		
-		 TableColumnModel tablecolumnmodel = table.getColumnModel();		 
-		for (int i = 0; i < table.getColumnCount(); i++) {
-			tablecolumnmodel.getColumn(i).setHeaderRenderer(sortButtonRenderer);			
-		}
+		// TableColumnModel tablecolumnmodel = table.getColumnModel();		 
+		// for (int i = 0; i < table.getColumnCount(); i++) {
+		//			tablecolumnmodel.getColumn(i).setHeaderRenderer(sortButtonRenderer);			
+		//	}
 		profile1.getQueueViewTableMetaData().setTable(table);
 		profile1.getQueueViewTableMetaData().synchronizeTable();
 	
