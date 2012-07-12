@@ -5,7 +5,7 @@
 	
 	<property file="${myenv.COMPUTERNAME}.properties" />
 	
-	<property name="project_version" value="0.14" />
+	<property name="project_version" value="0.1" />
 	<property name="project_name" value="${ant.project.name}" />
 	<property name="project_home" location="${basedir}" />
 	
