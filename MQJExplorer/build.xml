@@ -125,13 +125,6 @@
             <include name="**/*.properties" />
          </fileset>
       </copy>
-      <copy todir="${class_dir}">
-         <fileset dir="${res_dir}">
-            <exclude name="**/CVS" />
-            <exclude name="**/.svn" />
-			<include name="**/*.*" />
-         </fileset>
-      </copy>
 	</target>
 
 	<target name="jar.create" depends="java.compile" description="generate the distribution">
@@ -306,6 +299,13 @@
 				<exclude name="**/.svn" />
 			</fileset>
 		</copy>
+		<copy
+			todir="${tmp_dir}/${project_name}-${project_version}/res">
+			<fileset dir="${project_home}/res">
+				<exclude name="**/CVS" />
+				<exclude name="**/.svn" />
+			</fileset>
+		</copy>		
 	</target>
 
 	<target name="prepare.sources" depends="prepare.binaries" description="create distributable package">

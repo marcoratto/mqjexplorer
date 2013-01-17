@@ -14,9 +14,12 @@ import javax.swing.*;
 
 public class SaveIndividualMessage extends JDialog
 {
-    class IvjEventHandler
-        implements ActionListener
-    {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8007319769814246839L;
+
+	class IvjEventHandler implements ActionListener {
 
         public void actionPerformed(ActionEvent actionevent)
         {
@@ -559,38 +562,57 @@ public class SaveIndividualMessage extends JDialog
         qName = s;
     }
 
-    public void write()
-    {
-        if(qMgr == null || qName == null || message == null)
+    public void write() {
+        if(qMgr == null || qName == null || message == null || this.selectedMessage == -1) { 
             return;
+        }
+        
         MQQueue mqqueue = null;
         try
         {
             mqqueue = qMgr.accessQueue(qName, 9);
             MQGetMessageOptions mqgetmessageoptions = new MQGetMessageOptions();
-            mqgetmessageoptions.options = 32;
-            mqgetmessageoptions.matchOptions = 3;
-            mqqueue.get(message, mqgetmessageoptions);
-            FileOutputStream fileoutputstream = new FileOutputStream(getFileName().getText());
-            message.seek(0);
-            byte abyte0[] = new byte[message.getMessageLength()];
-            message.readFully(abyte0);
-            fileoutputstream.write(abyte0);
-            fileoutputstream.flush();
-            fileoutputstream.close();
-            dispose();
-        }
-        catch(Exception exception)
-        {
+            // mqgetmessageoptions.options = 32;
+
+            mqgetmessageoptions.options = MQC.MQOO_INQUIRE | MQC.MQGMO_NO_WAIT | MQC.MQGMO_CONVERT;
+            mqgetmessageoptions.waitInterval = MQC.MQWI_UNLIMITED; // for Waiting unlimted times
+            
+            // mqgetmessageoptions.matchOptions = 3;
+            mqgetmessageoptions.matchOptions = MQC.MQMO_NONE;
+            boolean notFinished = true;
+            int counter = 0;            
+            while(notFinished) {
+                mqqueue.get(message, mqgetmessageoptions);
+                if (counter == this.selectedMessage) {
+                    FileOutputStream fileoutputstream = new FileOutputStream(getFileName().getText());
+                    message.seek(0);
+                    int totalMessageLength = message.getMessageLength();
+                    byte abyte0[] = new byte[totalMessageLength];
+                    message.readFully(abyte0);
+                    fileoutputstream.write(abyte0);
+                    fileoutputstream.flush();
+                    fileoutputstream.close();
+                    dispose();      
+                    notFinished = false;
+                }
+                message.clearMessage();
+                mqgetmessageoptions.options = MQC.MQGMO_BROWSE_NEXT | MQC.MQGMO_NO_WAIT | MQC.MQGMO_CONVERT;
+                counter++;
+            }
+        } catch(Exception exception) {
             JOptionPane.showMessageDialog(this, exception.getMessage(), "Error with message write", 0);
         }
         if(mqqueue != null)
-            try
-            {
+            try {
                 mqqueue.close();
+            } catch(Exception _ex) { 
+            	
             }
-            catch(Exception _ex) { }
     }
+
+	public void setSelectedMessage(int i) {
+		this.selectedMessage = i;		
+	}
 
     private JButton ivjBrowse;
     private JButton ivjCancel;
@@ -608,10 +630,7 @@ public class SaveIndividualMessage extends JDialog
     private MQMessage message;
     private String qName;
     private MQQueueManager qMgr;
-
-
-
-
-
-
+    
+    private int selectedMessage = -1;
+    
 }
