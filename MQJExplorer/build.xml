@@ -157,7 +157,7 @@
 			eol="crlf" />
 	</target>
 
-	<target name="dist" description="create distributable package">
+	<target name="dist" description="create distributable package">         
 		<!-- zip and tar.gz files -->
 		<antcall target="dist.binaries" />
 
@@ -178,7 +178,9 @@
 	</target>
 
 	<target name="dist.debian" depends="prepare.sources" description="create shell auto-install">
-		
+		<exec executable="./createDebPackage.sh" os="Linux" vmlauncher="false" spawn="false" dir="${project_home}">
+                <arg line="${gpg_password}" />
+        </exec>
 	</target>
 	
 	<target name="dist.makeself" depends="prepare.sources" description="create shell auto-install">
@@ -213,8 +215,7 @@
 				
 		<copy file="${jnlp_file}" todir="${web_dir}/javaws" />
 		
-		<copy file="${jar_file}"
-			todir="${web_dir}/javaws" />
+		<copy file="${jar_file}" todir="${web_dir}/javaws" />
 		
 		<copy todir="${web_dir}/javaws">
 			<fileset dir="${project_home}/lib">
@@ -299,13 +300,22 @@
 				<exclude name="**/.svn" />
 			</fileset>
 		</copy>
-		<copy
-			todir="${tmp_dir}/${project_name}-${project_version}/res">
+		<copy todir="${tmp_dir}/${project_name}-${project_version}/res">
 			<fileset dir="${project_home}/res">
 				<exclude name="**/CVS" />
 				<exclude name="**/.svn" />
 			</fileset>
 		</copy>		
+
+		<antcall target="chmod">
+			<param name="file" value="${tmp_dir}/${project_name}-${project_version}/runme.sh" />
+		</antcall>
+		<antcall target="chmod">
+			<param name="file" value="${tmp_dir}/${project_name}-${project_version}/uninstall.sh" />
+		</antcall>
+		<antcall target="chmod">
+			<param name="file" value="${tmp_dir}/${project_name}-${project_version}/post_extract.sh" />
+		</antcall>
 	</target>
 
 	<target name="prepare.sources" depends="prepare.binaries" description="create distributable package">
@@ -401,6 +411,12 @@
                         <arg line="/c echo ${gpg_password}|C:\Programmi\GNU\GnuPG\gpg.exe --batch --passphrase-fd 0 -u marcoratto@gmail.com -b -a -s ${file}" />
                 </exec>
         </target>
+
+	<target name="chmod" description="chmod">
+		<exec executable="chmod" os="Linux" vmlauncher="false" spawn="false" dir="${project_home}">
+                <arg line="755 ${file}" />
+        </exec>		
+	</target>
 		
 	<target name="all" depends="clean,init,java.compile,jar.create">
 	</target>

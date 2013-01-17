@@ -5,7 +5,7 @@ TARGET_DIR=/usr/local/MQJExplorer-0.14
 installAll() {
     ln -s ${TARGET_DIR} ${TARGET_LINK}
     rm -f /usr/local/bin/MQJExplorer 2>/dev/null
-    ln -s ${TARGET_LINK}/runme.sh /usr/bin/MQJExplorer 2>/dev/null
+    ln -s ${TARGET_LINK}/runme.sh /usr/local/bin/MQJExplorer 2>/dev/null
     
 	cp "${TARGET_LINK}/xdg/MQJExplorer.desktop" "/usr/share/applications"
 	cp "${TARGET_DIR}/xdg/MQJExplorer.directory" "/usr/share/desktop-directories"

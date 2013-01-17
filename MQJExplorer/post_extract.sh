@@ -32,7 +32,7 @@ chmod 0755 ${TARGET_DIR}/runme.sh
 
 echo " * Create sym-link..."
 ln -s "${TARGET_DIR}" "${TARGET_LINK}"
-ln -s "${TARGET_LINK}/runme.sh" /usr/bin/MQJExplorer
+ln -s "${TARGET_LINK}/runme.sh" /usr/local/bin/MQJExplorer
 
 echo " * Update menu..."
 cp "${TARGET_DIR}/xdg/MQJExplorer.desktop" "/usr/share/applications"
