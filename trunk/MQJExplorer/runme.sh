@@ -32,9 +32,10 @@ fi
 LIB_DIR=$PRGDIR/lib
 
 CPATH=$PRGDIR/bin/MQJExplorer.jar
+CPATH=$PRGDIR/res:$CPATH
 for JAR_FILE in `find "$LIB_DIR" -type f -name "*.jar"`
 do
-CPATH=$JAR_FILE:$CPATH
+	CPATH=$JAR_FILE:$CPATH
 done
 
 if [ -z "$JAVACMD" ] ; then

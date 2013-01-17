@@ -5,7 +5,7 @@ TARGET_DIR=/usr/local/MQJExplorer-0.14
 UnInstallAll() {
 	rm -rf "$TARGET_DIR" 2>/dev/null 
 	rm -f "$TARGET_LINK" 2>/dev/null
-	rm -f /usr/bin/MQJExplorer 2>/dev/null
+	rm -f /usr/local/bin/MQJExplorer 2>/dev/null
 	rm -f /usr/share/applications/MQJExplorer.desktop 2>/dev/null
 	rm -f /usr/share/desktop-directories/MQJExplorer.directory 2>/dev/null
 	rm -f /usr/share/pixmaps/MQJExplorer.png 2>/dev/null
