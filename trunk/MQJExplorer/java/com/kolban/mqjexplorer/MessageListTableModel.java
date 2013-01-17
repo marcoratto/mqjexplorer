@@ -44,7 +44,7 @@ public class MessageListTableModel extends AbstractTableModel {
 
 	public MessageListTableModel() {
 		startMessage = 0;
-		messageVector = new Vector(2000);
+		messageVector = new Vector<MQMessage>(2000);
 	}
 
 	public Class getColumnClass(int i) {
@@ -339,7 +339,7 @@ public class MessageListTableModel extends AbstractTableModel {
 			"Message ID Bytes", "Message Type", "Offset", "Original Length",
 			"Persistence", "Priority", "Put Date (GMT)", "Put Time (GMT)",
 			"Reply-To Queue", "Reply-To Queue Manager" };
-	private Vector messageVector;
+	private Vector<MQMessage> messageVector;
 	private int startMessage;
 
 }

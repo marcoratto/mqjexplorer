@@ -865,6 +865,7 @@ public class MessageListDlg extends JDialog {
 
 	public void saveToFile_ActionEvents() {
 		int i = getMessageListTable().getSelectedRow();
+		logger.debug("getSelectedRow is " + i);
 		if (i < 0)
 			return;
 		MQMessage mqmessage = getMessageListTableModel().getMessage(i);
@@ -876,6 +877,7 @@ public class MessageListDlg extends JDialog {
 			saveindividualmessage.setMessage(mqmessage);
 			saveindividualmessage.setQName(qName);
 			saveindividualmessage.setQMgr(qMgr);
+			saveindividualmessage.setSelectedMessage(i);			
 			saveindividualmessage.pack();
 			SwingUtils.setCenter(this, saveindividualmessage);
 			saveindividualmessage.setVisible(true);

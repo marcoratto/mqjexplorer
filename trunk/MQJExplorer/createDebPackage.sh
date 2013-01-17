@@ -19,6 +19,11 @@ rm -rf ./debian.tmp 2>/dev/null
 
 mkdir -p ./debian.tmp/usr/local
 
+chmod 755 ./control/postinst
+chmod 755 ./control/preinst
+chmod 755 ./control/prerm
+chmod 755 ./tmp/MQJExplorer-${PACKAGE_VER}/*.sh
+
 cp -r ./tmp/MQJExplorer-${PACKAGE_VER} ./debian.tmp/usr/local
 TARGET_DIR=./debian.tmp/usr/local/MQJExplorer-${PACKAGE_VER}
 
