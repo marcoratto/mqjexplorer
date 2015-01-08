@@ -15,12 +15,12 @@
 
 = Setup =
 
- * Extract ConfigFileMigrationTool_v0.1.bin.tar.gz ConfigFileMigrationTool_v0.1.bin.zip somewhere, for example into the directory `C:\TEMP\ConfigFileMigrationTool_v0.1` for Windows and `/tmp/ConfigFileMigrationTool_v0.1` for the other O.S.
+ * Extract `ConfigFileMigrationTool_v0.1.bin.zip` or `ConfigFileMigrationTool_v0.1.bin.tar.gz` somewhere, for example into the directory `C:\TEMP\ConfigFileMigrationTool_v0.1` for Windows and `/tmp/ConfigFileMigrationTool_v0.1` for the other O.S.
 
 = Execution =
 
- * Execute “runme.bat” on Windows or "runme.sh" on the other O.S.
+ * Execute `runme.bat` on Windows or `runme.sh` on the other O.S.
 
 = Checking =
 
- * check on the `$HOME/.MQJExplorer` the file `config.xml`
+ * Check on the `$HOME/.MQJExplorer` the file `config.xml`
