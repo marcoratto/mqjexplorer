@@ -1,17 +1,11 @@
 #summary Config File Migration Tool
 #labels Featured,Phase-Deploy
 
-= Sun JDK 1.6 =
-
 = Download =
 
-== Sun JDK 1.6 ==
+== ConfigFileMigrationTool ==
 
- * Download the correct version for you Windows System from the Oracle/Sun url [http://jdk6.java.net/download.html Oracle Sun JDK]
-
-== MQJexplorer ==
-
- * Download the tool from this site [http://mqjexplorer.googlecode.com/files/MQJExplorer_v0.13.bin.zip MQJExplorer_v0.13.bin.zip]
+ * Download the tool from this site [https://mqjexplorer.googlecode.com/svn/trunk/ConfigFileMigrationTool/build/ConfigFileMigrationTool_v0.1/ ConfigFileMigrationTool]
 
 = Setup =
 
