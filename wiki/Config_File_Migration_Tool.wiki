@@ -3,8 +3,6 @@
 
 = Download =
 
-== ConfigFileMigrationTool ==
-
  * Download the tool from this site [https://mqjexplorer.googlecode.com/svn/trunk/ConfigFileMigrationTool/build/ConfigFileMigrationTool_v0.1/ ConfigFileMigrationTool]
 
 || *Platform* || *Setup type (without JVM)* ||
