@@ -11,10 +11,10 @@ This command line utility could be used to migrate the old configuration to the 
  * Download the tool from this site [https://mqjexplorer.googlecode.com/svn/trunk/ConfigFileMigrationTool/build/ConfigFileMigrationTool_v0.1/ ConfigFileMigrationTool]
 
 || *Platform* || *Setup type (without JVM)* ||
-||[https://mqjexplorer.googlecode.com/svn/trunk/ConfigFileMigrationTool/build/ConfigFileMigrationTool_v0.1/ConfigFileMigrationTool_v0.1.bin.tar.gz http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/images/linux.png]||Linux (~ 5 MB)||
-||[https://mqjexplorer.googlecode.com/svn/trunk/ConfigFileMigrationTool/build/ConfigFileMigrationTool_v0.1/ConfigFileMigrationTool_v0.1.bin.tar.gz http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/images/mac_os_x.png]||Mac OS X (~ 5 MB)||
-||[https://mqjexplorer.googlecode.com/svn/trunk/ConfigFileMigrationTool/build/ConfigFileMigrationTool_v0.1/ConfigFileMigrationTool_v0.1.bin.tar.gz http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/images/unix.png]||UNIX (~ 50 MB)||
-||[https://mqjexplorer.googlecode.com/svn/trunk/ConfigFileMigrationTool/build/ConfigFileMigrationTool_v0.1/ConfigFileMigrationTool_v0.1.bin.zip http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/images/windows.png]||Windows (~ 5 MB)||
+||[https://mqjexplorer.googlecode.com/svn/trunk/ConfigFileMigrationTool/build/ConfigFileMigrationTool_v0.1/ConfigFileMigrationTool_v0.1.bin.tar.gz http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/images/linux.png]||Linux (~ 4 MB)||
+||[https://mqjexplorer.googlecode.com/svn/trunk/ConfigFileMigrationTool/build/ConfigFileMigrationTool_v0.1/ConfigFileMigrationTool_v0.1.bin.tar.gz http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/images/mac_os_x.png]||Mac OS X (~ 4 MB)||
+||[https://mqjexplorer.googlecode.com/svn/trunk/ConfigFileMigrationTool/build/ConfigFileMigrationTool_v0.1/ConfigFileMigrationTool_v0.1.bin.tar.gz http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/images/unix.png]||UNIX (~ 4 MB)||
+||[https://mqjexplorer.googlecode.com/svn/trunk/ConfigFileMigrationTool/build/ConfigFileMigrationTool_v0.1/ConfigFileMigrationTool_v0.1.bin.zip http://mqjexplorer.googlecode.com/svn/trunk/MQJExplorer/web/images/windows.png]||Windows (~ 4 MB)||
 
 = Setup =
 
