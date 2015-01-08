@@ -18,12 +18,28 @@ This command line utility could be used to migrate the old configuration to the 
 
 = Setup =
 
- * Extract `ConfigFileMigrationTool_v0.1.bin.zip` or `ConfigFileMigrationTool_v0.1.bin.tar.gz` somewhere, for example into the directory `C:\TEMP\ConfigFileMigrationTool_v0.1` for Windows and `/tmp/ConfigFileMigrationTool_v0.1` for the other O.S.
+== Windows ==
+
+ * Extract `ConfigFileMigrationTool_v0.1.bin.zip` somewhere, for example into the directory `C:\TEMP\ConfigFileMigrationTool_v0.1`.
+
+== Linux, UNIX, Mac ==
+
+ * Extract `ConfigFileMigrationTool_v0.1.bin.tar.gz` somewhere, for example into `/tmp/ConfigFileMigrationTool_v0.1`.
 
 = Execution =
 
- * Execute `runme.bat` on Windows or `runme.sh` on the other O.S.
+== Windows ==
+
+ * Execute `runme.bat`.
+
+== Linux, UNIX, Mac ==
+
+ * Execute `runme.sh`.
 
 = Checking =
+
+== Windows ==
+
+== Linux, UNIX, Mac ==
 
  * Check on the `$HOME/.MQJExplorer` the file `config.xml`
