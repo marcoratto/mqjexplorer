@@ -40,6 +40,8 @@ This command line utility could be used to migrate the old configuration to the 
 
 == Windows ==
 
+ * Check on the `%USERPROFILE%\.MQJExplorer` the file `config.xml`
+
 == Linux, UNIX, Mac ==
 
  * Check on the `$HOME/.MQJExplorer` the file `config.xml`
