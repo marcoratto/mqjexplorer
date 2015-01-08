@@ -1,6 +1,11 @@
 #summary Config File Migration Tool
 #labels Featured,Phase-Deploy
 
+= Introduction =
+
+From the release 0.15, I changed the configuration file from `config.dat` to `config.xml`.
+This command line utility could be used to migrate the old configuration to the new configuration.
+
 = Download =
 
  * Download the tool from this site [https://mqjexplorer.googlecode.com/svn/trunk/ConfigFileMigrationTool/build/ConfigFileMigrationTool_v0.1/ ConfigFileMigrationTool]
