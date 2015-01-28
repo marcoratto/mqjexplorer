@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="java"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="lib" path="lib/com.ibm.mq.jar"/>
 	<classpathentry kind="lib" path="lib/com.ibm.mq.pcf.jar"/>
 	<classpathentry kind="lib" path="lib/com.ibm.mqjms.jar"/>
@@ -15,5 +14,6 @@
 	<classpathentry kind="lib" path="lib/providerutil.jar"/>
 	<classpathentry kind="lib" path="lib/xerces.jar"/>
 	<classpathentry kind="lib" path="lib/MQJExplorer.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
