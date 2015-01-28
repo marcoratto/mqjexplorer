@@ -2,10 +2,10 @@
 <installation version="1.0">
 
 	<variables>
+        <variable name="Version" value="0.16" />
   		<variable name="JDKPathPanel.minVersion" value="1.6" />
 		<variable name="JDKPathPanel.maxVersion" value="1.8" />
         <variable name="JDKPathPanel.skipIfValid" value="no" />
-        <variable name="Version" value="0.16" />
         <variable name="ProductName" value="MQJExplorer" />
         <variable name="INSTALL_PATH" value="${APPLICATIONS_DEFAULT_ROOT}${FILE_SEPARATOR}MQJExplorer"/>
 	</variables>

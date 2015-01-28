@@ -184,7 +184,7 @@
 	
 	<target name="dist.makeself" depends="prepare.sources" description="create shell auto-install">
         <exec executable="makeself" os="Linux" vmlauncher="false" spawn="false" dir="${project_home}">
-                <arg line="--gzip ${tmp_dir} ${makeself.file} ${project_name} ./MQJExplorer-0.14/post_extract.sh" />
+                <arg line="--gzip ${tmp_dir} ${makeself.file} ${project_name} ./MQJExplorer-${project_version}/post_extract.sh" />
         </exec>
 
 		<antcall target="checksum">

@@ -651,10 +651,8 @@ public class AboutDlg extends JDialog
     private JTextField ivjTotalMemory;
     private JLabel ivjOperatingSystem;
     private JLabel ivjVersion;
-    public static String version = "1.0.1";
+
     private JLabel ivjJLabel4;
     private JLabel ivjJLabel5;
-
-
 
 }

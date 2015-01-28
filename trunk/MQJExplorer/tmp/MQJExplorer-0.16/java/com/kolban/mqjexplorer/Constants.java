@@ -32,4 +32,6 @@ public final class Constants {
     public final static String EOL = System.getProperty("line.separator");
 
     public final static int MAX_MESSAGES_FOR_BROWSING = 1000;
+    
+    public final static String VERSION = "0.16";
 }

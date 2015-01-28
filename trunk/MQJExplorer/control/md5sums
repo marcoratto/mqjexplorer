@@ -1,4 +1,4 @@
-d9ae3ae8a64bb0e821a2a73fb32acd0b *usr/local/MQJExplorer-0.16/bin/MQJExplorer.jar
+dc5ff2e0df841c5886d4e048c9641a2d *usr/local/MQJExplorer-0.16/bin/MQJExplorer.jar
 712a4f501a122f45431b15e43ab0285d *usr/local/MQJExplorer-0.16/runme.bat
 57ca1c099c2f0b4cf826c3d4009801c9 *usr/local/MQJExplorer-0.16/java/com/lamatek/swingextras/JFontPreviewPanel.java
 76ab7f00612cc09ecc7445167f09532a *usr/local/MQJExplorer-0.16/java/com/lamatek/swingextras/JFontChooser.java
@@ -41,7 +41,7 @@ a1f490e11d75c8fd2e4404362880d0ae *usr/local/MQJExplorer-0.16/java/com/kolban/mqj
 3b4dd9e973b2ffb2cf394f9021a5fa94 *usr/local/MQJExplorer-0.16/java/com/kolban/mqjexplorer/beans/EncodingBeanInfo.java
 28ee6328637c0bc84b5500f4508615f7 *usr/local/MQJExplorer-0.16/java/com/kolban/mqjexplorer/beans/DepleteQ.java
 488d130bf6aca62d68640c6610850a46 *usr/local/MQJExplorer-0.16/java/com/kolban/mqjexplorer/beans/NewModelQueue.java
-499fe680ff70b917bab3dc6289c494cd *usr/local/MQJExplorer-0.16/java/com/kolban/mqjexplorer/beans/AboutDlg.java
+f2725c6c7c20a587a40d92526a857f7d *usr/local/MQJExplorer-0.16/java/com/kolban/mqjexplorer/beans/AboutDlg.java
 e6c83785b413335f3927285c39cebdb2 *usr/local/MQJExplorer-0.16/java/com/kolban/mqjexplorer/beans/QStatsTableModel.java
 575b149da90322a04bd9da498bfa597e *usr/local/MQJExplorer-0.16/java/com/kolban/mqjexplorer/beans/QStatsDlg.java
 a369ce6a8145a5d89c25327be552dd12 *usr/local/MQJExplorer-0.16/java/com/kolban/mqjexplorer/beans/PropertiesAliasQueue.java
@@ -56,7 +56,7 @@ a76b500402b237dba5ac8e07f566b21a *usr/local/MQJExplorer-0.16/java/com/kolban/mqj
 92bf9cb4110ff13c39451db3e65a6a72 *usr/local/MQJExplorer-0.16/java/com/kolban/mqjexplorer/beans/NamelistDlg.java
 2a93e0c16023848ba0703a58839d9578 *usr/local/MQJExplorer-0.16/java/com/kolban/mqjexplorer/beans/NewRemoteQueue.java
 9aad232c4ef48bf604504399cfdd855f *usr/local/MQJExplorer-0.16/java/com/kolban/mqjexplorer/NamelistView.java
-c0998dda4cd0f7012f227ed40b37fefa *usr/local/MQJExplorer-0.16/java/com/kolban/mqjexplorer/Constants.java
+7b31ee1b4ccc632b1658fc980cf32381 *usr/local/MQJExplorer-0.16/java/com/kolban/mqjexplorer/Constants.java
 3c4512757dc97bdf2a6dbd9cb7234e37 *usr/local/MQJExplorer-0.16/java/com/kolban/mqjexplorer/ProcessListTableModel.java
 0d4964c62e22391fb9b89bacb060349b *usr/local/MQJExplorer-0.16/java/com/kolban/mqjexplorer/guibeans/QFullBarTableRenderer.java
 fdca368fff3b441532498b3b8cc58241 *usr/local/MQJExplorer-0.16/java/com/kolban/mqjexplorer/guibeans/QFullBar.java
@@ -237,7 +237,7 @@ e88283f117de2434fbe625bf47417b6e *usr/local/MQJExplorer-0.16/java/com/kolban/mqj
 30490e17192d95f63b496a2c346aa078 *usr/local/MQJExplorer-0.16/java/com/kolban/mqjexplorer/MQSeriesTreeListener.java
 6f13bff412767199f602d01bcf024820 *usr/local/MQJExplorer-0.16/java/com/kolban/mqjexplorer/ChannelListModel.java
 82de50a5739b76e4eaf09eb6ab347bab *usr/local/MQJExplorer-0.16/java/com/kolban/mqjexplorer/SplashView.java
-26038eab6d89d201a2ce0d97d96d5f76 *usr/local/MQJExplorer-0.16/java/com/kolban/mqjexplorer/QueueManagerModel.java
+938437a0d3f101ec5858923145ab8bbe *usr/local/MQJExplorer-0.16/java/com/kolban/mqjexplorer/QueueManagerModel.java
 2b5c61764009c31060396571da630762 *usr/local/MQJExplorer-0.16/java/com/kolban/mqjexplorer/TextIconRenderer.java
 ade93f6573644f7d6b92fafc87265846 *usr/local/MQJExplorer-0.16/java/com/kolban/mqjexplorer/ConfigurationException.java
 f84118e3417a8e2f1452029f685b8dae *usr/local/MQJExplorer-0.16/java/com/kolban/mqjexplorer/MQJExplorer.java
@@ -334,9 +334,9 @@ be64bdcf5124b1ebf550dc7e7ca5ce87 *usr/local/MQJExplorer-0.16/java/com/kolban/swi
 dcea3a9d68b12dc6d5e00087d3b37641 *usr/local/MQJExplorer-0.16/java/com/kolban/swing/ColumnSelector2.java
 8b50739ea1b2ce6fb3f5f3557d021337 *usr/local/MQJExplorer-0.16/java/com/kolban/swing/SwingUtils.java
 ffd6aead3ce24b4880c0ad05609aa76c *usr/local/MQJExplorer-0.16/README
-ff15766ce34f954da2407f44187eafa6 *usr/local/MQJExplorer-0.16/post_extract.sh
+c905db45c749107925e58511725c9630 *usr/local/MQJExplorer-0.16/post_extract.sh
 d32239bcb673463ab874e80d47fae504 *usr/local/MQJExplorer-0.16/COPYING
-ce16fd6a289264ca8793008086a0c705 *usr/local/MQJExplorer-0.16/build.xml
+721a1fd7b1f1da02226850cfaa13b3d5 *usr/local/MQJExplorer-0.16/build.xml
 c54b8ccef2a54e728de0eedc6c74ff05 *usr/local/MQJExplorer-0.16/KEYS
 e132f6dc2342a14bbbd24a0364ca413c *usr/local/MQJExplorer-0.16/runme.sh
 9b1baaaa7df876fdb72651b0b4965096 *usr/local/MQJExplorer-0.16/xdg/MQJExplorer.desktop
@@ -372,7 +372,7 @@ c358a58492a9c7933454179704296d96 *usr/local/MQJExplorer-0.16/lib/IBM_WebSphere_M
 e068782e4b70f3aa951feb9b34ae8c3c *usr/local/MQJExplorer-0.16/lib/IBM_WebSphere_MQ-7.0.1.3/com.ibm.mq.jmqi.jar
 7856fa0f0a09b6274cd4184fffbb9121 *usr/local/MQJExplorer-0.16/lib/IBM_WebSphere_MQ-7.0.1.3/providerutil.jar
 a86763c9b86f900b7d2579c5225e2b67 *usr/local/MQJExplorer-0.16/uninstall.sh
-c4f0cd4cf6dd6941bdcaa4e4f8eb2ef4 *usr/local/MQJExplorer-0.16/res/log4j.properties
+b5d51b24fd5bcbbab0c5e3981899c2d5 *usr/local/MQJExplorer-0.16/res/log4j.properties
 75a11d6103ea88cf0593c01621238fee *usr/local/MQJExplorer-0.16/res/icons/Save24.gif
 68d3730b73437c1b6dbdefa5024d0ff3 *usr/local/MQJExplorer-0.16/res/icons/channelSenderStopped.gif
 965d8e877fcf64772da7a619be10cb8e *usr/local/MQJExplorer-0.16/res/icons/Back16.gif
@@ -479,7 +479,7 @@ ec969194a89b7d5a290f9472a5ca6cca *usr/local/MQJExplorer-0.16/res/icons/menu_brow
 9981768466f39fb94365d84f835088a0 *usr/local/MQJExplorer-0.16/res/icons/save.gif
 61bf57ff647de494e45660cf6da12971 *usr/local/MQJExplorer-0.16/res/icons/Down16.gif
 8ef58b675f52398a3e9548b9af421c5b *usr/local/MQJExplorer-0.16/res/icons/channelClusterReceiverStopped.gif
-c2a77a55b1d8ce6e63621bf7d4a7cea3 *usr/local/MQJExplorer-0.16/res/misc/about.htm
+8142cb9c342863e6a5cca0bfbe289ee6 *usr/local/MQJExplorer-0.16/res/misc/about.htm
 839e49d74022ce7a2aee254bf10f6710 *usr/local/MQJExplorer-0.16/icons/logo.ico
 db81abf03b92fe1a13951c1df08d1f22 *usr/local/MQJExplorer-0.16/test/lib/JavaAgent.jar
 d4d4d8d78803579a0ed0d61278a78cc8 *usr/local/MQJExplorer-0.16/test/lib/javassist.jar
