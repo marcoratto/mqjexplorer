@@ -6,7 +6,7 @@
 ; It will install example2.nsi into a directory that the user selects,
 
 ;--------------------------------
-!define VERSION "0.14"
+!define VERSION "0.16"
 !define PROGRAM_NAME "MQJExplorer"
 
 ; The name of the installer

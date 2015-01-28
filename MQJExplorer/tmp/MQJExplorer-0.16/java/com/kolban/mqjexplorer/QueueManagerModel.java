@@ -509,9 +509,6 @@ public class QueueManagerModel implements Comparable<QueueManagerModel> {
 	public int compareTo(QueueManagerModel qmm) {
 		// QueueManagerModel qmm = (QueueManagerModel) obj;		
 		int out = this.queueManagerName.compareTo(qmm.queueManagerName);
-		System.out.println(queueManagerName);
-		System.out.println(qmm.queueManagerName);
-		System.out.println(out);
 		return out;
 	}
 }
