@@ -2,7 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="java"/>
 	<classpathentry kind="src" path="res"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="lib" path="lib/jhbasic.jar"/>
 	<classpathentry kind="lib" path="lib/mqjhelp.jar"/>
 	<classpathentry kind="lib" path="lib/xerces.jar"/>
@@ -32,5 +31,6 @@
 	<classpathentry kind="lib" path="lib/messagingImpl.jar"/>
 	<classpathentry kind="lib" path="test/lib/JavaAgent.jar"/>
 	<classpathentry kind="lib" path="test/lib/javassist.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
