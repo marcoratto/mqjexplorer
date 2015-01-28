@@ -1,5 +1,5 @@
 #!/bin/sh
-if [ "$1" = "" -o "$2" = "" ]
+if [ $# -ne 2 ]
 then
 	echo "Parameter: <gpg_password> <file>"
 	exit 1

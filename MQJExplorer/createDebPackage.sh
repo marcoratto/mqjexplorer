@@ -1,7 +1,7 @@
 #!/bin/bash
 #set -x
 
-PACKAGE_VER=0.14
+PACKAGE_VER=0.16
 PACKAGE_DIR=build/MQJExplorer_v${PACKAGE_VER}
 PACKAGE_NAME=MQJExplorer_v${PACKAGE_VER}_all
 PACKAGE_FILE=${PACKAGE_NAME}.deb
